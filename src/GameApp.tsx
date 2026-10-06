@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { sfx } from './audio';
+import { bump } from './stats';
 import { SoundToggle } from './SoundToggle';
 import { isDev } from './assets';
 import { TOTAL_LEVELS } from './data';
@@ -37,7 +38,10 @@ export function GameApp() {
   useEffect(() => {
     const onDown = (e: PointerEvent) => {
       const b = (e.target as HTMLElement | null)?.closest?.('button');
-      if (b && !(b as HTMLButtonElement).disabled && !b.classList.contains('sound-toggle')) sfx('tap');
+      if (b && !(b as HTMLButtonElement).disabled && !b.classList.contains('sound-toggle')) {
+        sfx('tap');
+        bump('taps');
+      }
     };
     document.addEventListener('pointerdown', onDown, true);
     return () => document.removeEventListener('pointerdown', onDown, true);

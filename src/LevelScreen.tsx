@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { getLevel, levelKey, levels, t, TOTAL_LEVELS } from './data';
 import { MECHANICS } from './mechanics';
 import { Img } from './ui';
 import type { GameProgress } from './progress';
 import { sfx } from './audio';
+import { bump } from './stats';
 
 export function GameHUD({ progress, level }: { progress: GameProgress; level: number }) {
   const earned = levels
@@ -48,12 +49,14 @@ export function LevelScreen({ levelId, progress, onHome, onComplete, onNext }: P
   const level = getLevel(levelId);
   const k = levelKey(levelId);
   const [done, setDone] = useState(false);
+  const born = useRef(Date.now());
   const [result, setResult] = useState('');
   const Mechanic = MECHANICS[level.mechanic.type];
 
   const complete = (r?: string) => {
     if (done) return;
     setDone(true);
+    bump('playMs', Math.min(Date.now() - born.current, 15 * 60 * 1000));
     sfx('win');
     setResult(r ?? t(`levels.${k}.completion`));
     onComplete(levelId);

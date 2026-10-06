@@ -100,3 +100,44 @@ export function sfx(name: Sfx) {
       break;
   }
 }
+
+/** "Happy Birthday" (public domain), played softly on the last screen. Returns a function that stops it. */
+export function playBirthday(): () => void {
+  const c = audio();
+  if (!c) return () => {};
+  const master = c.createGain();
+  master.gain.value = 1;
+  master.connect(c.destination);
+  const f = { G4: 392, A4: 440, B4: 494, C5: 523, D5: 587, E5: 659, F5: 698, G5: 784 };
+  // [note, beats]; 100 bpm
+  const tune: [number, number][] = [
+    [f.G4, 0.75], [f.G4, 0.25], [f.A4, 1], [f.G4, 1], [f.C5, 1], [f.B4, 2],
+    [f.G4, 0.75], [f.G4, 0.25], [f.A4, 1], [f.G4, 1], [f.D5, 1], [f.C5, 2],
+    [f.G4, 0.75], [f.G4, 0.25], [f.G5, 1], [f.E5, 1], [f.C5, 1], [f.B4, 1], [f.A4, 1],
+    [f.F5, 0.75], [f.F5, 0.25], [f.E5, 1], [f.C5, 1], [f.D5, 1], [f.C5, 2],
+  ];
+  const beat = 60 / 100;
+  let t0 = 0.25;
+  for (const [freq, b] of tune) {
+    const o = c.createOscillator();
+    const g = c.createGain();
+    o.type = 'triangle';
+    o.frequency.value = freq;
+    const start = c.currentTime + t0;
+    const dur = b * beat * 0.94;
+    g.gain.setValueAtTime(0.0001, start);
+    g.gain.exponentialRampToValueAtTime(0.06, start + 0.03);
+    g.gain.exponentialRampToValueAtTime(0.0001, start + dur);
+    o.connect(g).connect(master);
+    o.start(start);
+    o.stop(start + dur + 0.05);
+    t0 += b * beat;
+  }
+  return () => {
+    try {
+      master.gain.setTargetAtTime(0, c.currentTime, 0.05);
+    } catch {
+      /* already closed */
+    }
+  };
+}

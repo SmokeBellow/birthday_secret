@@ -3,6 +3,7 @@ import { t, levelKey } from '../data';
 import { Img, Pips, Stage, TapTarget, useShake, useTimeout, type MechanicProps } from '../ui';
 import { HOME_LORE, NIGHT_FOUND } from '../extraCopy';
 import { sfx } from '../audio';
+import { bump } from '../stats';
 
 /** L6 — hiddenObject: four landmarks hide inside the night forest. Coordinates are % of the 16:10 background image. */
 const HIDDEN: Record<string, { x: number; y: number; asset: string }> = {
@@ -177,6 +178,7 @@ export function MovingTargetAim({ level, finished, complete }: MechanicProps) {
     setThrows(n);
     setFx({ x: (px / r.width) * 100, y: (py / r.height) * 100, hit: !!hitId, n: Date.now() });
     if (hitId) {
+      bump('duckHits');
       setReaction((m) => ({ ...m, [hitId!]: Date.now() }));
     }
     if (n >= total) later(() => complete(t(`levels.${levelKey(level.id)}.completion`)), 700);
@@ -360,12 +362,14 @@ export function CharacterInteraction({ level, finished, complete }: MechanicProp
     if (finished || idx >= acts.length || phase === 'happy' || phase === 'no') return;
     if (phase === 'wait') {
       // too early: she does not like to be rushed
+      bump('lapkaSnubs');
       setPhase('no');
       doShake();
       later(() => setPhase('wait'), 800);
       return;
     }
     if (a !== need) {
+      bump('lapkaSnubs');
       setPhase('no');
       doShake();
       later(() => setPhase('ask'), 800);

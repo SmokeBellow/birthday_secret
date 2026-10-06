@@ -1,13 +1,14 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { t, spec } from './data';
 import { BOARDING_PASS as BP, CERTIFICATE, FINAL_LETTER } from './extraCopy';
 import { HomeButton } from './LevelScreen';
 import { Img } from './ui';
-import { sfx, haptic } from './audio';
+import { sfx, haptic, playBirthday } from './audio';
+import { getStats } from './stats';
 
-export type PostStep = 'summary' | 'calm' | 'bonus' | 'pass' | 'certificate' | 'accepted' | 'plus';
+export type PostStep = 'summary' | 'stats' | 'calm' | 'bonus' | 'pass' | 'certificate' | 'accepted' | 'plus';
 const STEP_OF: Record<string, PostStep[]> = {
-  build_complete_summary: ['summary', 'calm'], // 'calm' is the quiet beat before the bonus mission cuts in
+  build_complete_summary: ['summary', 'stats', 'calm'], // 'stats': funny numbers; 'calm': the quiet beat before the bonus mission cuts in
   bonus_mission_unlock: ['bonus'],
   boarding_pass_reveal: ['pass'],
   certificate_reveal: ['certificate'],
@@ -19,9 +20,20 @@ export const POST_STEPS: PostStep[] = (spec.postGameFlow.sequence as string[]).f
 type Props = { step: PostStep; onStep: (s: PostStep) => void; onHome: () => void; onGallery: () => void };
 
 export function PostGame({ step, onStep, onHome, onGallery }: Props) {
+  const stopRef = useRef<(() => void) | null>(null);
   const idx = POST_STEPS.indexOf(step);
   const next = () => onStep(POST_STEPS[Math.min(POST_STEPS.length - 1, idx + 1)]);
   const lines = ['storyComplete', 'statsSaved', 'achievementsComplete', 'characterUpdated'];
+
+  // the happy-birthday tune plays while the closing letter appears
+  useEffect(() => {
+    if (step !== 'plus') return;
+    const id = window.setTimeout(() => stopRef.current = playBirthday(), 500);
+    return () => {
+      window.clearTimeout(id);
+      stopRef.current?.();
+    };
+  }, [step]);
 
   // the calm beat ends by itself: the bonus mission arrives uninvited
   useEffect(() => {
@@ -37,7 +49,8 @@ export function PostGame({ step, onStep, onHome, onGallery }: Props) {
   useEffect(() => {
     if (step === 'bonus') sfx('alarm');
     else if (step === 'pass') sfx('ding');
-    else if (step === 'summary' || step === 'plus') sfx('win');
+    else if (step === 'summary') sfx('win');
+    else if (step === 'stats') sfx('ok');
     else if (step === 'accepted') sfx('fanfare');
   }, [step]);
 
@@ -64,6 +77,7 @@ export function PostGame({ step, onStep, onHome, onGallery }: Props) {
             </div>
           </>
         )}
+        {step === 'stats' && <StatsCard />}
         {step === 'calm' && (
           <>
             <Img k="hero_build_complete" className="post-hero calm-hero" />
@@ -185,5 +199,38 @@ export function PostGame({ step, onStep, onHome, onGallery }: Props) {
         </div>
       )}
     </div>
+  );
+}
+
+function fmtTime(ms: number) {
+  const m = Math.max(1, Math.round(ms / 60000));
+  return m < 60 ? `${m} мин` : `${Math.floor(m / 60)} ч ${m % 60} мин`;
+}
+
+function StatsCard() {
+  const s = getStats();
+  const rows: [string, string][] = [
+    ['Время в игре', fmtTime(s.playMs)],
+    ['Тапов по кнопкам', String(s.taps)],
+    ['Промахов', String(s.slips)],
+    ['Уток накормлено', `${Math.min(s.duckHits, 3)} из 3`],
+    ['Раз Лапка отвернулась', String(s.lapkaSnubs)],
+  ];
+  const quip = s.slips <= 6 ? 'Почти без ошибок. Как всегда.' : 'Ошибок хватало, но ты всё равно дошёл. Горжусь.';
+  return (
+    <>
+      <h1 className="post-title">СТАТИСТИКА</h1>
+      <ul className="stats-list">
+        {rows.map(([label, value], i) => (
+          <li key={label} style={{ animationDelay: `${0.2 + i * 0.3}s` }}>
+            <span>{label}</span>
+            <b>{value}</b>
+          </li>
+        ))}
+      </ul>
+      <p className="post-sub stats-quip" style={{ animationDelay: `${0.2 + rows.length * 0.3 + 0.2}s` }}>
+        {quip}
+      </p>
+    </>
   );
 }

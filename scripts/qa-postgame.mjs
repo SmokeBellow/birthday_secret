@@ -14,6 +14,8 @@ await p.locator('.ach-screen .btn-primary').click();
 await p.waitForSelector('.post-summary'); await p.waitForTimeout(1600);
 await p.screenshot({ path: `${out}/pg_summary.png` });
 await p.locator('.post-screen .btn-primary').click();
+await p.waitForSelector('.post-stats'); await p.waitForTimeout(2600); await p.screenshot({ path: `${out}/pg_stats.png` });
+await p.locator('.post-screen .btn-primary').click();
 await p.waitForSelector('.post-calm'); await p.screenshot({ path: `${out}/pg_calm.png` });
 const t0 = Date.now();
 await p.waitForSelector('.post-bonus', { timeout: 6000 });

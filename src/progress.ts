@@ -1,4 +1,5 @@
 import { getLevel, TOTAL_LEVELS } from './data';
+import { resetStats } from './stats';
 
 export type GameProgress = {
   version: 2;
@@ -74,6 +75,7 @@ export function completeLevel(p: GameProgress, n: number): GameProgress {
 }
 
 export function resetProgress(): GameProgress {
+  resetStats();
   try {
     localStorage.removeItem(STORAGE_KEY);
   } catch {

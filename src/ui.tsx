@@ -3,6 +3,7 @@ import { resolveAsset, isDev } from './assets';
 import type { LevelSpec } from './data';
 import type { GameProgress } from './progress';
 import { sfx } from './audio';
+import { bump } from './stats';
 
 /** Props every mechanic receives from LevelScreen. */
 export type MechanicProps = {
@@ -94,6 +95,7 @@ export function useShake(): [string, () => void] {
   const [n, setN] = useState(0);
   const trigger = useCallback(() => {
     sfx('nope');
+    bump('slips');
     setN((x) => x + 1);
   }, []);
   return [n ? (n % 2 ? 'shake-a' : 'shake-b') : '', trigger];

@@ -681,3 +681,9 @@ button:disabled { cursor: default; }
 .letter p { margin: 0 0 10px; font-size: 18px; line-height: 1.35; opacity: 0; animation: fade-up 0.7s forwards; }
 .letter-sign { margin: 0 !important; text-align: right; font-style: italic; font-size: 20px !important; font-weight: 800; }
 .letter-hero { height: 150px !important; }
+
+/* ---------- statistics ---------- */
+.stats-list { list-style: none; margin: 0; padding: 0; width: 100%; max-width: 340px; display: flex; flex-direction: column; gap: 8px; }
+.stats-list li { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 14px; border: 2px solid rgba(246, 231, 180, 0.5); border-radius: 10px; background: rgba(255, 255, 255, 0.06); font-size: 16px; opacity: 0; animation: fade-up 0.5s forwards; }
+.stats-list b { font: 800 20px var(--mono); color: var(--gold); }
+.stats-quip { opacity: 0; animation: fade-up 0.6s forwards; font-style: italic; font-size: 17px; }
