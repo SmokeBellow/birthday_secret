@@ -362,20 +362,19 @@ export function CharacterInteraction({ level, finished, complete }: MechanicProp
     if (finished || idx >= acts.length || phase === 'happy' || phase === 'no') return;
     if (phase === 'wait') {
       // too early: she does not like to be rushed
-      bump('lapkaSnubs');
       setPhase('no');
       doShake();
       later(() => setPhase('wait'), 800);
       return;
     }
     if (a !== need) {
-      bump('lapkaSnubs');
       setPhase('no');
       doShake();
       later(() => setPhase('ask'), 800);
       return;
     }
     setPhase('happy');
+    bump('lapkaPets');
     sfx('ok');
     const n = idx + 1;
     later(() => {
@@ -420,6 +419,7 @@ export function ReactiveTap({ level, finished, complete }: MechanicProps) {
     if (pets >= total) return;
     const n = pets + 1;
     setPets(n);
+    bump('lapkaPets');
     doShake();
     if (n >= total) complete();
   };

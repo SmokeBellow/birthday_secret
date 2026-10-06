@@ -1,8 +1,8 @@
 /** Counters shown on the "statistics" screen of the post-game. Cleared together with the progress. */
 const KEY = 'build30.stats.v1';
 
-export type Stats = { playMs: number; taps: number; slips: number; duckHits: number; lapkaSnubs: number };
-const empty = (): Stats => ({ playMs: 0, taps: 0, slips: 0, duckHits: 0, lapkaSnubs: 0 });
+export type Stats = { playMs: number; taps: number; slips: number; duckHits: number; lapkaPets: number };
+const empty = (): Stats => ({ playMs: 0, taps: 0, slips: 0, duckHits: 0, lapkaPets: 0 });
 
 let cache: Stats | null = null;
 
