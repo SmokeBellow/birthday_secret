@@ -675,3 +675,9 @@ button:disabled { cursor: default; }
 @keyframes confetti-fall { to { transform: translateY(110vh) rotate(540deg); opacity: 0.9; } }
 .start-hero { animation: float 4.2s ease-in-out infinite; }
 @keyframes float { 50% { transform: translateY(-8px); } }
+
+/* ---------- closing letter ---------- */
+.letter { max-width: 340px; padding: 16px 18px; border: 3px solid var(--gold); border-radius: 14px; background: rgba(251, 243, 223, 0.96); color: var(--ink); text-align: left; box-shadow: 0 0 0 4px #12141f, 0 0 24px rgba(224, 167, 58, 0.35); }
+.letter p { margin: 0 0 10px; font-size: 18px; line-height: 1.35; opacity: 0; animation: fade-up 0.7s forwards; }
+.letter-sign { margin: 0 !important; text-align: right; font-style: italic; font-size: 20px !important; font-weight: 800; }
+.letter-hero { height: 150px !important; }

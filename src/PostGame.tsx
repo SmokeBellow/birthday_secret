@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { t, spec } from './data';
-import { BOARDING_PASS as BP, CERTIFICATE } from './extraCopy';
+import { BOARDING_PASS as BP, CERTIFICATE, FINAL_LETTER } from './extraCopy';
 import { HomeButton } from './LevelScreen';
 import { Img } from './ui';
 import { sfx, haptic } from './audio';
@@ -151,8 +151,18 @@ export function PostGame({ step, onStep, onHome, onGallery }: Props) {
         )}
         {step === 'plus' && (
           <>
-            <Img k="hero_build_complete" className="post-hero pop" />
             <h1 className="post-title post-plus">{t('postgame.level30plus')}</h1>
+            <div className="letter">
+              {FINAL_LETTER.lines.map((l, i) => (
+                <p key={i} style={{ animationDelay: `${0.4 + i * 0.9}s` }}>
+                  {l}
+                </p>
+              ))}
+              <p className="letter-sign" style={{ animationDelay: `${0.4 + FINAL_LETTER.lines.length * 0.9}s` }}>
+                {FINAL_LETTER.sign}
+              </p>
+            </div>
+            <Img k="hero_build_complete" className="post-hero letter-hero pop" />
           </>
         )}
       </div>

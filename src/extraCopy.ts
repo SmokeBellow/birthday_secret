@@ -124,3 +124,9 @@ export const NIGHT_FOUND: Record<string, string> = {
   signpost: 'Указатель к цивилизации',
   eyes: 'Чьи-то глаза напротив',
 };
+
+/** Closing letter on the last post-game screen. */
+export const FINAL_LETTER = {
+  lines: ['Антон, это был самый длинный подарок, который я собирала. И самый весёлый.', 'С днём рождения, капитан. Жду тебя в кабине.'],
+  sign: 'Маша',
+};
