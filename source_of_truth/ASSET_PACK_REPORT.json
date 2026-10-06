@@ -1,0 +1,10 @@
+{
+  "packVersion": "1.0",
+  "expectedRuntimeImageKeys": 173,
+  "createdRuntimeImageKeys": 173,
+  "backgrounds": 28,
+  "pngAssets": 145,
+  "certificateIncluded": false,
+  "certificateNote": "Uses existing legacy PDF in Replit.",
+  "assetMap": "ASSET_MAP.json"
+}

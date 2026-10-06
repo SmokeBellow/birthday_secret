@@ -1,0 +1,1388 @@
+{
+  "meta": {
+    "name": "Birthday Game V2",
+    "version": "2.1",
+    "totalLevels": 30,
+    "sourceOfTruth": true,
+    "notes": [
+      "This spec replaces the old implementation as the canonical gameplay structure.",
+      "All graphics are referenced by semantic asset keys only; no file paths are hardcoded here.",
+      "Level 18 requires real Player 2 answers before final release."
+    ]
+  },
+  "globalRules": {
+    "mobileFirst": true,
+    "cumulativeBuild": true,
+    "failStates": "soft_only_no_hard_game_over",
+    "achievementFlow": "level_complete -> achievement -> reward -> next_level",
+    "player2UnlockLevel": 19,
+    "lapkaUnlockLevel": 21,
+    "checkpointLevel": 13,
+    "finalAssemblyLevel": 30
+  },
+  "startScreen": {
+    "ctaKey": "start.cta",
+    "titleKey": "start.title",
+    "subtitleKey": "start.subtitle"
+  },
+  "levels": [
+    {
+      "id": 1,
+      "slug": "initialization",
+      "titleKey": "levels.01.title",
+      "stageLabelKey": "levels.01.stage",
+      "introKey": "levels.01.intro",
+      "mechanic": {
+        "type": "rapidTapProgressiveReveal",
+        "objectiveKey": "levels.01.objective",
+        "requiredActions": 3,
+        "steps": [
+          {
+            "action": "tap_target",
+            "effect": "hero_reveal_33"
+          },
+          {
+            "action": "tap_target",
+            "effect": "hero_reveal_66"
+          },
+          {
+            "action": "tap_target",
+            "effect": "hero_reveal_100"
+          }
+        ],
+        "completionCondition": "tapCount >= 3"
+      },
+      "visualState": {
+        "backgroundKey": "bg_start_initialization",
+        "headerIconKey": "icon_level_01_initialization",
+        "heroStateKey": "hero_base",
+        "sceneAssetKeys": [
+          "ui_tap_target_idle",
+          "ui_tap_target_active",
+          "ui_character_slot"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level01",
+        "equipmentKey": "hero_base",
+        "persistentUnlocks": [
+          "hero"
+        ]
+      },
+      "nextLevel": 2
+    },
+    {
+      "id": 2,
+      "slug": "mister_fact_part_1",
+      "titleKey": "levels.02.title",
+      "stageLabelKey": "levels.02.stage",
+      "introKey": "levels.02.intro",
+      "mechanic": {
+        "type": "independentRevealCards",
+        "objectiveKey": "levels.02.objective",
+        "requiredActions": 3,
+        "items": [
+          {
+            "id": "birth_year",
+            "labelKey": "levels.02.items.birth_year.label",
+            "resultKey": "levels.02.items.birth_year.result"
+          },
+          {
+            "id": "favorite_snack",
+            "labelKey": "levels.02.items.favorite_snack.label",
+            "resultKey": "levels.02.items.favorite_snack.result"
+          },
+          {
+            "id": "secret_skill",
+            "labelKey": "levels.02.items.secret_skill.label",
+            "resultKey": "levels.02.items.secret_skill.result"
+          }
+        ],
+        "completionCondition": "allItemsRevealed"
+      },
+      "visualState": {
+        "backgroundKey": "bg_warm_room",
+        "headerIconKey": "icon_level_02_facts",
+        "heroStateKey": "hero_base",
+        "sceneAssetKeys": [
+          "card_fact_birth_year",
+          "card_fact_snack",
+          "card_fact_secret_skill"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level02",
+        "equipmentKey": "badge_factchecker",
+        "persistentUnlocks": [
+          "factchecker_badge"
+        ]
+      },
+      "nextLevel": 3
+    },
+    {
+      "id": 3,
+      "slug": "paper_tulip",
+      "titleKey": "levels.03.title",
+      "stageLabelKey": "levels.03.stage",
+      "introKey": "levels.03.intro",
+      "mechanic": {
+        "type": "orderedSequence",
+        "objectiveKey": "levels.03.objective",
+        "requiredActions": 3,
+        "sequence": [
+          "divide",
+          "fold",
+          "blow"
+        ],
+        "completionCondition": "sequenceCompleted"
+      },
+      "visualState": {
+        "backgroundKey": "bg_warm_room",
+        "headerIconKey": "icon_level_03_origami",
+        "heroStateKey": "hero_base",
+        "sceneAssetKeys": [
+          "origami_state_sheet",
+          "origami_divide",
+          "origami_fold",
+          "origami_blow",
+          "origami_tulip_finished"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level03",
+        "equipmentKey": "item_paper_tulip",
+        "persistentUnlocks": [
+          "paper_tulip"
+        ]
+      },
+      "nextLevel": 4
+    },
+    {
+      "id": 4,
+      "slug": "grandmaster",
+      "titleKey": "levels.04.title",
+      "stageLabelKey": "levels.04.stage",
+      "introKey": "levels.04.intro",
+      "mechanic": {
+        "type": "spatialChoice",
+        "objectiveKey": "levels.04.objective",
+        "requiredActions": 1,
+        "choices": [
+          {
+            "id": "pawn",
+            "labelKey": "levels.04.choices.pawn.label",
+            "resultKey": "levels.04.choices.pawn.result"
+          },
+          {
+            "id": "knight",
+            "labelKey": "levels.04.choices.knight.label",
+            "resultKey": "levels.04.choices.knight.result"
+          }
+        ],
+        "completionCondition": "choiceMade"
+      },
+      "visualState": {
+        "backgroundKey": "bg_chess_table",
+        "headerIconKey": "icon_level_04_chess",
+        "heroStateKey": "hero_base",
+        "sceneAssetKeys": [
+          "chess_board_small",
+          "chess_pawn",
+          "chess_knight"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level04",
+        "equipmentKey": "item_chess_piece",
+        "persistentUnlocks": [
+          "chess_token"
+        ]
+      },
+      "nextLevel": 5
+    },
+    {
+      "id": 5,
+      "slug": "shortcut",
+      "titleKey": "levels.05.title",
+      "stageLabelKey": "levels.05.stage",
+      "introKey": "levels.05.intro",
+      "mechanic": {
+        "type": "routeChoice",
+        "objectiveKey": "levels.05.objective",
+        "requiredActions": 1,
+        "choices": [
+          {
+            "id": "shortcut",
+            "labelKey": "levels.05.choices.shortcut.label",
+            "resultKey": "levels.05.choices.shortcut.result"
+          },
+          {
+            "id": "scenic",
+            "labelKey": "levels.05.choices.scenic.label",
+            "resultKey": "levels.05.choices.scenic.result"
+          }
+        ],
+        "completionCondition": "routeSelected"
+      },
+      "visualState": {
+        "backgroundKey": "bg_forest_route",
+        "headerIconKey": "icon_level_05_compass",
+        "heroStateKey": "hero_compass",
+        "sceneAssetKeys": [
+          "route_map_short",
+          "route_map_scenic",
+          "signpost_forest"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level05",
+        "equipmentKey": "item_compass",
+        "persistentUnlocks": [
+          "compass"
+        ]
+      },
+      "nextLevel": 6
+    },
+    {
+      "id": 6,
+      "slug": "night_forest",
+      "titleKey": "levels.06.title",
+      "stageLabelKey": "levels.06.stage",
+      "introKey": "levels.06.intro",
+      "mechanic": {
+        "type": "hiddenObject",
+        "objectiveKey": "levels.06.objective",
+        "requiredActions": 4,
+        "targets": [
+          "moon",
+          "mushroom",
+          "signpost",
+          "eyes"
+        ],
+        "completionCondition": "allTargetsFound"
+      },
+      "visualState": {
+        "backgroundKey": "bg_night_forest",
+        "headerIconKey": "icon_level_06_lantern",
+        "heroStateKey": "hero_compass",
+        "sceneAssetKeys": [
+          "night_moon",
+          "night_mushroom",
+          "night_signpost",
+          "night_eyes",
+          "forest_tree_cluster",
+          "forest_bushes"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level06",
+        "equipmentKey": "effect_night_vision",
+        "persistentUnlocks": [
+          "night_vision"
+        ]
+      },
+      "nextLevel": 7
+    },
+    {
+      "id": 7,
+      "slug": "duck_accuracy",
+      "titleKey": "levels.07.title",
+      "stageLabelKey": "levels.07.stage",
+      "introKey": "levels.07.intro",
+      "mechanic": {
+        "type": "movingTargetAim",
+        "objectiveKey": "levels.07.objective",
+        "requiredActions": 3,
+        "targets": [
+          "duck_left",
+          "duck_right",
+          "duck_center"
+        ],
+        "missBehavior": "reaction_only_no_fail",
+        "completionCondition": "throwsCompleted >= 3"
+      },
+      "visualState": {
+        "backgroundKey": "bg_park_pond",
+        "headerIconKey": "icon_level_07_bread",
+        "heroStateKey": "hero_compass",
+        "sceneAssetKeys": [
+          "duck_flying_left",
+          "duck_flying_right",
+          "duck_idle",
+          "bread_projectile"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level07",
+        "equipmentKey": "badge_duck_ethics",
+        "persistentUnlocks": [
+          "duck_trust"
+        ]
+      },
+      "nextLevel": 8
+    },
+    {
+      "id": 8,
+      "slug": "campfire",
+      "titleKey": "levels.08.title",
+      "stageLabelKey": "levels.08.stage",
+      "introKey": "levels.08.intro",
+      "mechanic": {
+        "type": "resourceTap",
+        "objectiveKey": "levels.08.objective",
+        "requiredActions": 5,
+        "states": [
+          "embers",
+          "small_fire",
+          "medium_fire",
+          "strong_fire",
+          "full_campfire"
+        ],
+        "decay": "visual_only_soft_decay",
+        "completionCondition": "fireLevel >= 5"
+      },
+      "visualState": {
+        "backgroundKey": "bg_night_camp",
+        "headerIconKey": "icon_level_08_campfire",
+        "heroStateKey": "hero_compass",
+        "sceneAssetKeys": [
+          "campfire_embers",
+          "campfire_small",
+          "campfire_medium",
+          "campfire_strong",
+          "campfire_full",
+          "tent"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level08",
+        "equipmentKey": "effect_warmth",
+        "persistentUnlocks": [
+          "warmth"
+        ]
+      },
+      "nextLevel": 9
+    },
+    {
+      "id": 9,
+      "slug": "hike_pack",
+      "titleKey": "levels.09.title",
+      "stageLabelKey": "levels.09.stage",
+      "introKey": "levels.09.intro",
+      "mechanic": {
+        "type": "collectRequiredPlusOptional",
+        "objectiveKey": "levels.09.objective",
+        "requiredActions": 4,
+        "requiredItems": [
+          "water",
+          "map",
+          "backpack"
+        ],
+        "optionalItem": "strange_stone",
+        "completionCondition": "requiredCollected && optionalCollected"
+      },
+      "visualState": {
+        "backgroundKey": "bg_camp_pack",
+        "headerIconKey": "icon_level_09_backpack",
+        "heroStateKey": "hero_backpack",
+        "sceneAssetKeys": [
+          "item_water",
+          "item_map",
+          "item_backpack",
+          "item_strange_stone"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level09",
+        "equipmentKey": "item_strange_stone",
+        "persistentUnlocks": [
+          "backpack",
+          "strange_stone"
+        ]
+      },
+      "nextLevel": 10
+    },
+    {
+      "id": 10,
+      "slug": "waffle_tubes",
+      "titleKey": "levels.10.title",
+      "stageLabelKey": "levels.10.stage",
+      "introKey": "levels.10.intro",
+      "mechanic": {
+        "type": "timingWindow",
+        "objectiveKey": "levels.10.objective",
+        "requiredActions": 1,
+        "retryOnMiss": true,
+        "completionCondition": "successfulTimingTap"
+      },
+      "visualState": {
+        "backgroundKey": "bg_kitchen_warm",
+        "headerIconKey": "icon_level_10_waffle",
+        "heroStateKey": "hero_tulip",
+        "sceneAssetKeys": [
+          "waffle_tube_raw",
+          "waffle_tube_ready",
+          "timing_meter"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level10",
+        "equipmentKey": "item_maker_part",
+        "persistentUnlocks": [
+          "maker_part"
+        ]
+      },
+      "nextLevel": 11
+    },
+    {
+      "id": 11,
+      "slug": "board_game",
+      "titleKey": "levels.11.title",
+      "stageLabelKey": "levels.11.stage",
+      "introKey": "levels.11.intro",
+      "mechanic": {
+        "type": "choice",
+        "objectiveKey": "levels.11.objective",
+        "requiredActions": 1,
+        "choices": [
+          {
+            "id": "win",
+            "labelKey": "levels.11.choices.win.label",
+            "resultKey": "levels.11.choices.win.result"
+          },
+          {
+            "id": "house_rule",
+            "labelKey": "levels.11.choices.house_rule.label",
+            "resultKey": "levels.11.choices.house_rule.result"
+          }
+        ],
+        "completionCondition": "choiceMade"
+      },
+      "visualState": {
+        "backgroundKey": "bg_board_game_table",
+        "headerIconKey": "icon_level_11_dice",
+        "heroStateKey": "hero_tulip",
+        "sceneAssetKeys": [
+          "board_game_table",
+          "dice_pair",
+          "rule_card"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level11",
+        "equipmentKey": "item_house_rule_card",
+        "persistentUnlocks": [
+          "house_rule"
+        ]
+      },
+      "nextLevel": 12
+    },
+    {
+      "id": 12,
+      "slug": "home_brewing",
+      "titleKey": "levels.12.title",
+      "stageLabelKey": "levels.12.stage",
+      "introKey": "levels.12.intro",
+      "mechanic": {
+        "type": "stabilityGauge",
+        "objectiveKey": "levels.12.objective",
+        "requiredActions": 1,
+        "targetDurationSeconds": 4,
+        "completionCondition": "gaugeHeldInTargetZone"
+      },
+      "visualState": {
+        "backgroundKey": "bg_home_brew",
+        "headerIconKey": "icon_level_12_brewing",
+        "heroStateKey": "hero_tulip",
+        "sceneAssetKeys": [
+          "brew_vessel",
+          "brew_bubbles",
+          "stability_gauge"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level12",
+        "equipmentKey": "item_secret_recipe",
+        "persistentUnlocks": [
+          "secret_recipe"
+        ]
+      },
+      "nextLevel": 13
+    },
+    {
+      "id": 13,
+      "slug": "save_game",
+      "titleKey": "levels.13.title",
+      "stageLabelKey": "levels.13.stage",
+      "introKey": "levels.13.intro",
+      "mechanic": {
+        "type": "inventorySort",
+        "objectiveKey": "levels.13.objective",
+        "requiredActions": 4,
+        "items": [
+          "paper_tulip",
+          "compass",
+          "strange_stone",
+          "maker_part"
+        ],
+        "completionCondition": "allItemsPlaced"
+      },
+      "visualState": {
+        "backgroundKey": "bg_checkpoint",
+        "headerIconKey": "icon_level_13_save",
+        "heroStateKey": "hero_checkpoint",
+        "sceneAssetKeys": [
+          "save_slot_tulip",
+          "save_slot_compass",
+          "save_slot_stone",
+          "save_slot_maker",
+          "save_complete_effect"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level13",
+        "equipmentKey": "checkpoint_marker",
+        "persistentUnlocks": [
+          "checkpoint_1"
+        ]
+      },
+      "nextLevel": 14
+    },
+    {
+      "id": 14,
+      "slug": "wikipedia",
+      "titleKey": "levels.14.title",
+      "stageLabelKey": "levels.14.stage",
+      "introKey": "levels.14.intro",
+      "mechanic": {
+        "type": "linkChain",
+        "objectiveKey": "levels.14.objective",
+        "requiredActions": 4,
+        "sequence": [
+          "history",
+          "geography",
+          "physics",
+          "mythology"
+        ],
+        "completionCondition": "allLinksOpened"
+      },
+      "visualState": {
+        "backgroundKey": "bg_browser_wiki",
+        "headerIconKey": "icon_level_14_wikipedia",
+        "heroStateKey": "hero_knowledge",
+        "sceneAssetKeys": [
+          "wiki_window",
+          "wiki_tab_stack",
+          "book_stack"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level14",
+        "equipmentKey": "item_book",
+        "persistentUnlocks": [
+          "book"
+        ]
+      },
+      "nextLevel": 15
+    },
+    {
+      "id": 15,
+      "slug": "mister_fact_part_2",
+      "titleKey": "levels.15.title",
+      "stageLabelKey": "levels.15.stage",
+      "introKey": "levels.15.intro",
+      "mechanic": {
+        "type": "choiceWithEscalation",
+        "objectiveKey": "levels.15.objective",
+        "requiredActions": 1,
+        "choices": [
+          {
+            "id": "more",
+            "labelKey": "levels.15.choices.more.label",
+            "resultKey": "levels.15.choices.more.result"
+          },
+          {
+            "id": "counterfact",
+            "labelKey": "levels.15.choices.counterfact.label",
+            "resultKey": "levels.15.choices.counterfact.result"
+          }
+        ],
+        "completionCondition": "choiceMade"
+      },
+      "visualState": {
+        "backgroundKey": "bg_fact_overload",
+        "headerIconKey": "icon_level_15_fact",
+        "heroStateKey": "hero_knowledge",
+        "sceneAssetKeys": [
+          "fact_card_stack",
+          "counterfact_card",
+          "knowledge_aura"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level15",
+        "equipmentKey": "effect_knowledge_aura",
+        "persistentUnlocks": [
+          "knowledge_aura"
+        ]
+      },
+      "nextLevel": 16
+    },
+    {
+      "id": 16,
+      "slug": "vibecoding",
+      "titleKey": "levels.16.title",
+      "stageLabelKey": "levels.16.stage",
+      "introKey": "levels.16.intro",
+      "mechanic": {
+        "type": "pipeline",
+        "objectiveKey": "levels.16.objective",
+        "requiredActions": 4,
+        "sequence": [
+          "idea",
+          "code",
+          "run",
+          "build"
+        ],
+        "completionCondition": "pipelineCompleted"
+      },
+      "visualState": {
+        "backgroundKey": "bg_coding_desk",
+        "headerIconKey": "icon_level_16_vibecoding",
+        "heroStateKey": "hero_knowledge",
+        "sceneAssetKeys": [
+          "pipeline_idea",
+          "pipeline_code",
+          "pipeline_run",
+          "pipeline_build",
+          "terminal_run"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level16",
+        "equipmentKey": "badge_vibecoder",
+        "persistentUnlocks": [
+          "vibecoder_badge"
+        ]
+      },
+      "nextLevel": 17
+    },
+    {
+      "id": 17,
+      "slug": "debug",
+      "titleKey": "levels.17.title",
+      "stageLabelKey": "levels.17.stage",
+      "introKey": "levels.17.intro",
+      "mechanic": {
+        "type": "spotTheBug",
+        "objectiveKey": "levels.17.objective",
+        "requiredActions": 1,
+        "candidateCount": 6,
+        "wrongTapBehavior": "shake_only_no_fail",
+        "completionCondition": "bugFound"
+      },
+      "visualState": {
+        "backgroundKey": "bg_debug_ui",
+        "headerIconKey": "icon_level_17_bug",
+        "heroStateKey": "hero_knowledge",
+        "sceneAssetKeys": [
+          "debug_panel_clean",
+          "debug_panel_bugged",
+          "debug_bug_marker"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level17",
+        "equipmentKey": "item_clean_log",
+        "persistentUnlocks": [
+          "clean_log"
+        ]
+      },
+      "nextLevel": 18
+    },
+    {
+      "id": 18,
+      "slug": "quiz_for_two",
+      "titleKey": "levels.18.title",
+      "stageLabelKey": "levels.18.stage",
+      "introKey": "levels.18.intro",
+      "mechanic": {
+        "type": "pairedQuiz",
+        "objectiveKey": "levels.18.objective",
+        "requiredActions": 3,
+        "questions": [
+          {
+            "id": "plans_changed",
+            "questionKey": "levels.18.questions.plans_changed.question",
+            "options": [
+              "levels.18.questions.plans_changed.optionA",
+              "levels.18.questions.plans_changed.optionB"
+            ],
+            "player2Answer": null
+          },
+          {
+            "id": "vacation_first_morning",
+            "questionKey": "levels.18.questions.vacation_first_morning.question",
+            "options": [
+              "levels.18.questions.vacation_first_morning.optionA",
+              "levels.18.questions.vacation_first_morning.optionB"
+            ],
+            "player2Answer": null
+          },
+          {
+            "id": "bug_in_game",
+            "questionKey": "levels.18.questions.bug_in_game.question",
+            "options": [
+              "levels.18.questions.bug_in_game.optionA",
+              "levels.18.questions.bug_in_game.optionB"
+            ],
+            "player2Answer": null
+          }
+        ],
+        "matchResultKey": "levels.18.responses.match",
+        "mismatchResultKey": "levels.18.responses.mismatch",
+        "completionCondition": "allQuestionsAnswered"
+      },
+      "visualState": {
+        "backgroundKey": "bg_quiz_duo",
+        "headerIconKey": "icon_level_18_quiz",
+        "heroStateKey": "hero_knowledge",
+        "sceneAssetKeys": [
+          "player1_answer_card",
+          "player2_answer_card",
+          "sync_match_effect",
+          "sync_mismatch_effect"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level18",
+        "equipmentKey": "item_shared_answer",
+        "persistentUnlocks": [
+          "sync_complete"
+        ]
+      },
+      "nextLevel": 19,
+      "configurationRequired": [
+        "mechanic.questions[*].player2Answer"
+      ]
+    },
+    {
+      "id": 19,
+      "slug": "coop",
+      "titleKey": "levels.19.title",
+      "stageLabelKey": "levels.19.stage",
+      "introKey": "levels.19.intro",
+      "mechanic": {
+        "type": "alternatingCoop",
+        "objectiveKey": "levels.19.objective",
+        "requiredActions": 6,
+        "sequence": [
+          "P1",
+          "P2",
+          "P1",
+          "P2",
+          "P1",
+          "P2"
+        ],
+        "completionCondition": "sequenceCompleted"
+      },
+      "visualState": {
+        "backgroundKey": "bg_coop_room",
+        "headerIconKey": "icon_level_19_coop",
+        "heroStateKey": "hero_knowledge",
+        "player2StateKey": "player2_joining",
+        "sceneAssetKeys": [
+          "coop_energy_left",
+          "coop_energy_right",
+          "player2_join_effect"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level19",
+        "equipmentKey": "player2_unlock",
+        "persistentUnlocks": [
+          "player2"
+        ]
+      },
+      "nextLevel": 20
+    },
+    {
+      "id": 20,
+      "slug": "legendary_item",
+      "titleKey": "levels.20.title",
+      "stageLabelKey": "levels.20.stage",
+      "introKey": "levels.20.intro",
+      "mechanic": {
+        "type": "inspectThenEquip",
+        "objectiveKey": "levels.20.objective",
+        "requiredActions": 1,
+        "choices": [
+          {
+            "id": "inspect",
+            "labelKey": "levels.20.choices.inspect.label",
+            "resultKey": "levels.20.choices.inspect.result"
+          },
+          {
+            "id": "equip",
+            "labelKey": "levels.20.choices.equip.label",
+            "resultKey": "levels.20.choices.equip.result"
+          }
+        ],
+        "completionCondition": "ringEquipped"
+      },
+      "visualState": {
+        "backgroundKey": "bg_legendary_item",
+        "headerIconKey": "icon_level_20_ring",
+        "heroStateKey": "hero_ring",
+        "player2StateKey": "player2_default",
+        "sceneAssetKeys": [
+          "legendary_ring_idle",
+          "legendary_ring_glow",
+          "ring_equip_effect"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level20",
+        "equipmentKey": "item_ring",
+        "persistentUnlocks": [
+          "ring"
+        ]
+      },
+      "nextLevel": 21
+    },
+    {
+      "id": 21,
+      "slug": "lapka",
+      "titleKey": "levels.21.title",
+      "stageLabelKey": "levels.21.stage",
+      "introKey": "levels.21.intro",
+      "mechanic": {
+        "type": "characterInteraction",
+        "objectiveKey": "levels.21.objective",
+        "requiredActions": 3,
+        "interactions": [
+          "paw",
+          "stare",
+          "pet"
+        ],
+        "completionCondition": "allInteractionsCompleted"
+      },
+      "visualState": {
+        "backgroundKey": "bg_home_warm",
+        "headerIconKey": "icon_level_21_lapka",
+        "heroStateKey": "hero_ring",
+        "player2StateKey": "player2_default",
+        "lapkaStateKey": "lapka_joining",
+        "sceneAssetKeys": [
+          "lapka_paw",
+          "lapka_stare",
+          "lapka_purr",
+          "lapka_join_effect"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level21",
+        "equipmentKey": "lapka_unlock",
+        "persistentUnlocks": [
+          "lapka"
+        ]
+      },
+      "nextLevel": 22
+    },
+    {
+      "id": 22,
+      "slug": "home_base",
+      "titleKey": "levels.22.title",
+      "stageLabelKey": "levels.22.stage",
+      "introKey": "levels.22.intro",
+      "mechanic": {
+        "type": "sceneExploration",
+        "objectiveKey": "levels.22.objective",
+        "requiredActions": 4,
+        "hotspots": [
+          "sofa",
+          "snack_box",
+          "charger",
+          "blanket"
+        ],
+        "completionCondition": "allHotspotsVisited"
+      },
+      "visualState": {
+        "backgroundKey": "bg_home_base",
+        "headerIconKey": "icon_level_22_home",
+        "heroStateKey": "hero_ring",
+        "player2StateKey": "player2_default",
+        "lapkaStateKey": "lapka_default",
+        "sceneAssetKeys": [
+          "home_sofa",
+          "home_snack_box",
+          "home_charger",
+          "home_blanket"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level22",
+        "equipmentKey": "effect_home",
+        "persistentUnlocks": [
+          "home_base"
+        ]
+      },
+      "nextLevel": 23
+    },
+    {
+      "id": 23,
+      "slug": "cat_support",
+      "titleKey": "levels.23.title",
+      "stageLabelKey": "levels.23.stage",
+      "introKey": "levels.23.intro",
+      "mechanic": {
+        "type": "reactiveTap",
+        "objectiveKey": "levels.23.objective",
+        "requiredActions": 4,
+        "states": [
+          "neutral",
+          "suspicious",
+          "annoyed",
+          "stays_anyway"
+        ],
+        "completionCondition": "petCount >= 4"
+      },
+      "visualState": {
+        "backgroundKey": "bg_home_base",
+        "headerIconKey": "icon_level_23_cat_support",
+        "heroStateKey": "hero_ring",
+        "player2StateKey": "player2_default",
+        "lapkaStateKey": "lapka_reactive",
+        "sceneAssetKeys": [
+          "lapka_neutral",
+          "lapka_suspicious",
+          "lapka_annoyed",
+          "lapka_stays",
+          "judgement_meter"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level23",
+        "equipmentKey": "item_cat_hair",
+        "persistentUnlocks": [
+          "cat_support"
+        ]
+      },
+      "nextLevel": 24
+    },
+    {
+      "id": 24,
+      "slug": "aviation",
+      "titleKey": "levels.24.title",
+      "stageLabelKey": "levels.24.stage",
+      "introKey": "levels.24.intro",
+      "mechanic": {
+        "type": "orderedSequence",
+        "objectiveKey": "levels.24.objective",
+        "requiredActions": 4,
+        "sequence": [
+          "taxi",
+          "takeoff",
+          "cruise",
+          "landing"
+        ],
+        "completionCondition": "sequenceCompleted"
+      },
+      "visualState": {
+        "backgroundKey": "bg_airport_to_sky",
+        "headerIconKey": "icon_level_24_aviation",
+        "heroStateKey": "hero_aviation",
+        "player2StateKey": "player2_default",
+        "lapkaStateKey": "lapka_default",
+        "sceneAssetKeys": [
+          "aircraft_taxi",
+          "aircraft_takeoff",
+          "aircraft_cruise",
+          "aircraft_landing",
+          "touchdown_effect"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level24",
+        "equipmentKey": "item_boarding_pass",
+        "persistentUnlocks": [
+          "boarding_pass"
+        ]
+      },
+      "nextLevel": 25
+    },
+    {
+      "id": 25,
+      "slug": "shortcut_2",
+      "titleKey": "levels.25.title",
+      "stageLabelKey": "levels.25.stage",
+      "introKey": "levels.25.intro",
+      "mechanic": {
+        "type": "multiStepRoutePuzzle",
+        "objectiveKey": "levels.25.objective",
+        "requiredActions": 3,
+        "segments": [
+          {
+            "id": "slope",
+            "decisionFactors": [
+              "slope",
+              "length"
+            ]
+          },
+          {
+            "id": "obstacle",
+            "decisionFactors": [
+              "obstacle",
+              "length"
+            ]
+          },
+          {
+            "id": "final",
+            "decisionFactors": [
+              "slope",
+              "obstacle",
+              "length"
+            ]
+          }
+        ],
+        "completionCondition": "threeSegmentsCompleted"
+      },
+      "visualState": {
+        "backgroundKey": "bg_mountain_route",
+        "headerIconKey": "icon_level_25_navigation2",
+        "heroStateKey": "hero_navigation2",
+        "player2StateKey": "player2_default",
+        "lapkaStateKey": "lapka_default",
+        "sceneAssetKeys": [
+          "route_segment_slope",
+          "route_segment_obstacle",
+          "route_segment_final",
+          "route_node",
+          "compass_upgraded"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level25",
+        "equipmentKey": "item_compass_upgraded",
+        "persistentUnlocks": [
+          "compass_upgraded"
+        ]
+      },
+      "nextLevel": 26
+    },
+    {
+      "id": 26,
+      "slug": "elements",
+      "titleKey": "levels.26.title",
+      "stageLabelKey": "levels.26.stage",
+      "introKey": "levels.26.intro",
+      "mechanic": {
+        "type": "combineAnyTwo",
+        "objectiveKey": "levels.26.objective",
+        "requiredActions": 2,
+        "elements": [
+          "water",
+          "fire",
+          "lightning"
+        ],
+        "noWrongCombination": true,
+        "completionCondition": "twoElementsCombined"
+      },
+      "visualState": {
+        "backgroundKey": "bg_element_lab",
+        "headerIconKey": "icon_level_26_elements",
+        "heroStateKey": "hero_elements",
+        "player2StateKey": "player2_default",
+        "lapkaStateKey": "lapka_default",
+        "sceneAssetKeys": [
+          "element_water",
+          "element_fire",
+          "element_lightning",
+          "element_mix_slot_left",
+          "element_mix_slot_right",
+          "element_mix_effect"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level26",
+        "equipmentKey": "item_new_element",
+        "persistentUnlocks": [
+          "new_element"
+        ]
+      },
+      "nextLevel": 27
+    },
+    {
+      "id": 27,
+      "slug": "portals",
+      "titleKey": "levels.27.title",
+      "stageLabelKey": "levels.27.stage",
+      "introKey": "levels.27.intro",
+      "mechanic": {
+        "type": "spatialChoice",
+        "objectiveKey": "levels.27.objective",
+        "requiredActions": 1,
+        "choices": [
+          {
+            "id": "bright",
+            "labelKey": "levels.27.choices.bright.label",
+            "resultKey": "levels.27.choices.bright.result"
+          },
+          {
+            "id": "side",
+            "labelKey": "levels.27.choices.side.label",
+            "resultKey": "levels.27.choices.side.result"
+          }
+        ],
+        "completionCondition": "validPortalEntered"
+      },
+      "visualState": {
+        "backgroundKey": "bg_magic_portals",
+        "headerIconKey": "icon_level_27_portal",
+        "heroStateKey": "hero_mirror",
+        "player2StateKey": "player2_default",
+        "lapkaStateKey": "lapka_default",
+        "sceneAssetKeys": [
+          "portal_bright",
+          "portal_side",
+          "portal_wrong_flash",
+          "portal_entry_effect"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level27",
+        "equipmentKey": "effect_portal",
+        "persistentUnlocks": [
+          "portal_effect"
+        ]
+      },
+      "nextLevel": 28
+    },
+    {
+      "id": 28,
+      "slug": "world_builder",
+      "titleKey": "levels.28.title",
+      "stageLabelKey": "levels.28.stage",
+      "introKey": "levels.28.intro",
+      "mechanic": {
+        "type": "layerBuilder",
+        "objectiveKey": "levels.28.objective",
+        "requiredActions": 4,
+        "sequence": [
+          "landscape",
+          "hero",
+          "jump",
+          "slime"
+        ],
+        "completionCondition": "allLayersAdded"
+      },
+      "visualState": {
+        "backgroundKey": "bg_world_builder_blank",
+        "headerIconKey": "icon_level_28_world",
+        "heroStateKey": "hero_mirror",
+        "player2StateKey": "player2_default",
+        "lapkaStateKey": "lapka_default",
+        "sceneAssetKeys": [
+          "world_landscape_layer",
+          "world_hero_layer",
+          "world_jump_effect",
+          "world_slime",
+          "world_complete_scene"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level28",
+        "equipmentKey": "item_world_key",
+        "persistentUnlocks": [
+          "world_key"
+        ]
+      },
+      "nextLevel": 29
+    },
+    {
+      "id": 29,
+      "slug": "mister_fact_max",
+      "titleKey": "levels.29.title",
+      "stageLabelKey": "levels.29.stage",
+      "introKey": "levels.29.intro",
+      "mechanic": {
+        "type": "independentRevealCards",
+        "objectiveKey": "levels.29.objective",
+        "requiredActions": 4,
+        "items": [
+          {
+            "id": "origin",
+            "labelKey": "levels.29.items.origin.label",
+            "resultKey": "levels.29.items.origin.result"
+          },
+          {
+            "id": "plot_twist",
+            "labelKey": "levels.29.items.plot_twist.label",
+            "resultKey": "levels.29.items.plot_twist.result"
+          },
+          {
+            "id": "rare_drop",
+            "labelKey": "levels.29.items.rare_drop.label",
+            "resultKey": "levels.29.items.rare_drop.result"
+          },
+          {
+            "id": "final_fact",
+            "labelKey": "levels.29.items.final_fact.label",
+            "resultKey": "levels.29.items.final_fact.result"
+          }
+        ],
+        "completionCondition": "allItemsRevealed"
+      },
+      "visualState": {
+        "backgroundKey": "bg_fact_max",
+        "headerIconKey": "icon_level_29_fact_max",
+        "heroStateKey": "hero_mirror",
+        "player2StateKey": "player2_default",
+        "lapkaStateKey": "lapka_default",
+        "sceneAssetKeys": [
+          "fact_max_card_origin",
+          "fact_max_card_twist",
+          "fact_max_card_drop",
+          "fact_max_card_final",
+          "fact_stack_collapse"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level29",
+        "equipmentKey": "item_absolute_truth",
+        "persistentUnlocks": [
+          "absolute_truth"
+        ]
+      },
+      "nextLevel": 30
+    },
+    {
+      "id": 30,
+      "slug": "build_30",
+      "titleKey": "levels.30.title",
+      "stageLabelKey": "levels.30.stage",
+      "introKey": "levels.30.intro",
+      "mechanic": {
+        "type": "finalBuildAssembly",
+        "objectiveKey": "levels.30.objective",
+        "requiredActions": 6,
+        "categories": [
+          {
+            "id": "navigation",
+            "sourceUnlocks": [
+              "compass",
+              "compass_upgraded"
+            ]
+          },
+          {
+            "id": "creativity",
+            "sourceUnlocks": [
+              "paper_tulip",
+              "maker_part"
+            ]
+          },
+          {
+            "id": "knowledge",
+            "sourceUnlocks": [
+              "factchecker_badge",
+              "book",
+              "clean_log"
+            ]
+          },
+          {
+            "id": "adventure",
+            "sourceUnlocks": [
+              "night_vision",
+              "warmth",
+              "boarding_pass"
+            ]
+          },
+          {
+            "id": "home_coop",
+            "sourceUnlocks": [
+              "player2",
+              "lapka",
+              "home_base"
+            ]
+          },
+          {
+            "id": "worldbuilding",
+            "sourceUnlocks": [
+              "new_element",
+              "portal_effect",
+              "world_key"
+            ]
+          }
+        ],
+        "completionCondition": "allBuildCategoriesActivated"
+      },
+      "visualState": {
+        "backgroundKey": "bg_final_build",
+        "headerIconKey": "icon_level_30_build",
+        "heroStateKey": "hero_build_complete",
+        "player2StateKey": "player2_final",
+        "lapkaStateKey": "lapka_final",
+        "sceneAssetKeys": [
+          "build_slot_navigation",
+          "build_slot_creativity",
+          "build_slot_knowledge",
+          "build_slot_adventure",
+          "build_slot_home_coop",
+          "build_slot_worldbuilding",
+          "build_complete_effect",
+          "final_congratulations_scene"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level30",
+        "equipmentKey": null,
+        "persistentUnlocks": [
+          "build_30_complete"
+        ]
+      },
+      "nextLevel": null
+    }
+  ],
+  "postGameFlow": {
+    "enabled": true,
+    "trigger": "after_level_30_achievement",
+    "sequence": [
+      "build_complete_summary",
+      "bonus_mission_unlock",
+      "certificate_reveal",
+      "mission_accepted",
+      "level_30_plus"
+    ],
+    "buildCompleteSummary": {
+      "titleKey": "postgame.summary.title",
+      "linesKeys": [
+        "postgame.summary.storyComplete",
+        "postgame.summary.statsSaved",
+        "postgame.summary.achievementsComplete",
+        "postgame.summary.characterUpdated"
+      ]
+    },
+    "bonusMission": {
+      "titleKey": "postgame.bonus.title",
+      "subtitleKey": "postgame.bonus.subtitle"
+    },
+    "certificate": {
+      "type": "boeing_737_simulator_certificate",
+      "contentSource": "legacy_certificate",
+      "reuseLegacyContent": true,
+      "assetKey": "certificate_boeing_737_simulator",
+      "fallbackBehavior": "If legacy certificate component/content exists, migrate it into V2. If only legacy text/data exists, reproduce it in the V2 certificate component without inventing new personal details. If neither exists, stop and report what is missing."
+    },
+    "missionAccepted": {
+      "titleKey": "postgame.accepted.title",
+      "subtitleKey": "postgame.accepted.subtitle",
+      "footerKey": "postgame.accepted.footer"
+    },
+    "finalState": {
+      "labelKey": "postgame.level30plus",
+      "restartAllowed": true,
+      "returnHomeAllowed": true,
+      "preserveCompletedBuild": true
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "version": "1.0",
+  "count": 23,
+  "keys": [
+    "card_fact_birth_year",
+    "card_fact_secret_skill",
+    "card_fact_snack",
+    "element_mix_slot_left",
+    "element_mix_slot_right",
+    "fact_max_card_drop",
+    "fact_max_card_final",
+    "fact_max_card_origin",
+    "fact_max_card_twist",
+    "player1_answer_card",
+    "player2_answer_card",
+    "save_slot_compass",
+    "save_slot_maker",
+    "save_slot_stone",
+    "save_slot_tulip",
+    "ui_character_slot",
+    "ui_tap_target_idle",
+    "build_slot_navigation",
+    "build_slot_creativity",
+    "build_slot_knowledge",
+    "build_slot_adventure",
+    "build_slot_home_coop",
+    "build_slot_worldbuilding"
+  ],
+  "rule": "These semantic keys are intentionally rendered by HTML/CSS. Do not show filenames, placeholder labels or missing-image boxes for them."
+}

@@ -1,0 +1,4900 @@
+{
+  "meta": {
+    "name": "BUILD 30.0 — Final Production Art Manifest",
+    "version": "1.0",
+    "basedOn": "patched FINAL_ASSET_AUDIT.json",
+    "runtimeAssetKeys": 199,
+    "runtimeUndefinedAssetRequests": 0,
+    "missingVisualStates": 0,
+    "imageSemanticKeys": 173,
+    "cssRenderedKeys": 25,
+    "documentBindings": 1,
+    "doNotGenerateSpecOnlyKeys": 37,
+    "codeOnlyRuntimeKeysIncluded": 15
+  },
+  "artDirection": {
+    "style": "Use the already approved game references as the visual source of truth. Keep one coherent pixel-art / retro-game visual language across characters, props, icons and environments.",
+    "characterConsistency": "Hero, Player 2 and Lapka must preserve their approved identity/reference design across every state. Do not redesign faces, proportions or signature features between levels.",
+    "textRule": "Do not bake Russian UI copy into generated images unless the image is explicitly a document. Labels and copy remain HTML/CSS.",
+    "framingRule": "Keep transparent assets fully inside canvas with generous safe padding; no cropped limbs, ears, props or effects.",
+    "mobileRule": "Scene artwork must remain readable at narrow mobile widths. Avoid tiny essential details near image edges.",
+    "sourceFormat": "PNG",
+    "runtimeFormat": "PNG for alpha assets; WebP for opaque backgrounds."
+  },
+  "generationBatches": [
+    {
+      "id": "B0_STYLE_LOCK",
+      "purpose": "Approve the visual language before bulk generation.",
+      "suggestedKeys": [
+        "hero_base",
+        "player2_default",
+        "lapka_default",
+        "bg_warm_room",
+        "bg_night_forest",
+        "bg_coding_desk",
+        "icon_level_02_facts",
+        "icon_level_07_bread",
+        "item_compass",
+        "item_paper_tulip",
+        "badge_factchecker"
+      ]
+    },
+    {
+      "id": "B1_CHARACTERS",
+      "category": "characters",
+      "rule": "Generate from the same approved character references and scale."
+    },
+    {
+      "id": "B2_BACKGROUNDS",
+      "category": "backgrounds",
+      "rule": "No embedded text. Preserve a calm central interaction area."
+    },
+    {
+      "id": "B3_LEVEL_ICONS",
+      "category": "level_icons",
+      "rule": "Generate as consistent 1:1 icon set; export each semantic key separately."
+    },
+    {
+      "id": "B4_ITEMS_REWARDS",
+      "category": "items_rewards",
+      "rule": "Consistent inventory/reward icon scale; strong silhouettes at small sizes."
+    },
+    {
+      "id": "B5_SCENES",
+      "categories": [
+        "scene_assets",
+        "scene_ui_art"
+      ],
+      "rule": "Generate by mechanic family so sequential states match each other."
+    },
+    {
+      "id": "B6_EFFECTS",
+      "category": "effects",
+      "rule": "Transparent, restrained effects that do not obscure interaction targets."
+    }
+  ],
+  "renderEntries": [
+    {
+      "assetKey": "aircraft_cruise",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        24
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "step takeoff"
+      ],
+      "sourcePng": "art_source/scene_assets/aircraft_cruise.png",
+      "runtimeFile": "public/assets/v2/scene_assets/aircraft_cruise.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: ordered sequence scene."
+    },
+    {
+      "assetKey": "aircraft_landing",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        24
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "step cruise"
+      ],
+      "sourcePng": "art_source/scene_assets/aircraft_landing.png",
+      "runtimeFile": "public/assets/v2/scene_assets/aircraft_landing.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: ordered sequence scene."
+    },
+    {
+      "assetKey": "aircraft_takeoff",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        24
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "step taxi"
+      ],
+      "sourcePng": "art_source/scene_assets/aircraft_takeoff.png",
+      "runtimeFile": "public/assets/v2/scene_assets/aircraft_takeoff.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: ordered sequence scene."
+    },
+    {
+      "assetKey": "aircraft_taxi",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        24
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "initial"
+      ],
+      "sourcePng": "art_source/scene_assets/aircraft_taxi.png",
+      "runtimeFile": "public/assets/v2/scene_assets/aircraft_taxi.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: ordered sequence scene."
+    },
+    {
+      "assetKey": "badge_duck_ethics",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "item (AchievementScreen reward/BuildPreview fallbackRole=item)",
+      "interactive": false,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent"
+      ],
+      "sourcePng": "art_source/items_rewards/badge_duck_ethics.png",
+      "runtimeFile": "public/assets/v2/items_rewards/badge_duck_ethics.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "runtime_code_only",
+      "notes": "CODE_ONLY: runtime requests this key, but the manifest has no matching entry; the code renders an AssetPlaceholder fallback. Runtime use: level achievement reward; persistent reward in accumulated-build views."
+    },
+    {
+      "assetKey": "badge_factchecker",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "persistent_reward / achievement_reward",
+      "interactive": false,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent"
+      ],
+      "sourcePng": "art_source/items_rewards/badge_factchecker.png",
+      "runtimeFile": "public/assets/v2/items_rewards/badge_factchecker.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Fact-checker badge unlocked after Level 2. Runtime use: level achievement reward; persistent reward in accumulated-build views."
+    },
+    {
+      "assetKey": "badge_vibecoder",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "item (AchievementScreen reward/BuildPreview fallbackRole=item)",
+      "interactive": false,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent"
+      ],
+      "sourcePng": "art_source/items_rewards/badge_vibecoder.png",
+      "runtimeFile": "public/assets/v2/items_rewards/badge_vibecoder.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "runtime_code_only",
+      "notes": "CODE_ONLY: runtime requests this key, but the manifest has no matching entry; the code renders an AssetPlaceholder fallback. Runtime use: level achievement reward; persistent reward in accumulated-build views."
+    },
+    {
+      "assetKey": "bg_airport_to_sky",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        24
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_airport_to_sky.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_airport_to_sky.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_board_game_table",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        11
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_board_game_table.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_board_game_table.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_browser_wiki",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        14
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_browser_wiki.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_browser_wiki.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_camp_pack",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        9
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_camp_pack.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_camp_pack.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_checkpoint",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        13
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_checkpoint.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_checkpoint.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_chess_table",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        4
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_chess_table.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_chess_table.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_coding_desk",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        16
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_coding_desk.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_coding_desk.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_coop_room",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        19
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_coop_room.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_coop_room.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_debug_ui",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        17
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_debug_ui.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_debug_ui.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_element_lab",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        26
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_element_lab.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_element_lab.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_fact_max",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        29
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_fact_max.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_fact_max.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_fact_overload",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        15
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_fact_overload.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_fact_overload.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_final_build",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        30
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_final_build.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_final_build.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_forest_route",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        5
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_forest_route.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_forest_route.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_home_base",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        22,
+        23
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_home_base.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_home_base.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_home_brew",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        12
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_home_brew.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_home_brew.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_home_warm",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        21
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_home_warm.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_home_warm.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_kitchen_warm",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        10
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_kitchen_warm.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_kitchen_warm.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_legendary_item",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        20
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_legendary_item.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_legendary_item.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_magic_portals",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        27
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_magic_portals.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_magic_portals.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_mountain_route",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        25
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_mountain_route.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_mountain_route.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_night_camp",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        8
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_night_camp.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_night_camp.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_night_forest",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        6
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_night_forest.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_night_forest.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_park_pond",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        7
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_park_pond.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_park_pond.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_quiz_duo",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        18
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_quiz_duo.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_quiz_duo.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_start_initialization",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        1
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_start_initialization.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_start_initialization.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_warm_room",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        2,
+        3
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_warm_room.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_warm_room.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bg_world_builder_blank",
+      "renderMode": "image",
+      "category": "backgrounds",
+      "levels": [
+        28
+      ],
+      "role": "level_background",
+      "interactive": false,
+      "states": [
+        "background"
+      ],
+      "sourcePng": "art_source/backgrounds/bg_world_builder_blank.png",
+      "runtimeFile": "public/assets/v2/backgrounds/bg_world_builder_blank.webp",
+      "sourcePixelSize": "1440 x 900 px",
+      "aspectRatio": "16:10",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Mobile-first background; must leave readable interaction zone. Runtime use: level background."
+    },
+    {
+      "assetKey": "bread_projectile",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        7
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "thrown bread projectile"
+      ],
+      "sourcePng": "art_source/scene_assets/bread_projectile.png",
+      "runtimeFile": "public/assets/v2/scene_assets/bread_projectile.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Level 7 projectile sprite, requested from the fourth sceneAssetKeys entry."
+    },
+    {
+      "assetKey": "build_complete_effect",
+      "renderMode": "image",
+      "category": "effects",
+      "levels": [
+        30
+      ],
+      "role": "scene_state",
+      "interactive": false,
+      "states": [
+        "complete"
+      ],
+      "sourcePng": "art_source/effects/build_complete_effect.png",
+      "runtimeFile": "public/assets/v2/effects/build_complete_effect.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: final-build completion effect."
+    },
+    {
+      "assetKey": "build_slot_adventure",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        30
+      ],
+      "role": "scene_state",
+      "interactive": false,
+      "states": [
+        "unbuilt/assembled"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: final character assembly part."
+    },
+    {
+      "assetKey": "build_slot_creativity",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        30
+      ],
+      "role": "scene_state",
+      "interactive": false,
+      "states": [
+        "unbuilt/assembled"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: final character assembly part."
+    },
+    {
+      "assetKey": "build_slot_home_coop",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        30
+      ],
+      "role": "scene_state",
+      "interactive": false,
+      "states": [
+        "unbuilt/assembled"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: final character assembly part."
+    },
+    {
+      "assetKey": "build_slot_knowledge",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        30
+      ],
+      "role": "scene_state",
+      "interactive": false,
+      "states": [
+        "unbuilt/assembled"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: final character assembly part."
+    },
+    {
+      "assetKey": "build_slot_navigation",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        30
+      ],
+      "role": "scene_state",
+      "interactive": false,
+      "states": [
+        "unbuilt/assembled"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: final character assembly part."
+    },
+    {
+      "assetKey": "build_slot_worldbuilding",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        30
+      ],
+      "role": "scene_state",
+      "interactive": false,
+      "states": [
+        "unbuilt/assembled"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: final character assembly part."
+    },
+    {
+      "assetKey": "campfire_embers",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        8
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "embers"
+      ],
+      "sourcePng": "art_source/scene_assets/campfire_embers.png",
+      "runtimeFile": "public/assets/v2/scene_assets/campfire_embers.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive progressive tap-scene states."
+    },
+    {
+      "assetKey": "campfire_full",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        8
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "full_campfire"
+      ],
+      "sourcePng": "art_source/scene_assets/campfire_full.png",
+      "runtimeFile": "public/assets/v2/scene_assets/campfire_full.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive progressive tap-scene states."
+    },
+    {
+      "assetKey": "campfire_medium",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        8
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "medium_fire"
+      ],
+      "sourcePng": "art_source/scene_assets/campfire_medium.png",
+      "runtimeFile": "public/assets/v2/scene_assets/campfire_medium.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive progressive tap-scene states."
+    },
+    {
+      "assetKey": "campfire_small",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        8
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "small_fire"
+      ],
+      "sourcePng": "art_source/scene_assets/campfire_small.png",
+      "runtimeFile": "public/assets/v2/scene_assets/campfire_small.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive progressive tap-scene states."
+    },
+    {
+      "assetKey": "campfire_strong",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        8
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "strong_fire"
+      ],
+      "sourcePng": "art_source/scene_assets/campfire_strong.png",
+      "runtimeFile": "public/assets/v2/scene_assets/campfire_strong.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive progressive tap-scene states."
+    },
+    {
+      "assetKey": "card_fact_birth_year",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        2
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "card 1 closed/open"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive revealed fact cards."
+    },
+    {
+      "assetKey": "card_fact_secret_skill",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        2
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "card 3 closed/open"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive revealed fact cards."
+    },
+    {
+      "assetKey": "card_fact_snack",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        2
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "card 2 closed/open"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive revealed fact cards."
+    },
+    {
+      "assetKey": "certificate_boeing_737_simulator",
+      "renderMode": "document",
+      "category": "document",
+      "levels": [
+        30
+      ],
+      "role": "postgame_certificate / gift_reveal",
+      "interactive": true,
+      "states": [
+        "PDF link"
+      ],
+      "sourcePng": "public/assets/flight-simulator-certificate.pdf",
+      "runtimeFile": "public/assets/flight-simulator-certificate.pdf",
+      "sourcePixelSize": null,
+      "aspectRatio": "N/A — linked PDF",
+      "transparentBackground": false,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Use/migrate the existing legacy Boeing 737 simulator certificate content. Do not invent personal certificate details. Runtime use: retained certificate PDF document binding. This key binds to the retained PDF hyperlink; it is not rendered as an in-app illustration or placeholder."
+    },
+    {
+      "assetKey": "checkpoint_marker",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "item (AchievementScreen reward/BuildPreview fallbackRole=item)",
+      "interactive": false,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent"
+      ],
+      "sourcePng": "art_source/items_rewards/checkpoint_marker.png",
+      "runtimeFile": "public/assets/v2/items_rewards/checkpoint_marker.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "runtime_code_only",
+      "notes": "CODE_ONLY: runtime requests this key, but the manifest has no matching entry; the code renders an AssetPlaceholder fallback. Runtime use: level achievement reward; persistent reward in accumulated-build views."
+    },
+    {
+      "assetKey": "chess_board_small",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        4
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "passive chess board scene"
+      ],
+      "sourcePng": "art_source/scene_assets/chess_board_small.png",
+      "runtimeFile": "public/assets/v2/scene_assets/chess_board_small.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Level 4 passive board artwork behind the existing chess-grid display."
+    },
+    {
+      "assetKey": "chess_knight",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        4
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "knight choice button"
+      ],
+      "sourcePng": "art_source/scene_assets/chess_knight.png",
+      "runtimeFile": "public/assets/v2/scene_assets/chess_knight.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Level 4 knight-choice artwork; the existing label, result copy and completion action are unchanged."
+    },
+    {
+      "assetKey": "chess_pawn",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        4
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "pawn choice button"
+      ],
+      "sourcePng": "art_source/scene_assets/chess_pawn.png",
+      "runtimeFile": "public/assets/v2/scene_assets/chess_pawn.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Level 4 pawn-choice artwork; the existing label, result copy and completion action are unchanged."
+    },
+    {
+      "assetKey": "compass_upgraded",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        25
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "upgraded navigation"
+      ],
+      "sourcePng": "art_source/scene_assets/compass_upgraded.png",
+      "runtimeFile": "public/assets/v2/scene_assets/compass_upgraded.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: route-puzzle completion asset."
+    },
+    {
+      "assetKey": "coop_energy_left",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        19
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "energy side 1"
+      ],
+      "sourcePng": "art_source/scene_assets/coop_energy_left.png",
+      "runtimeFile": "public/assets/v2/scene_assets/coop_energy_left.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: co-op energy and completion effect."
+    },
+    {
+      "assetKey": "coop_energy_right",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        19
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "energy side 2"
+      ],
+      "sourcePng": "art_source/scene_assets/coop_energy_right.png",
+      "runtimeFile": "public/assets/v2/scene_assets/coop_energy_right.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: co-op energy and completion effect."
+    },
+    {
+      "assetKey": "counterfact_card",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        15
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "counterfact"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: fact-card escalation visuals."
+    },
+    {
+      "assetKey": "debug_panel_bugged",
+      "renderMode": "image",
+      "category": "scene_ui_art",
+      "levels": [
+        17
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "candidate 4 — actual bug"
+      ],
+      "sourcePng": "art_source/scene_ui_art/debug_panel_bugged.png",
+      "runtimeFile": "public/assets/v2/scene_ui_art/debug_panel_bugged.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Single incorrect Level 17 candidate; the six-button mechanic remains unchanged."
+    },
+    {
+      "assetKey": "debug_panel_clean",
+      "renderMode": "image",
+      "category": "scene_ui_art",
+      "levels": [
+        17
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "candidates 1–3 and 5–6"
+      ],
+      "sourcePng": "art_source/scene_ui_art/debug_panel_clean.png",
+      "runtimeFile": "public/assets/v2/scene_ui_art/debug_panel_clean.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Shared clean panel reused for five of the six Level 17 candidates."
+    },
+    {
+      "assetKey": "duck_flying_left",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        7
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "left duck target"
+      ],
+      "sourcePng": "art_source/scene_assets/duck_flying_left.png",
+      "runtimeFile": "public/assets/v2/scene_assets/duck_flying_left.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Level 7 first target; the left-flying pose is rendered for the first duck."
+    },
+    {
+      "assetKey": "duck_flying_right",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        7
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "right duck target"
+      ],
+      "sourcePng": "art_source/scene_assets/duck_flying_right.png",
+      "runtimeFile": "public/assets/v2/scene_assets/duck_flying_right.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Level 7 second target; the right-flying pose is rendered for the second duck."
+    },
+    {
+      "assetKey": "duck_idle",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        7
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "center duck target"
+      ],
+      "sourcePng": "art_source/scene_assets/duck_idle.png",
+      "runtimeFile": "public/assets/v2/scene_assets/duck_idle.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Level 7 third target. The projectile now correctly requests bread_projectile."
+    },
+    {
+      "assetKey": "effect_home",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "item (AchievementScreen reward/BuildPreview fallbackRole=item) / scene_asset (Level 30 dependency; default fallbackRole)",
+      "interactive": false,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent"
+      ],
+      "sourcePng": "art_source/items_rewards/effect_home.png",
+      "runtimeFile": "public/assets/v2/items_rewards/effect_home.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "runtime_code_only",
+      "notes": "CODE_ONLY: runtime requests this key, but the manifest has no matching entry; the code renders an AssetPlaceholder fallback. Runtime use: level achievement reward; persistent reward in accumulated-build views. Also requested in the Level 30 final-assembly dependency list via rewardAssetForUnlock."
+    },
+    {
+      "assetKey": "effect_knowledge_aura",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "item (AchievementScreen reward/BuildPreview fallbackRole=item)",
+      "interactive": false,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent"
+      ],
+      "sourcePng": "art_source/items_rewards/effect_knowledge_aura.png",
+      "runtimeFile": "public/assets/v2/items_rewards/effect_knowledge_aura.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "runtime_code_only",
+      "notes": "CODE_ONLY: runtime requests this key, but the manifest has no matching entry; the code renders an AssetPlaceholder fallback. Runtime use: level achievement reward; persistent reward in accumulated-build views."
+    },
+    {
+      "assetKey": "effect_night_vision",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "item (AchievementScreen reward/BuildPreview fallbackRole=item) / scene_asset (Level 30 dependency; default fallbackRole)",
+      "interactive": false,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent"
+      ],
+      "sourcePng": "art_source/items_rewards/effect_night_vision.png",
+      "runtimeFile": "public/assets/v2/items_rewards/effect_night_vision.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "runtime_code_only",
+      "notes": "CODE_ONLY: runtime requests this key, but the manifest has no matching entry; the code renders an AssetPlaceholder fallback. Runtime use: level achievement reward; persistent reward in accumulated-build views. Also requested in the Level 30 final-assembly dependency list via rewardAssetForUnlock."
+    },
+    {
+      "assetKey": "effect_portal",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "item (AchievementScreen reward/BuildPreview fallbackRole=item) / scene_asset (Level 30 dependency; default fallbackRole)",
+      "interactive": false,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent"
+      ],
+      "sourcePng": "art_source/items_rewards/effect_portal.png",
+      "runtimeFile": "public/assets/v2/items_rewards/effect_portal.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "runtime_code_only",
+      "notes": "CODE_ONLY: runtime requests this key, but the manifest has no matching entry; the code renders an AssetPlaceholder fallback. Runtime use: level achievement reward; persistent reward in accumulated-build views. Also requested in the Level 30 final-assembly dependency list via rewardAssetForUnlock."
+    },
+    {
+      "assetKey": "effect_warmth",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "item (AchievementScreen reward/BuildPreview fallbackRole=item) / scene_asset (Level 30 dependency; default fallbackRole)",
+      "interactive": false,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent"
+      ],
+      "sourcePng": "art_source/items_rewards/effect_warmth.png",
+      "runtimeFile": "public/assets/v2/items_rewards/effect_warmth.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "runtime_code_only",
+      "notes": "CODE_ONLY: runtime requests this key, but the manifest has no matching entry; the code renders an AssetPlaceholder fallback. Runtime use: level achievement reward; persistent reward in accumulated-build views. Also requested in the Level 30 final-assembly dependency list via rewardAssetForUnlock."
+    },
+    {
+      "assetKey": "element_fire",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        26
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "unselected/selected"
+      ],
+      "sourcePng": "art_source/scene_assets/element_fire.png",
+      "runtimeFile": "public/assets/v2/scene_assets/element_fire.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive element choice."
+    },
+    {
+      "assetKey": "element_lightning",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        26
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "unselected/selected"
+      ],
+      "sourcePng": "art_source/scene_assets/element_lightning.png",
+      "runtimeFile": "public/assets/v2/scene_assets/element_lightning.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive element choice."
+    },
+    {
+      "assetKey": "element_mix_effect",
+      "renderMode": "image",
+      "category": "effects",
+      "levels": [
+        26
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "combined"
+      ],
+      "sourcePng": "art_source/effects/element_mix_effect.png",
+      "runtimeFile": "public/assets/v2/effects/element_mix_effect.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: combination effect."
+    },
+    {
+      "assetKey": "element_mix_slot_left",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        26
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "empty/filled"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: element-combination slot."
+    },
+    {
+      "assetKey": "element_mix_slot_right",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        26
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "empty/filled"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: element-combination slot."
+    },
+    {
+      "assetKey": "element_water",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        26
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "unselected/selected"
+      ],
+      "sourcePng": "art_source/scene_assets/element_water.png",
+      "runtimeFile": "public/assets/v2/scene_assets/element_water.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive element choice."
+    },
+    {
+      "assetKey": "fact_card_stack",
+      "renderMode": "image",
+      "category": "scene_ui_art",
+      "levels": [
+        15
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "stack"
+      ],
+      "sourcePng": "art_source/scene_ui_art/fact_card_stack.png",
+      "runtimeFile": "public/assets/v2/scene_ui_art/fact_card_stack.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: fact-card escalation visuals."
+    },
+    {
+      "assetKey": "fact_max_card_drop",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        29
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "card 3 closed/open"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive revealed fact cards."
+    },
+    {
+      "assetKey": "fact_max_card_final",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        29
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "card 4 closed/open"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive revealed fact cards."
+    },
+    {
+      "assetKey": "fact_max_card_origin",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        29
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "card 1 closed/open"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive revealed fact cards."
+    },
+    {
+      "assetKey": "fact_max_card_twist",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        29
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "card 2 closed/open"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive revealed fact cards."
+    },
+    {
+      "assetKey": "fact_stack_collapse",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        29
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "collapsed"
+      ],
+      "sourcePng": "art_source/scene_assets/fact_stack_collapse.png",
+      "runtimeFile": "public/assets/v2/scene_assets/fact_stack_collapse.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: fact stack collapse."
+    },
+    {
+      "assetKey": "hero_aviation",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        24
+      ],
+      "role": "character_state",
+      "interactive": false,
+      "states": [
+        "hero state"
+      ],
+      "sourcePng": "art_source/characters/hero_aviation.png",
+      "runtimeFile": "public/assets/v2/characters/hero_aviation.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Aviation themed state. Runtime use: hero progression state."
+    },
+    {
+      "assetKey": "hero_backpack",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        9
+      ],
+      "role": "character_state",
+      "interactive": false,
+      "states": [
+        "hero state"
+      ],
+      "sourcePng": "art_source/characters/hero_backpack.png",
+      "runtimeFile": "public/assets/v2/characters/hero_backpack.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Hero with backpack. Runtime use: hero progression state."
+    },
+    {
+      "assetKey": "hero_base",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "hero_state",
+      "interactive": false,
+      "states": [
+        "base",
+        "hero state",
+        "unlocked state",
+        "unlocked/persistent"
+      ],
+      "sourcePng": "art_source/characters/hero_base.png",
+      "runtimeFile": "public/assets/v2/characters/hero_base.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Base visual anchor for hero progression. Runtime use: Level 30 character before completion; hero progression state; level achievement reward; persistent reward in accumulated-build views."
+    },
+    {
+      "assetKey": "hero_build_complete",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        30
+      ],
+      "role": "character_state",
+      "interactive": false,
+      "states": [
+        "final build",
+        "hero state"
+      ],
+      "sourcePng": "art_source/characters/hero_build_complete.png",
+      "runtimeFile": "public/assets/v2/characters/hero_build_complete.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Final cumulative build. Runtime use: completed Level 30 hero; hero progression state. Also resolves the build_30_complete unlock visual alias."
+    },
+    {
+      "assetKey": "hero_checkpoint",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        13
+      ],
+      "role": "character_state",
+      "interactive": false,
+      "states": [
+        "hero state"
+      ],
+      "sourcePng": "art_source/characters/hero_checkpoint.png",
+      "runtimeFile": "public/assets/v2/characters/hero_checkpoint.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Checkpoint showcase state. Runtime use: hero progression state."
+    },
+    {
+      "assetKey": "hero_compass",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "role": "character_state",
+      "interactive": false,
+      "states": [
+        "hero state"
+      ],
+      "sourcePng": "art_source/characters/hero_compass.png",
+      "runtimeFile": "public/assets/v2/characters/hero_compass.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Hero with compass equipped. Runtime use: hero progression state."
+    },
+    {
+      "assetKey": "hero_elements",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        26
+      ],
+      "role": "character_state",
+      "interactive": false,
+      "states": [
+        "hero state"
+      ],
+      "sourcePng": "art_source/characters/hero_elements.png",
+      "runtimeFile": "public/assets/v2/characters/hero_elements.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Element mixing state. Runtime use: hero progression state."
+    },
+    {
+      "assetKey": "hero_knowledge",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "role": "character_state",
+      "interactive": false,
+      "states": [
+        "hero state"
+      ],
+      "sourcePng": "art_source/characters/hero_knowledge.png",
+      "runtimeFile": "public/assets/v2/characters/hero_knowledge.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Knowledge progression state. Runtime use: hero progression state."
+    },
+    {
+      "assetKey": "hero_mirror",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        27,
+        28,
+        29
+      ],
+      "role": "character_state",
+      "interactive": false,
+      "states": [
+        "hero state"
+      ],
+      "sourcePng": "art_source/characters/hero_mirror.png",
+      "runtimeFile": "public/assets/v2/characters/hero_mirror.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Portal/worldbuilding state. Runtime use: hero progression state."
+    },
+    {
+      "assetKey": "hero_navigation2",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        25
+      ],
+      "role": "character_state",
+      "interactive": false,
+      "states": [
+        "hero state"
+      ],
+      "sourcePng": "art_source/characters/hero_navigation2.png",
+      "runtimeFile": "public/assets/v2/characters/hero_navigation2.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Advanced navigation state. Runtime use: hero progression state."
+    },
+    {
+      "assetKey": "hero_ring",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        20,
+        21,
+        22,
+        23
+      ],
+      "role": "character_state",
+      "interactive": false,
+      "states": [
+        "hero state"
+      ],
+      "sourcePng": "art_source/characters/hero_ring.png",
+      "runtimeFile": "public/assets/v2/characters/hero_ring.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Hero with ring equipped. Runtime use: hero progression state."
+    },
+    {
+      "assetKey": "hero_tulip",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        10,
+        11,
+        12
+      ],
+      "role": "character_state",
+      "interactive": false,
+      "states": [
+        "hero state"
+      ],
+      "sourcePng": "art_source/characters/hero_tulip.png",
+      "runtimeFile": "public/assets/v2/characters/hero_tulip.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Hero state after origami reward. Runtime use: hero progression state."
+    },
+    {
+      "assetKey": "home_blanket",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        22
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "hotspot blanket"
+      ],
+      "sourcePng": "art_source/scene_assets/home_blanket.png",
+      "runtimeFile": "public/assets/v2/scene_assets/home_blanket.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive spatial hotspots."
+    },
+    {
+      "assetKey": "home_charger",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        22
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "hotspot charger"
+      ],
+      "sourcePng": "art_source/scene_assets/home_charger.png",
+      "runtimeFile": "public/assets/v2/scene_assets/home_charger.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive spatial hotspots."
+    },
+    {
+      "assetKey": "home_snack_box",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        22
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "hotspot snack_box"
+      ],
+      "sourcePng": "art_source/scene_assets/home_snack_box.png",
+      "runtimeFile": "public/assets/v2/scene_assets/home_snack_box.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive spatial hotspots."
+    },
+    {
+      "assetKey": "home_sofa",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        22
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "hotspot sofa"
+      ],
+      "sourcePng": "art_source/scene_assets/home_sofa.png",
+      "runtimeFile": "public/assets/v2/scene_assets/home_sofa.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive spatial hotspots."
+    },
+    {
+      "assetKey": "icon_level_01_initialization",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        1
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_01_initialization.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_01_initialization.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_02_facts",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        2
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_02_facts.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_02_facts.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_03_origami",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        3
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_03_origami.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_03_origami.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_04_chess",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        4
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_04_chess.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_04_chess.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_05_compass",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        5
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_05_compass.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_05_compass.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_06_lantern",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        6
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_06_lantern.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_06_lantern.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_07_bread",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        7
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_07_bread.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_07_bread.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_08_campfire",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        8
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_08_campfire.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_08_campfire.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_09_backpack",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        9
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_09_backpack.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_09_backpack.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_10_waffle",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        10
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_10_waffle.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_10_waffle.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_11_dice",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        11
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_11_dice.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_11_dice.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_12_brewing",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        12
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_12_brewing.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_12_brewing.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_13_save",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        13
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_13_save.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_13_save.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_14_wikipedia",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        14
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_14_wikipedia.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_14_wikipedia.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_15_fact",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        15
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_15_fact.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_15_fact.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_16_vibecoding",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        16
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_16_vibecoding.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_16_vibecoding.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_17_bug",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        17
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_17_bug.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_17_bug.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_18_quiz",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        18
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_18_quiz.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_18_quiz.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_19_coop",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        19
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_19_coop.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_19_coop.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_20_ring",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        20
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_20_ring.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_20_ring.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_21_lapka",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        21
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_21_lapka.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_21_lapka.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_22_home",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        22
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_22_home.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_22_home.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_23_cat_support",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        23
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_23_cat_support.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_23_cat_support.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_24_aviation",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        24
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_24_aviation.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_24_aviation.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_25_navigation2",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        25
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_25_navigation2.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_25_navigation2.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_26_elements",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        26
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_26_elements.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_26_elements.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_27_portal",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        27
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_27_portal.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_27_portal.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_28_world",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        28
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_28_world.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_28_world.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_29_fact_max",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        29
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_29_fact_max.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_29_fact_max.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "icon_level_30_build",
+      "renderMode": "image",
+      "category": "level_icons",
+      "levels": [
+        30
+      ],
+      "role": "level_header_icon",
+      "interactive": false,
+      "states": [
+        "header"
+      ],
+      "sourcePng": "art_source/level_icons/icon_level_30_build.png",
+      "runtimeFile": "public/assets/v2/level_icons/icon_level_30_build.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Must align to shared header grid; not float independently. Runtime use: level header icon."
+    },
+    {
+      "assetKey": "item_absolute_truth",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        29,
+        30
+      ],
+      "role": "item (AchievementScreen reward/BuildPreview fallbackRole=item)",
+      "interactive": false,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent"
+      ],
+      "sourcePng": "art_source/items_rewards/item_absolute_truth.png",
+      "runtimeFile": "public/assets/v2/items_rewards/item_absolute_truth.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "runtime_code_only",
+      "notes": "CODE_ONLY: runtime requests this key, but the manifest has no matching entry; the code renders an AssetPlaceholder fallback. Runtime use: level achievement reward; persistent reward in accumulated-build views."
+    },
+    {
+      "assetKey": "item_backpack",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        9
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "hotspot backpack"
+      ],
+      "sourcePng": "art_source/items_rewards/item_backpack.png",
+      "runtimeFile": "public/assets/v2/items_rewards/item_backpack.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive spatial hotspots."
+    },
+    {
+      "assetKey": "item_boarding_pass",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "persistent_reward",
+      "interactive": false,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent"
+      ],
+      "sourcePng": "art_source/items_rewards/item_boarding_pass.png",
+      "runtimeFile": "public/assets/v2/items_rewards/item_boarding_pass.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Adventure progression token. Runtime use: level achievement reward; persistent reward in accumulated-build views. Level 30 final-build dependencies request this canonical asset through the boarding_pass alias."
+    },
+    {
+      "assetKey": "item_book",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "persistent_reward",
+      "interactive": false,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent"
+      ],
+      "sourcePng": "art_source/items_rewards/item_book.png",
+      "runtimeFile": "public/assets/v2/items_rewards/item_book.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Knowledge progression token. Runtime use: level achievement reward; persistent reward in accumulated-build views."
+    },
+    {
+      "assetKey": "item_cat_hair",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "item (AchievementScreen reward/BuildPreview fallbackRole=item)",
+      "interactive": false,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent"
+      ],
+      "sourcePng": "art_source/items_rewards/item_cat_hair.png",
+      "runtimeFile": "public/assets/v2/items_rewards/item_cat_hair.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "runtime_code_only",
+      "notes": "CODE_ONLY: runtime requests this key, but the manifest has no matching entry; the code renders an AssetPlaceholder fallback. Runtime use: level achievement reward; persistent reward in accumulated-build views."
+    },
+    {
+      "assetKey": "item_chess_piece",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "persistent_reward / achievement_reward",
+      "interactive": false,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent"
+      ],
+      "sourcePng": "art_source/items_rewards/item_chess_piece.png",
+      "runtimeFile": "public/assets/v2/items_rewards/item_chess_piece.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Chess-piece reward unlocked after Level 4. Runtime use: level achievement reward; persistent reward in accumulated-build views."
+    },
+    {
+      "assetKey": "item_clean_log",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "item (AchievementScreen reward/BuildPreview fallbackRole=item) / scene_asset (Level 30 dependency; default fallbackRole)",
+      "interactive": false,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent"
+      ],
+      "sourcePng": "art_source/items_rewards/item_clean_log.png",
+      "runtimeFile": "public/assets/v2/items_rewards/item_clean_log.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "runtime_code_only",
+      "notes": "CODE_ONLY: runtime requests this key, but the manifest has no matching entry; the code renders an AssetPlaceholder fallback. Runtime use: level achievement reward; persistent reward in accumulated-build views. Also requested in the Level 30 final-assembly dependency list via rewardAssetForUnlock."
+    },
+    {
+      "assetKey": "item_compass",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "persistent_reward",
+      "interactive": true,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent",
+        "Level 13 selectable inventory item"
+      ],
+      "sourcePng": "art_source/items_rewards/item_compass.png",
+      "runtimeFile": "public/assets/v2/items_rewards/item_compass.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Persistent hero equipment from Level 5. Runtime use: level achievement reward; persistent reward in accumulated-build views. Also displayed from the corresponding Level 13 inventory item ID."
+    },
+    {
+      "assetKey": "item_compass_upgraded",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "persistent_reward",
+      "interactive": false,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent"
+      ],
+      "sourcePng": "art_source/items_rewards/item_compass_upgraded.png",
+      "runtimeFile": "public/assets/v2/items_rewards/item_compass_upgraded.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Advanced navigation token. Runtime use: level achievement reward; persistent reward in accumulated-build views."
+    },
+    {
+      "assetKey": "item_house_rule_card",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "item (AchievementScreen reward/BuildPreview fallbackRole=item)",
+      "interactive": false,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent"
+      ],
+      "sourcePng": "art_source/items_rewards/item_house_rule_card.png",
+      "runtimeFile": "public/assets/v2/items_rewards/item_house_rule_card.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "runtime_code_only",
+      "notes": "CODE_ONLY: runtime requests this key, but the manifest has no matching entry; the code renders an AssetPlaceholder fallback. Runtime use: level achievement reward; persistent reward in accumulated-build views."
+    },
+    {
+      "assetKey": "item_maker_part",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "persistent_reward",
+      "interactive": true,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent",
+        "Level 13 selectable inventory item"
+      ],
+      "sourcePng": "art_source/items_rewards/item_maker_part.png",
+      "runtimeFile": "public/assets/v2/items_rewards/item_maker_part.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Reward and checkpoint item. Runtime use: level achievement reward; persistent reward in accumulated-build views. Also displayed from the corresponding Level 13 inventory item ID."
+    },
+    {
+      "assetKey": "item_map",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        9
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "hotspot map"
+      ],
+      "sourcePng": "art_source/items_rewards/item_map.png",
+      "runtimeFile": "public/assets/v2/items_rewards/item_map.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive spatial hotspots."
+    },
+    {
+      "assetKey": "item_new_element",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "item (AchievementScreen reward/BuildPreview fallbackRole=item) / scene_asset (Level 30 dependency; default fallbackRole)",
+      "interactive": false,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent"
+      ],
+      "sourcePng": "art_source/items_rewards/item_new_element.png",
+      "runtimeFile": "public/assets/v2/items_rewards/item_new_element.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "runtime_code_only",
+      "notes": "CODE_ONLY: runtime requests this key, but the manifest has no matching entry; the code renders an AssetPlaceholder fallback. Runtime use: level achievement reward; persistent reward in accumulated-build views. Also requested in the Level 30 final-assembly dependency list via rewardAssetForUnlock."
+    },
+    {
+      "assetKey": "item_paper_tulip",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "persistent_reward",
+      "interactive": true,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent",
+        "Level 13 selectable inventory item"
+      ],
+      "sourcePng": "art_source/items_rewards/item_paper_tulip.png",
+      "runtimeFile": "public/assets/v2/items_rewards/item_paper_tulip.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Reward and checkpoint item. Runtime use: level achievement reward; persistent reward in accumulated-build views. Also displayed from the corresponding Level 13 inventory item ID."
+    },
+    {
+      "assetKey": "item_ring",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "persistent_reward",
+      "interactive": false,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent"
+      ],
+      "sourcePng": "art_source/items_rewards/item_ring.png",
+      "runtimeFile": "public/assets/v2/items_rewards/item_ring.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Persistent ring from Level 20. Runtime use: level achievement reward; persistent reward in accumulated-build views."
+    },
+    {
+      "assetKey": "item_secret_recipe",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "item (AchievementScreen reward/BuildPreview fallbackRole=item)",
+      "interactive": false,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent"
+      ],
+      "sourcePng": "art_source/items_rewards/item_secret_recipe.png",
+      "runtimeFile": "public/assets/v2/items_rewards/item_secret_recipe.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "runtime_code_only",
+      "notes": "CODE_ONLY: runtime requests this key, but the manifest has no matching entry; the code renders an AssetPlaceholder fallback. Runtime use: level achievement reward; persistent reward in accumulated-build views."
+    },
+    {
+      "assetKey": "item_shared_answer",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "item (AchievementScreen reward/BuildPreview fallbackRole=item)",
+      "interactive": false,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent"
+      ],
+      "sourcePng": "art_source/items_rewards/item_shared_answer.png",
+      "runtimeFile": "public/assets/v2/items_rewards/item_shared_answer.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "runtime_code_only",
+      "notes": "CODE_ONLY: runtime requests this key, but the manifest has no matching entry; the code renders an AssetPlaceholder fallback. Runtime use: level achievement reward; persistent reward in accumulated-build views."
+    },
+    {
+      "assetKey": "item_strange_stone",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "persistent_reward",
+      "interactive": true,
+      "states": [
+        "hotspot strange_stone",
+        "unlocked state",
+        "unlocked/persistent",
+        "Level 13 selectable inventory item"
+      ],
+      "sourcePng": "art_source/items_rewards/item_strange_stone.png",
+      "runtimeFile": "public/assets/v2/items_rewards/item_strange_stone.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Reward, checkpoint item and Level 29 callback. Runtime use: interactive spatial hotspots; level achievement reward; persistent reward in accumulated-build views. Also displayed from the corresponding Level 13 inventory item ID."
+    },
+    {
+      "assetKey": "item_water",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        9
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "hotspot water"
+      ],
+      "sourcePng": "art_source/items_rewards/item_water.png",
+      "runtimeFile": "public/assets/v2/items_rewards/item_water.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive spatial hotspots."
+    },
+    {
+      "assetKey": "item_world_key",
+      "renderMode": "image",
+      "category": "items_rewards",
+      "levels": [
+        28,
+        29,
+        30
+      ],
+      "role": "persistent_reward",
+      "interactive": false,
+      "states": [
+        "unlocked state",
+        "unlocked/persistent"
+      ],
+      "sourcePng": "art_source/items_rewards/item_world_key.png",
+      "runtimeFile": "public/assets/v2/items_rewards/item_world_key.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Worldbuilding progression token. Runtime use: level achievement reward; persistent reward in accumulated-build views. Level 30 final-build dependencies request this canonical asset through the world_key alias."
+    },
+    {
+      "assetKey": "lapka_annoyed",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        23
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "annoyed"
+      ],
+      "sourcePng": "art_source/characters/lapka_annoyed.png",
+      "runtimeFile": "public/assets/v2/characters/lapka_annoyed.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive progressive tap-scene states."
+    },
+    {
+      "assetKey": "lapka_default",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        21,
+        22,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "companion_state",
+      "interactive": false,
+      "states": [
+        "companion state"
+      ],
+      "sourcePng": "art_source/characters/lapka_default.png",
+      "runtimeFile": "public/assets/v2/characters/lapka_default.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Black cat companion with recognizable displeased expression. Runtime use: persistent Lapka display. Also resolves the Level 21 Lapka unlock visual and Level 30 dependency."
+    },
+    {
+      "assetKey": "lapka_final",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        30
+      ],
+      "role": "character_state",
+      "interactive": false,
+      "states": [
+        "companion state"
+      ],
+      "sourcePng": "art_source/characters/lapka_final.png",
+      "runtimeFile": "public/assets/v2/characters/lapka_final.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Final companion pose. Runtime use: persistent Lapka display."
+    },
+    {
+      "assetKey": "lapka_joining",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        21
+      ],
+      "role": "character_state",
+      "interactive": false,
+      "states": [
+        "joining state"
+      ],
+      "sourcePng": "art_source/characters/lapka_joining.png",
+      "runtimeFile": "public/assets/v2/characters/lapka_joining.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Lapka joining animation state. Runtime use: interactive Lapka introduction."
+    },
+    {
+      "assetKey": "lapka_neutral",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        23
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "neutral"
+      ],
+      "sourcePng": "art_source/characters/lapka_neutral.png",
+      "runtimeFile": "public/assets/v2/characters/lapka_neutral.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive progressive tap-scene states."
+    },
+    {
+      "assetKey": "lapka_paw",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        21
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "hotspot paw"
+      ],
+      "sourcePng": "art_source/characters/lapka_paw.png",
+      "runtimeFile": "public/assets/v2/characters/lapka_paw.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive spatial hotspots."
+    },
+    {
+      "assetKey": "lapka_purr",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        21
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "hotspot pet"
+      ],
+      "sourcePng": "art_source/characters/lapka_purr.png",
+      "runtimeFile": "public/assets/v2/characters/lapka_purr.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive spatial hotspots."
+    },
+    {
+      "assetKey": "lapka_reactive",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        23
+      ],
+      "role": "character_state",
+      "interactive": false,
+      "states": [
+        "companion state"
+      ],
+      "sourcePng": "art_source/characters/lapka_reactive.png",
+      "runtimeFile": "public/assets/v2/characters/lapka_reactive.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Reactive support sequence. Runtime use: persistent Lapka display."
+    },
+    {
+      "assetKey": "lapka_stare",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        21
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "hotspot stare"
+      ],
+      "sourcePng": "art_source/characters/lapka_stare.png",
+      "runtimeFile": "public/assets/v2/characters/lapka_stare.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive spatial hotspots."
+    },
+    {
+      "assetKey": "lapka_stays",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        23
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "stays_anyway"
+      ],
+      "sourcePng": "art_source/characters/lapka_stays.png",
+      "runtimeFile": "public/assets/v2/characters/lapka_stays.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive progressive tap-scene states."
+    },
+    {
+      "assetKey": "lapka_suspicious",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        23
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "suspicious"
+      ],
+      "sourcePng": "art_source/characters/lapka_suspicious.png",
+      "runtimeFile": "public/assets/v2/characters/lapka_suspicious.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive progressive tap-scene states."
+    },
+    {
+      "assetKey": "legendary_ring_glow",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        20
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "inspected ring"
+      ],
+      "sourcePng": "art_source/scene_assets/legendary_ring_glow.png",
+      "runtimeFile": "public/assets/v2/scene_assets/legendary_ring_glow.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: inspect/equip reveal state."
+    },
+    {
+      "assetKey": "legendary_ring_idle",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        20
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "idle ring"
+      ],
+      "sourcePng": "art_source/scene_assets/legendary_ring_idle.png",
+      "runtimeFile": "public/assets/v2/scene_assets/legendary_ring_idle.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: inspect/equip reveal state."
+    },
+    {
+      "assetKey": "night_eyes",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        6
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "hotspot eyes"
+      ],
+      "sourcePng": "art_source/scene_assets/night_eyes.png",
+      "runtimeFile": "public/assets/v2/scene_assets/night_eyes.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive spatial hotspots."
+    },
+    {
+      "assetKey": "night_moon",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        6
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "hotspot moon"
+      ],
+      "sourcePng": "art_source/scene_assets/night_moon.png",
+      "runtimeFile": "public/assets/v2/scene_assets/night_moon.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive spatial hotspots."
+    },
+    {
+      "assetKey": "night_mushroom",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        6
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "hotspot mushroom"
+      ],
+      "sourcePng": "art_source/scene_assets/night_mushroom.png",
+      "runtimeFile": "public/assets/v2/scene_assets/night_mushroom.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive spatial hotspots."
+    },
+    {
+      "assetKey": "night_signpost",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        6
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "hotspot signpost"
+      ],
+      "sourcePng": "art_source/scene_assets/night_signpost.png",
+      "runtimeFile": "public/assets/v2/scene_assets/night_signpost.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive spatial hotspots."
+    },
+    {
+      "assetKey": "origami_blow",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        3
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "completed"
+      ],
+      "sourcePng": "art_source/scene_assets/origami_blow.png",
+      "runtimeFile": "public/assets/v2/scene_assets/origami_blow.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: ordered sequence scene."
+    },
+    {
+      "assetKey": "origami_divide",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        3
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "step divide"
+      ],
+      "sourcePng": "art_source/scene_assets/origami_divide.png",
+      "runtimeFile": "public/assets/v2/scene_assets/origami_divide.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: ordered sequence scene."
+    },
+    {
+      "assetKey": "origami_fold",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        3
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "step fold"
+      ],
+      "sourcePng": "art_source/scene_assets/origami_fold.png",
+      "runtimeFile": "public/assets/v2/scene_assets/origami_fold.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: ordered sequence scene."
+    },
+    {
+      "assetKey": "origami_state_sheet",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        3
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "initial"
+      ],
+      "sourcePng": "art_source/scene_assets/origami_state_sheet.png",
+      "runtimeFile": "public/assets/v2/scene_assets/origami_state_sheet.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: ordered sequence scene."
+    },
+    {
+      "assetKey": "origami_tulip_finished",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        3
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "final reveal",
+        "ordered-sequence intermediate/completed reveal"
+      ],
+      "sourcePng": "art_source/scene_assets/origami_tulip_finished.png",
+      "runtimeFile": "public/assets/v2/scene_assets/origami_tulip_finished.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime displays this asset during the ordered-sequence final reveal. Level 3 switches to the final sceneAssetKeys entry after the ordered sequence completes."
+    },
+    {
+      "assetKey": "pipeline_build",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        16
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "pipeline build"
+      ],
+      "sourcePng": "art_source/scene_assets/pipeline_build.png",
+      "runtimeFile": "public/assets/v2/scene_assets/pipeline_build.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: pipeline step scene."
+    },
+    {
+      "assetKey": "pipeline_code",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        16
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "pipeline code"
+      ],
+      "sourcePng": "art_source/scene_assets/pipeline_code.png",
+      "runtimeFile": "public/assets/v2/scene_assets/pipeline_code.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: pipeline step scene."
+    },
+    {
+      "assetKey": "pipeline_idea",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        16
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "pipeline idea"
+      ],
+      "sourcePng": "art_source/scene_assets/pipeline_idea.png",
+      "runtimeFile": "public/assets/v2/scene_assets/pipeline_idea.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: pipeline step scene."
+    },
+    {
+      "assetKey": "pipeline_run",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        16
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "pipeline run"
+      ],
+      "sourcePng": "art_source/scene_assets/pipeline_run.png",
+      "runtimeFile": "public/assets/v2/scene_assets/pipeline_run.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: pipeline step scene."
+    },
+    {
+      "assetKey": "player1_answer_card",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        18
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "answer card"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: Player 1 paired-quiz card."
+    },
+    {
+      "assetKey": "player2_answer_card",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        18
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "answer card"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: Player 2 paired-quiz card."
+    },
+    {
+      "assetKey": "player2_default",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "role": "player2_state",
+      "interactive": false,
+      "states": [
+        "party state"
+      ],
+      "sourcePng": "art_source/characters/player2_default.png",
+      "runtimeFile": "public/assets/v2/characters/player2_default.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Appears after Level 19. Runtime use: persistent Player 2 display. Also resolves the Level 19 Player 2 unlock visual and Level 30 dependency."
+    },
+    {
+      "assetKey": "player2_final",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        30
+      ],
+      "role": "character_state",
+      "interactive": false,
+      "states": [
+        "party state"
+      ],
+      "sourcePng": "art_source/characters/player2_final.png",
+      "runtimeFile": "public/assets/v2/characters/player2_final.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Final co-op pose. Runtime use: persistent Player 2 display."
+    },
+    {
+      "assetKey": "player2_join_effect",
+      "renderMode": "image",
+      "category": "effects",
+      "levels": [
+        19
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "Player 2 joined"
+      ],
+      "sourcePng": "art_source/effects/player2_join_effect.png",
+      "runtimeFile": "public/assets/v2/effects/player2_join_effect.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: co-op energy and completion effect."
+    },
+    {
+      "assetKey": "portal_bright",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        27
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "portal bright"
+      ],
+      "sourcePng": "art_source/scene_assets/portal_bright.png",
+      "runtimeFile": "public/assets/v2/scene_assets/portal_bright.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive portal choices."
+    },
+    {
+      "assetKey": "portal_side",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        27
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "portal side"
+      ],
+      "sourcePng": "art_source/scene_assets/portal_side.png",
+      "runtimeFile": "public/assets/v2/scene_assets/portal_side.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive portal choices."
+    },
+    {
+      "assetKey": "route_map_scenic",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        5
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "route scenic"
+      ],
+      "sourcePng": "art_source/scene_assets/route_map_scenic.png",
+      "runtimeFile": "public/assets/v2/scene_assets/route_map_scenic.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive route choice objects."
+    },
+    {
+      "assetKey": "route_map_short",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        5
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "route shortcut"
+      ],
+      "sourcePng": "art_source/scene_assets/route_map_short.png",
+      "runtimeFile": "public/assets/v2/scene_assets/route_map_short.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive route choice objects."
+    },
+    {
+      "assetKey": "route_segment_final",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        25
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "route segment"
+      ],
+      "sourcePng": "art_source/scene_assets/route_segment_final.png",
+      "runtimeFile": "public/assets/v2/scene_assets/route_segment_final.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: route-puzzle segment."
+    },
+    {
+      "assetKey": "route_segment_obstacle",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        25
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "route segment"
+      ],
+      "sourcePng": "art_source/scene_assets/route_segment_obstacle.png",
+      "runtimeFile": "public/assets/v2/scene_assets/route_segment_obstacle.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: route-puzzle segment."
+    },
+    {
+      "assetKey": "route_segment_slope",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        25
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "route segment"
+      ],
+      "sourcePng": "art_source/scene_assets/route_segment_slope.png",
+      "runtimeFile": "public/assets/v2/scene_assets/route_segment_slope.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: route-puzzle segment."
+    },
+    {
+      "assetKey": "save_slot_compass",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        13
+      ],
+      "role": "scene_state",
+      "interactive": true,
+      "states": [
+        "empty/filled"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive inventory destination slot."
+    },
+    {
+      "assetKey": "save_slot_maker",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        13
+      ],
+      "role": "scene_state",
+      "interactive": true,
+      "states": [
+        "empty/filled"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive inventory destination slot."
+    },
+    {
+      "assetKey": "save_slot_stone",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        13
+      ],
+      "role": "scene_state",
+      "interactive": true,
+      "states": [
+        "empty/filled"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive inventory destination slot."
+    },
+    {
+      "assetKey": "save_slot_tulip",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        13
+      ],
+      "role": "scene_state",
+      "interactive": true,
+      "states": [
+        "empty/filled"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive inventory destination slot."
+    },
+    {
+      "assetKey": "touchdown_effect",
+      "renderMode": "image",
+      "category": "effects",
+      "levels": [
+        24
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "completed"
+      ],
+      "sourcePng": "art_source/effects/touchdown_effect.png",
+      "runtimeFile": "public/assets/v2/effects/touchdown_effect.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: ordered sequence scene."
+    },
+    {
+      "assetKey": "ui_character_slot",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        1
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "progressive reveal"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: revealed hero character (not a control)."
+    },
+    {
+      "assetKey": "ui_tap_target_active",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        1
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "pressed"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive tap target states."
+    },
+    {
+      "assetKey": "ui_tap_target_idle",
+      "renderMode": "css",
+      "category": "css_ui",
+      "levels": [
+        1
+      ],
+      "role": "scene_interaction",
+      "interactive": true,
+      "states": [
+        "idle"
+      ],
+      "sourcePng": null,
+      "runtimeFile": null,
+      "sourcePixelSize": null,
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: interactive tap target states."
+    },
+    {
+      "assetKey": "wiki_window",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        14
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "step geography",
+        "step history",
+        "step mythology",
+        "step physics"
+      ],
+      "sourcePng": "art_source/scene_assets/wiki_window.png",
+      "runtimeFile": "public/assets/v2/scene_assets/wiki_window.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: Wikipedia tab-stack progress (same key reused at every step)."
+    },
+    {
+      "assetKey": "world_hero_layer",
+      "renderMode": "image",
+      "category": "characters",
+      "levels": [
+        28
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "layer hero"
+      ],
+      "sourcePng": "art_source/characters/world_hero_layer.png",
+      "runtimeFile": "public/assets/v2/characters/world_hero_layer.png",
+      "sourcePixelSize": "1024 x 1280 px",
+      "aspectRatio": "4:5",
+      "transparentBackground": true,
+      "referenceRequired": true,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: progressive layered scene."
+    },
+    {
+      "assetKey": "world_jump_effect",
+      "renderMode": "image",
+      "category": "effects",
+      "levels": [
+        28
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "layer jump"
+      ],
+      "sourcePng": "art_source/effects/world_jump_effect.png",
+      "runtimeFile": "public/assets/v2/effects/world_jump_effect.png",
+      "sourcePixelSize": "512 x 512 px",
+      "aspectRatio": "1:1",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: progressive layered scene."
+    },
+    {
+      "assetKey": "world_landscape_layer",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        28
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "layer landscape"
+      ],
+      "sourcePng": "art_source/scene_assets/world_landscape_layer.png",
+      "runtimeFile": "public/assets/v2/scene_assets/world_landscape_layer.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: progressive layered scene."
+    },
+    {
+      "assetKey": "world_slime",
+      "renderMode": "image",
+      "category": "scene_assets",
+      "levels": [
+        28
+      ],
+      "role": "scene_interaction",
+      "interactive": false,
+      "states": [
+        "layer slime"
+      ],
+      "sourcePng": "art_source/scene_assets/world_slime.png",
+      "runtimeFile": "public/assets/v2/scene_assets/world_slime.png",
+      "sourcePixelSize": "768 x 576 px",
+      "aspectRatio": "4:3",
+      "transparentBackground": true,
+      "referenceRequired": false,
+      "sourceOfRequirement": "canonical_manifest",
+      "notes": "Runtime use: progressive layered scene."
+    }
+  ],
+  "doNotGenerate": {
+    "specOnlyKeys": [
+      "board_game_table",
+      "book_stack",
+      "brew_bubbles",
+      "brew_vessel",
+      "debug_bug_marker",
+      "dice_pair",
+      "final_congratulations_scene",
+      "forest_bushes",
+      "forest_tree_cluster",
+      "judgement_meter",
+      "knowledge_aura",
+      "lapka_join_effect",
+      "player2_joining",
+      "portal_entry_effect",
+      "portal_wrong_flash",
+      "postgame_bonus_unlock_effect",
+      "postgame_build_summary",
+      "postgame_mission_accepted",
+      "ring_equip_effect",
+      "route_node",
+      "rule_card",
+      "save_complete_effect",
+      "signpost_forest",
+      "stability_gauge",
+      "sync_match_effect",
+      "sync_mismatch_effect",
+      "tent",
+      "terminal_run",
+      "timing_meter",
+      "ui_achievement_panel",
+      "ui_button_icon_frame",
+      "ui_level_header_frame",
+      "ui_progress_hud",
+      "waffle_tube_raw",
+      "waffle_tube_ready",
+      "wiki_tab_stack",
+      "world_complete_scene"
+    ],
+    "reason": "These keys are present in the old requirements/spec but are not requested by the patched V2 runtime. Do not spend art-generation effort on them unless the runtime changes."
+  },
+  "duplicateRoleOptimization": [
+    {
+      "role": "tap-target frame",
+      "assetKeys": [
+        "ui_tap_target_idle",
+        "ui_tap_target_active"
+      ],
+      "potentialReuse": "One target sheet or reusable frame with idle/pressed states; retain the separate state identifiers."
+    },
+    {
+      "role": "fact-card frame",
+      "assetKeys": [
+        "card_fact_birth_year",
+        "card_fact_snack",
+        "card_fact_secret_skill"
+      ],
+      "potentialReuse": "One reusable frame with per-card copy/content overlays."
+    },
+    {
+      "role": "debug-panel base",
+      "assetKeys": [
+        "debug_panel_clean",
+        "debug_panel_bugged"
+      ],
+      "potentialReuse": "One panel base with clean/bugged variants; the bugged variant appears only on the single incorrect Level 17 candidate."
+    },
+    {
+      "role": "checkpoint-slot frame",
+      "assetKeys": [
+        "save_slot_tulip",
+        "save_slot_compass",
+        "save_slot_stone",
+        "save_slot_maker"
+      ],
+      "potentialReuse": "One frame with item-specific content and empty/filled states."
+    },
+    {
+      "role": "paired-quiz answer-card frame",
+      "assetKeys": [
+        "player1_answer_card",
+        "player2_answer_card"
+      ],
+      "potentialReuse": "One card design with a P1/P2 label or tint."
+    },
+    {
+      "role": "co-op energy indicator",
+      "assetKeys": [
+        "coop_energy_left",
+        "coop_energy_right"
+      ],
+      "potentialReuse": "One indicator sprite with mirroring or participant tint."
+    },
+    {
+      "role": "element-mix slot frame",
+      "assetKeys": [
+        "element_mix_slot_left",
+        "element_mix_slot_right"
+      ],
+      "potentialReuse": "One reusable slot frame with left/right placement."
+    },
+    {
+      "role": "Level 29 fact-card frame",
+      "assetKeys": [
+        "fact_max_card_origin",
+        "fact_max_card_twist",
+        "fact_max_card_drop",
+        "fact_max_card_final"
+      ],
+      "potentialReuse": "One card frame with the distinct canonical fact copy layered over it."
+    },
+    {
+      "role": "Level 30 assembly-slot frame",
+      "assetKeys": [
+        "build_slot_navigation",
+        "build_slot_creativity",
+        "build_slot_knowledge",
+        "build_slot_adventure",
+        "build_slot_home_coop",
+        "build_slot_worldbuilding"
+      ],
+      "potentialReuse": "One part frame with category-specific text/icon and unbuilt/assembled state."
+    }
+  ],
+  "certificate": {
+    "found": true,
+    "sourceComponent": "artifacts/build-30-game/src/components/bonus-mission.tsx",
+    "exactContentSource": "artifacts/build-30-game/public/assets/flight-simulator-certificate.pdf",
+    "v2Migration": "Gift/certificate content is stored in artifacts/build-30-game/src/v2/legacyCertificate.ts and rendered in artifacts/build-30-game/src/v2/PostGame.tsx.",
+    "deletedImageDependencyRemains": false,
+    "v2AssetsStillNeeded": [
+      {
+        "assetKey": "certificate_boeing_737_simulator",
+        "purpose": "The existing manifest certificate key selects the retained PDF link; it is not an in-app graphic."
+      }
+    ],
+    "certificateImageRequirement": "No additional V2 certificate image is requested. The V2 reveal uses text, HTML and CSS; the original PDF remains available.",
+    "notes": "The certificate page does not display development asset keys."
+  },
+  "integrationRules": {
+    "resolver": "Map each image assetKey to runtimeFile. CSS entries must remain code-rendered and must not receive dummy image files.",
+    "fallback": "Keep the current semantic placeholder fallback during integration until every image file in this manifest has loaded successfully.",
+    "noLogicChanges": "Artwork integration must not change mechanics, progression, copy, localStorage, level ordering or post-game flow.",
+    "qa": [
+      "No broken images or semantic placeholders in normal play.",
+      "No horizontal scrolling at 320–430 px.",
+      "Interactive hit areas remain DOM controls; artwork must not replace accessibility/click targets.",
+      "Character art is never cropped.",
+      "All 30 levels remain completable.",
+      "Certificate still links to the retained legacy PDF."
+    ]
+  }
+}

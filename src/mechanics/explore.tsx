@@ -1,0 +1,354 @@
+import { useEffect, useRef, useState } from 'react';
+import { t, levelKey } from '../data';
+import { Feedback, Img, Pips, Stage, TapTarget, useShake, useTimeout, type MechanicProps } from '../ui';
+
+/** L6 — hiddenObject: four landmarks hide inside the night forest. */
+const HIDDEN: Record<string, { x: number; y: number; asset: string }> = {
+  moon: { x: 78, y: 11, asset: 'night_moon' },
+  mushroom: { x: 94, y: 84, asset: 'night_mushroom' },
+  signpost: { x: 14, y: 52, asset: 'night_signpost' },
+  eyes: { x: 6, y: 24, asset: 'night_eyes' },
+};
+
+export function HiddenObject({ level, finished, complete }: MechanicProps) {
+  const targets = level.mechanic.targets as string[];
+  const [found, setFound] = useState<string[]>(finished ? targets : []);
+  const [miss, setMiss] = useState<{ x: number; y: number; n: number } | null>(null);
+  const ref = useRef<HTMLDivElement>(null);
+  const tap = (id: string) => {
+    if (found.includes(id) || finished) return;
+    const next = [...found, id];
+    setFound(next);
+    if (next.length === targets.length) complete();
+  };
+  const onMiss = (e: React.PointerEvent) => {
+    const r = ref.current!.getBoundingClientRect();
+    setMiss({ x: ((e.clientX - r.left) / r.width) * 100, y: ((e.clientY - r.top) / r.height) * 100, n: Date.now() });
+  };
+  return (
+    <>
+      <Stage level={level} cast={false} className="stage-wide">
+        <div ref={ref} className="hidden-layer" onPointerDown={onMiss}>
+          {targets.map((id) => {
+            const h = HIDDEN[id];
+            const ok = found.includes(id);
+            return (
+              <button
+                key={id}
+                type="button"
+                className={`hotspot hidden-spot${ok ? ' found' : ''}`}
+                style={{ left: `${h.x}%`, top: `${h.y}%` }}
+                onPointerDown={(e) => e.stopPropagation()}
+                onClick={() => tap(id)}
+                aria-label={id}
+              >
+                <span className="hot-ring" />
+                {ok && <span className="hot-check pop">✓</span>}
+              </button>
+            );
+          })}
+          {miss && <span key={miss.n} className="miss-ripple" style={{ left: `${miss.x}%`, top: `${miss.y}%` }} />}
+        </div>
+      </Stage>
+      <div className="slots-row">
+        {targets.map((id) => (
+          <div key={id} className={`slot${found.includes(id) ? ' filled' : ''}`}>
+            {found.includes(id) && <Img k={HIDDEN[id].asset} className="slot-img pop" />}
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+/** L22 — sceneExploration: visit every hotspot of the home base. */
+const HOME: Record<string, { x: number; y: number; asset: string }> = {
+  sofa: { x: 17, y: 58, asset: 'home_sofa' },
+  snack_box: { x: 52, y: 80, asset: 'home_snack_box' },
+  charger: { x: 30, y: 84, asset: 'home_charger' },
+  blanket: { x: 79, y: 52, asset: 'home_blanket' },
+};
+
+export function SceneExploration({ level, finished, complete }: MechanicProps) {
+  const spots = level.mechanic.hotspots as string[];
+  const [seen, setSeen] = useState<string[]>(finished ? spots : []);
+  const [last, setLast] = useState<string | null>(null);
+  const visit = (id: string) => {
+    if (finished) return;
+    setLast(id);
+    if (seen.includes(id)) return;
+    const next = [...seen, id];
+    setSeen(next);
+    if (next.length === spots.length) complete();
+  };
+  return (
+    <>
+      <Stage level={level} cast={false} className="stage-wide">
+        {spots.map((id) => {
+          const h = HOME[id];
+          const ok = seen.includes(id);
+          return (
+            <button
+              key={id}
+              type="button"
+              className={`hotspot home-spot${ok ? ' found' : ''}${last === id ? ' last' : ''}`}
+              style={{ left: `${h.x}%`, top: `${h.y}%` }}
+              onClick={() => visit(id)}
+              aria-label={id}
+            >
+              <Img k={h.asset} className="hot-sprite hot-sprite-home" />
+              <span className="hot-ring" />
+              {ok && <span className="hot-check">✓</span>}
+            </button>
+          );
+        })}
+        <Img k={level.visualState.lapkaStateKey} className="cast cast-lapka cast-small" />
+      </Stage>
+      <Pips done={seen.length} total={spots.length} />
+      <Feedback text={seen.length === spots.length ? t(`levels.${levelKey(level.id)}.completion`) : ''} />
+    </>
+  );
+}
+
+/** L7 — movingTargetAim: tap the pond to throw bread. Misses only get a reaction. */
+type Duck = { id: string; dir: 'left' | 'right' | 'idle'; y: number; speed: number; phase: number };
+const DUCKS: Duck[] = [
+  { id: 'duck_left', dir: 'right', y: 24, speed: 0.045, phase: 0.1 },
+  { id: 'duck_right', dir: 'left', y: 50, speed: 0.06, phase: 0.6 },
+  { id: 'duck_center', dir: 'right', y: 70, speed: 0.035, phase: 0.35 },
+];
+
+export function MovingTargetAim({ level, finished, complete }: MechanicProps) {
+  const total = level.mechanic.requiredActions as number;
+  const [throws, setThrows] = useState(finished ? total : 0);
+  
+  const [fx, setFx] = useState<{ x: number; y: number; hit: boolean; n: number } | null>(null);
+  const [reaction, setReaction] = useState<Record<string, number>>({});
+  const field = useRef<HTMLDivElement>(null);
+  const duckEls = useRef<Record<string, HTMLDivElement | null>>({});
+  const pos = useRef<Record<string, number>>({});
+  const later = useTimeout();
+
+  useEffect(() => {
+    let raf = 0;
+    let last = performance.now();
+    const loop = (now: number) => {
+      const dt = Math.min(0.05, (now - last) / 1000);
+      last = now;
+      for (const d of DUCKS) {
+        const cur = pos.current[d.id] ?? d.phase;
+        const nxt = (cur + dt * d.speed * 4) % 1;
+        pos.current[d.id] = nxt;
+        const el = duckEls.current[d.id];
+        if (el) {
+          const x = d.dir === 'right' ? nxt : 1 - nxt;
+          el.style.left = `${-12 + x * 124}%`;
+        }
+      }
+      raf = requestAnimationFrame(loop);
+    };
+    raf = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  const throwBread = (e: React.PointerEvent) => {
+    if (finished || throws >= total) return;
+    const r = field.current!.getBoundingClientRect();
+    const px = e.clientX - r.left;
+    const py = e.clientY - r.top;
+    let hitId: string | null = null;
+    for (const d of DUCKS) {
+      const el = duckEls.current[d.id];
+      if (!el) continue;
+      const b = el.getBoundingClientRect();
+      const pad = 14;
+      if (e.clientX > b.left - pad && e.clientX < b.right + pad && e.clientY > b.top - pad && e.clientY < b.bottom + pad) hitId = d.id;
+    }
+    const n = throws + 1;
+    setThrows(n);
+    setFx({ x: (px / r.width) * 100, y: (py / r.height) * 100, hit: !!hitId, n: Date.now() });
+    if (hitId) {
+      setReaction((m) => ({ ...m, [hitId!]: Date.now() }));
+    }
+    if (n >= total) later(() => complete(t(`levels.${levelKey(level.id)}.completion`)), 700);
+  };
+
+  return (
+    <>
+      <Stage level={level} cast={false} className="stage-wide">
+        <div ref={field} className="duck-field" onPointerDown={throwBread}>
+          {DUCKS.map((d) => (
+            <div
+              key={d.id}
+              ref={(el) => {
+                duckEls.current[d.id] = el;
+              }}
+              className={`duck${reaction[d.id] ? ' duck-hit' : ''}`}
+              style={{ top: `${d.y}%` }}
+              data-n={reaction[d.id] ?? 0}
+            >
+              <Img k={d.dir === 'right' ? 'duck_flying_right' : 'duck_flying_left'} className="duck-img" />
+            </div>
+          ))}
+          {fx && (
+            <span key={fx.n} className={`bread-shot${fx.hit ? ' hit' : ''}`} style={{ left: `${fx.x}%`, top: `${fx.y}%` }}>
+              <Img k="bread_projectile" className="bread-img" />
+            </span>
+          )}
+        </div>
+      </Stage>
+      <div className="bread-count" aria-hidden>
+        {Array.from({ length: total }, (_, i) => (
+          <Img key={i} k="bread_projectile" className={`bread-icon${i < throws ? ' used' : ''}`} />
+        ))}
+      </div>
+    </>
+  );
+}
+
+/** L8 — resourceTap: feed the fire. Visual-only soft decay; progress never drops. */
+export function ResourceTap({ level, finished, complete }: MechanicProps) {
+  const total = level.mechanic.requiredActions as number;
+  const keys = ['campfire_embers', 'campfire_small', 'campfire_medium', 'campfire_strong', 'campfire_full'];
+  const [taps, setTaps] = useState(finished ? total : 0);
+  const [dim, setDim] = useState(false);
+  const idle = useRef<number>(0);
+  const feed = () => {
+    if (taps >= total) return;
+    const n = taps + 1;
+    setTaps(n);
+    setDim(false);
+    window.clearTimeout(idle.current);
+    idle.current = window.setTimeout(() => setDim(true), 1800);
+    if (n >= total) {
+      window.clearTimeout(idle.current);
+      complete();
+    }
+  };
+  useEffect(() => () => window.clearTimeout(idle.current), []);
+  const idx = Math.min(keys.length - 1, Math.max(0, taps - 1));
+  return (
+    <>
+      <Stage level={level} cast={false} className="stage-short">
+        <div className={`fire${dim ? ' dim' : ''}`}>
+          <Img k={keys[idx]} className={`fire-img lvl-${idx}`} key={idx} />
+        </div>
+      </Stage>
+      <div className="controls center">
+        <TapTarget onTap={feed} count={taps} total={total} disabled={finished} flash />
+      </div>
+    </>
+  );
+}
+
+/** L9 — collectRequiredPlusOptional: pack everything, strange stone included. */
+const PACK: { id: string; asset: string; x: number; y: number }[] = [
+  { id: 'water', asset: 'item_water', x: 14, y: 62 },
+  { id: 'map', asset: 'item_map', x: 40, y: 38 },
+  { id: 'backpack', asset: 'item_backpack', x: 66, y: 66 },
+  { id: 'strange_stone', asset: 'item_strange_stone', x: 86, y: 30 },
+];
+
+export function CollectItems({ level, finished, complete }: MechanicProps) {
+  const required = level.mechanic.requiredItems as string[];
+  const all = [...required, level.mechanic.optionalItem as string];
+  const [got, setGot] = useState<string[]>(finished ? all : []);
+  const take = (id: string) => {
+    if (got.includes(id) || finished) return;
+    const next = [...got, id];
+    setGot(next);
+    if (all.every((x) => next.includes(x))) complete(t(`levels.${levelKey(level.id)}.completion`) || undefined);
+  };
+  const hasPack = got.includes('backpack');
+  return (
+    <>
+      <Stage level={level} className="stage-wide" castOverride={{ hero: hasPack ? level.visualState.heroStateKey : 'hero_base', p2: null, lapka: null }}>
+        {PACK.map((p) => (
+          <button
+            key={p.id}
+            type="button"
+            className={`pack-item${got.includes(p.id) ? ' taken' : ''}`}
+            style={{ left: `${p.x}%`, top: `${p.y}%` }}
+            onClick={() => take(p.id)}
+            aria-label={p.id}
+          >
+            <Img k={p.asset} className="pack-img" />
+          </button>
+        ))}
+      </Stage>
+      <div className="slots-row">
+        {PACK.map((p) => (
+          <div key={p.id} className={`slot${got.includes(p.id) ? ' filled' : ''}${p.id === 'strange_stone' ? ' slot-opt' : ''}`}>
+            {got.includes(p.id) && <Img k={p.asset} className="slot-img pop" />}
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+/** L21 — characterInteraction: paw, stare, pet, in any order. */
+export function CharacterInteraction({ level, finished, complete }: MechanicProps) {
+  const acts = level.mechanic.interactions as string[];
+  const art: Record<string, string> = { paw: 'lapka_paw', stare: 'lapka_stare', pet: 'lapka_purr' };
+  const [done, setDone] = useState<string[]>(finished ? acts : []);
+  const [cur, setCur] = useState<string | null>(null);
+  const [shake, doShake] = useShake();
+  const go = (id: string) => {
+    if (finished) return;
+    setCur(id);
+    doShake();
+    if (done.includes(id)) return;
+    const next = [...done, id];
+    setDone(next);
+    if (next.length === acts.length) complete(t(`levels.${levelKey(level.id)}.completion`));
+  };
+  const lapka = finished ? 'lapka_default' : cur ? art[cur] : level.visualState.lapkaStateKey;
+  return (
+    <>
+      <Stage level={level} className="stage-tall" castOverride={{ lapka: null }}>
+        <Img k={lapka} className={`cast cast-lapka cast-lapka-big ${shake}`} />
+        {done.length === acts.length && <Img k="player2_join_effect" className="sprite-lg fx-join pop" />}
+      </Stage>
+      <Pips done={done.length} total={acts.length} />
+      <div className="controls row">
+        {acts.map((id) => (
+          <button key={id} type="button" className={`btn btn-art btn-icon${done.includes(id) ? ' btn-done' : ' btn-primary-soft'}`} disabled={finished} onClick={() => go(id)}>
+            <Img k={art[id]} className="btn-sprite-lapka" />
+          </button>
+        ))}
+      </div>
+    </>
+  );
+}
+
+/** L23 — reactiveTap: four pets walk Lapka through neutral → suspicious → annoyed → stays. */
+export function ReactiveTap({ level, finished, complete }: MechanicProps) {
+  const total = level.mechanic.requiredActions as number;
+  const states = level.mechanic.states as string[];
+  const [pets, setPets] = useState(finished ? total : 0);
+  const [shake, doShake] = useShake();
+  const pet = () => {
+    if (pets >= total) return;
+    const n = pets + 1;
+    setPets(n);
+    doShake();
+    if (n >= total) complete();
+  };
+  const state = states[Math.min(states.length - 1, pets)];
+  return (
+    <>
+      <Stage level={level} className="stage-tall" castOverride={{ lapka: null }}>
+        <button type="button" className={`lapka-tap ${shake}`} onClick={pet} disabled={finished} aria-label="lapka">
+          <Img k={`lapka_${state === 'stays_anyway' ? 'stays' : state}`} className="lapka-img" />
+        </button>
+      </Stage>
+      <div className="meter" aria-label={t('levels.23.meterLabel')}>
+        <div className="meter-label">{t('levels.23.meterLabel')}</div>
+        <div className="meter-track">
+          <div className="meter-fill" style={{ width: `${(pets / total) * 100}%` }} />
+        </div>
+      </div>
+    </>
+  );
+}

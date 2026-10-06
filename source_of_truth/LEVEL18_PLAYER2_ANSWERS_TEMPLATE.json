@@ -1,0 +1,34 @@
+{
+  "level": 18,
+  "status": "USER_INPUT_REQUIRED",
+  "questions": [
+    {
+      "id": "plans_changed",
+      "question": "Планы внезапно поменялись.",
+      "options": [
+        "Перестраиваем маршрут",
+        "Импровизируем на месте"
+      ],
+      "player2Answer": null
+    },
+    {
+      "id": "vacation_first_morning",
+      "question": "Отпуск. Первое утро.",
+      "options": [
+        "Исследовать всё вокруг",
+        "Никуда не спешить"
+      ],
+      "player2Answer": null
+    },
+    {
+      "id": "bug_in_game",
+      "question": "В игре появился баг.",
+      "options": [
+        "Чинить сразу",
+        "Сначала выяснить, можно ли превратить его в фичу"
+      ],
+      "player2Answer": null
+    }
+  ],
+  "instruction": "Do not invent answers. Fill these with A/B only after the user provides the intended Player 2 answers."
+}
