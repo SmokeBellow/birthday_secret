@@ -24,14 +24,32 @@ MANIFEST = json.load(open(os.path.join(ROOT, 'docs/image_manifest.json')))
 
 
 def find_blobs(alpha, gap, min_area):
+    """Subjects = big blobs. Small separate bits (a sparkle, a heart, a drop) join the nearest big blob."""
     mask = alpha > 40
     lab, n = ndi.label(ndi.binary_dilation(mask, structure=np.ones((3, 3)), iterations=gap))
-    blobs = []
-    for i, sl in enumerate(ndi.find_objects(lab), start=1):
+    objs = ndi.find_objects(lab)
+    info = {}
+    for i, sl in enumerate(objs, start=1):
         area = int(((lab[sl] == i) & mask[sl]).sum())
-        if area >= min_area:
-            blobs.append(dict(label=i, sl=sl, area=area, cy=(sl[0].start + sl[0].stop) / 2, cx=(sl[1].start + sl[1].stop) / 2, h=sl[0].stop - sl[0].start))
-    return lab, blobs
+        info[i] = dict(label=i, sl=sl, area=area, cy=(sl[0].start + sl[0].stop) / 2, cx=(sl[1].start + sl[1].stop) / 2)
+    big = [v for v in info.values() if v['area'] >= min_area]
+    if big:
+        reach = 0.22 * max(alpha.shape)
+        for v in info.values():
+            if v['area'] >= min_area or v['area'] < 60:
+                continue
+            near = min(big, key=lambda b: (b['cx'] - v['cx']) ** 2 + (b['cy'] - v['cy']) ** 2)
+            if ((near['cx'] - v['cx']) ** 2 + (near['cy'] - v['cy']) ** 2) ** 0.5 <= reach:
+                lab[lab == v['label']] = near['label']
+        keep = {b['label'] for b in big}
+        out = []
+        for lb in keep:
+            ys, xs = np.where(lab == lb)
+            out.append(dict(label=lb, area=int((lab == lb).sum()), cy=(ys.min() + ys.max()) / 2, cx=(xs.min() + xs.max()) / 2, h=int(ys.max() - ys.min() + 1)))
+        for o in out:
+            o['sl'] = (slice(0, 0), slice(0, 0))
+        return lab, out
+    return lab, []
 
 
 def reading_order(blobs):
