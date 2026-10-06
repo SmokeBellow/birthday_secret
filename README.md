@@ -25,6 +25,7 @@ QA-ссылка: `/?dev=1&level=12&seed=1` открывает уровень 12 
 - `public/assets/v2/` — продакшн-арт и `ASSET_MAP.json`.
 - `src/data.ts` (спека + тексты), `src/assets.ts` (единый резолвер ассетов), `src/progress.ts` (весь localStorage).
 - `src/mechanics/` — переиспользуемые механики; `LevelScreen` выбирает компонент по `mechanic.type`.
+- `scripts/split-sheet.py` — нарезка сгенерированного листа спрайтов на отдельные файлы; `scripts/import-sprites.py` — установка спрайтов в игру (инструкция в `docs/IMAGE_SPEC_FOR_GPT.md`).
 - `scripts/qa.mjs` — автопроход всех 30 уровней в headless Chromium.
 - `scripts/trim-scene-assets.py` — обрезка прозрачных полей у спрайтов сцен (уже применена).
 - `docs/` — исходные требования и чек-лист QA.
