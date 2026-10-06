@@ -3,6 +3,7 @@ import { t, spec } from './data';
 import { BOARDING_PASS as BP, CERTIFICATE } from './extraCopy';
 import { HomeButton } from './LevelScreen';
 import { Img } from './ui';
+import { sfx, haptic } from './audio';
 
 export type PostStep = 'summary' | 'calm' | 'bonus' | 'pass' | 'certificate' | 'accepted' | 'plus';
 const STEP_OF: Record<string, PostStep[]> = {
@@ -15,9 +16,9 @@ const STEP_OF: Record<string, PostStep[]> = {
 };
 export const POST_STEPS: PostStep[] = (spec.postGameFlow.sequence as string[]).flatMap((s) => STEP_OF[s] ?? []);
 
-type Props = { step: PostStep; onStep: (s: PostStep) => void; onHome: () => void; onRestart: () => void };
+type Props = { step: PostStep; onStep: (s: PostStep) => void; onHome: () => void; onGallery: () => void };
 
-export function PostGame({ step, onStep, onHome, onRestart }: Props) {
+export function PostGame({ step, onStep, onHome, onGallery }: Props) {
   const idx = POST_STEPS.indexOf(step);
   const next = () => onStep(POST_STEPS[Math.min(POST_STEPS.length - 1, idx + 1)]);
   const lines = ['storyComplete', 'statsSaved', 'achievementsComplete', 'characterUpdated'];
@@ -26,15 +27,18 @@ export function PostGame({ step, onStep, onHome, onRestart }: Props) {
   useEffect(() => {
     if (step !== 'calm') return;
     const id = window.setTimeout(() => {
-      try {
-        navigator.vibrate?.([70, 50, 70]);
-      } catch {
-        /* vibration is optional */
-      }
+      haptic([70, 50, 70]);
       onStep('bonus');
     }, 2600);
     return () => window.clearTimeout(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step]);
+
+  useEffect(() => {
+    if (step === 'bonus') sfx('alarm');
+    else if (step === 'pass') sfx('ding');
+    else if (step === 'summary' || step === 'plus') sfx('win');
+    else if (step === 'accepted') sfx('fanfare');
   }, [step]);
 
   return (
@@ -77,7 +81,6 @@ export function PostGame({ step, onStep, onHome, onRestart }: Props) {
           <div className="pass" data-ui="boarding_pass">
             <div className="pass-head">
               <span className="mono">{BP.heading}</span>
-              <span className="mono pass-en">{BP.headingEn}</span>
             </div>
             <div className="pass-body">
               <div className="pass-captain">
@@ -163,8 +166,8 @@ export function PostGame({ step, onStep, onHome, onRestart }: Props) {
         </button>
       ) : (
         <div className="controls row">
-          <button type="button" className="btn btn-ghost" onClick={onRestart}>
-            ↻ 1
+          <button type="button" className="btn btn-ghost" onClick={onGallery}>
+            ДОСТИЖЕНИЯ
           </button>
           <button type="button" className="btn btn-primary" onClick={onHome}>
             ← В НАЧАЛО

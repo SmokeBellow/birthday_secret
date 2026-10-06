@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { t, levelKey } from '../data';
 import { Img, Pips, Stage, TapTarget, useShake, useTimeout, type MechanicProps } from '../ui';
 import { HOME_LORE, NIGHT_FOUND } from '../extraCopy';
+import { sfx } from '../audio';
 
 /** L6 — hiddenObject: four landmarks hide inside the night forest. Coordinates are % of the 16:10 background image. */
 const HIDDEN: Record<string, { x: number; y: number; asset: string }> = {
@@ -20,6 +21,7 @@ export function HiddenObject({ level, finished, complete }: MechanicProps) {
     if (found.includes(id) || finished) return;
     const next = [...found, id];
     setFound(next);
+    sfx('ok');
     if (next.length === targets.length) complete();
   };
   const onMiss = (e: React.PointerEvent) => {
@@ -80,6 +82,7 @@ export function SceneExploration({ level, finished, complete }: MechanicProps) {
     if (seen.includes(id)) return;
     const next = [...seen, id];
     setSeen(next);
+    sfx('ok');
     if (next.length === spots.length) complete();
   };
   const lore = last ? HOME_LORE[last] : null;
@@ -263,6 +266,7 @@ export function CollectItems({ level, finished, complete }: MechanicProps) {
     if (got.includes(id) || finished) return;
     const next = [...got, id];
     setGot(next);
+    sfx('ok');
     if (all.every((x) => next.includes(x))) complete(t(`levels.${levelKey(level.id)}.completion`) || undefined);
   };
   const hasPack = got.includes('backpack');
@@ -368,6 +372,7 @@ export function CharacterInteraction({ level, finished, complete }: MechanicProp
       return;
     }
     setPhase('happy');
+    sfx('ok');
     const n = idx + 1;
     later(() => {
       setIdx(n);

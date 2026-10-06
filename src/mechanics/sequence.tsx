@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { t, levelKey } from '../data';
+import { sfx } from '../audio';
 import { Img, Pips, Stage, useShake, type MechanicProps } from '../ui';
+import { ACTIONS, ActionPanel } from './stages';
 
 type Ctx = { level: MechanicProps['level']; step: number; seq: string[] };
 
@@ -24,7 +26,7 @@ function labelFor(level: MechanicProps['level'], id: string): string {
     case 3:
       return t(`levels.${k}.actions.${id}`);
     case 19:
-      return id === 'P1' ? 'PLAYER 1' : 'PLAYER 2';
+      return id === 'P1' ? 'ИГРОК 1' : 'ИГРОК 2';
     default:
       return t(`levels.${k}.steps.${id}`);
   }
@@ -78,8 +80,10 @@ export function Sequence({ level, finished, complete }: MechanicProps) {
     if (i !== step) return doShake();
     const n = step + 1;
     setStep(n);
+    sfx('ok');
     if (n >= seq.length) complete(t(`levels.${levelKey(level.id)}.completion`) || undefined);
   };
+  const actions = ACTIONS[level.slug];
   const isCoop = level.slug === 'coop';
   const isPipe = level.slug === 'vibecoding';
   return (
@@ -95,7 +99,19 @@ export function Sequence({ level, finished, complete }: MechanicProps) {
           ))}
         </div>
       )}
-      <div className={`controls ${isCoop ? 'row' : seq.length === 4 && !isPipe ? 'grid2' : isPipe ? 'grid2' : 'stack'} ${shake}`}>
+      {actions && (
+        <>
+          <div className="step-chips">
+            {seq.map((id, i) => (
+              <span key={id} className={`step-chip mono${i < step ? ' done' : i === step ? ' cur' : ''}`}>
+                {labelFor(level, id)}
+              </span>
+            ))}
+          </div>
+          {step < seq.length && !finished && <ActionPanel key={step} def={actions[step]} onDone={() => press(step)} />}
+        </>
+      )}
+      {!actions && <div className={`controls ${isCoop ? 'row' : seq.length === 4 && !isPipe ? 'grid2' : isPipe ? 'grid2' : 'stack'} ${shake}`}>
         {isCoop ? (
           <>
             {(['P1', 'P2'] as const).map((who) => {
@@ -126,7 +142,7 @@ export function Sequence({ level, finished, complete }: MechanicProps) {
             </button>
           ))
         )}
-      </div>
+      </div>}
     </>
   );
 }

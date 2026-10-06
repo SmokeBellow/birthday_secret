@@ -3,6 +3,7 @@ import { getLevel, levelKey, levels, t, TOTAL_LEVELS } from './data';
 import { MECHANICS } from './mechanics';
 import { Img } from './ui';
 import type { GameProgress } from './progress';
+import { sfx } from './audio';
 
 export function GameHUD({ progress, level }: { progress: GameProgress; level: number }) {
   const earned = levels
@@ -53,6 +54,7 @@ export function LevelScreen({ levelId, progress, onHome, onComplete, onNext }: P
   const complete = (r?: string) => {
     if (done) return;
     setDone(true);
+    sfx('win');
     setResult(r ?? t(`levels.${k}.completion`));
     onComplete(levelId);
   };
@@ -65,7 +67,7 @@ export function LevelScreen({ levelId, progress, onHome, onComplete, onNext }: P
       <header className="level-head">
         <div className="level-meta">
           <div className="mono level-num">
-            LEVEL {k} / {TOTAL_LEVELS}
+            УРОВЕНЬ {k} / {TOTAL_LEVELS}
           </div>
           <div className="mono level-stage">{t(`levels.${k}.stage`)}</div>
         </div>

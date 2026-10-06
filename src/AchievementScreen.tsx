@@ -1,9 +1,14 @@
 import { getLevel, levelKey, t, TOTAL_LEVELS } from './data';
 import { HomeButton } from './LevelScreen';
 import { Img } from './ui';
+import { useEffect } from 'react';
+import { sfx } from './audio';
 import { ACHIEVEMENT_GIVES } from './extraCopy';
 
 export function AchievementScreen({ levelId, onHome, onNext }: { levelId: number; onHome: () => void; onNext: () => void }) {
+  useEffect(() => {
+    sfx("fanfare");
+  }, []);
   const lv = getLevel(levelId);
   const k = `level${levelKey(levelId)}`;
   const reward = lv.reward.equipmentKey;

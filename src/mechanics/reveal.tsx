@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { t } from '../data';
+import { sfx } from '../audio';
 import { Img, Pips, Stage, TapTarget, type MechanicProps } from '../ui';
 
 /** L1 — rapidTapProgressiveReveal: three taps load the hero in 33 / 66 / 100 % steps. */
@@ -53,6 +54,7 @@ export function RevealCards({ level, finished, complete }: MechanicProps) {
     if (open.includes(id)) return;
     const next = [...open, id];
     setOpen(next);
+    sfx('ok');
     if (next.length === items.length) complete();
   };
   return (

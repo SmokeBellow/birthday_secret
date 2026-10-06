@@ -8,7 +8,7 @@ const errors = [];
 p.on('pageerror', (e) => errors.push(e.message));
 await p.goto(`${base}/?dev=1&level=30&seed=1`);
 await p.waitForSelector('.level-screen');
-for (let i = 0; i < 6; i++) { await p.locator('.build-slot:not(.active)').first().click({ force: true }); await p.waitForTimeout(100); }
+for (let i = 0; i < 6; i++) { await p.locator('.build-slot:not(.active)').first().click({ force: true }); await p.waitForTimeout(150); }
 await p.locator('.done-panel .btn-primary').click();
 await p.locator('.ach-screen .btn-primary').click();
 await p.waitForSelector('.post-summary'); await p.waitForTimeout(1600);
@@ -24,5 +24,9 @@ for (const s of ['pass', 'certificate', 'accepted', 'plus']) {
   await p.waitForSelector('.post-' + s); await p.waitForTimeout(900);
   await p.screenshot({ path: `${out}/pg_${s}.png` });
 }
+await p.locator('.post-screen .btn-ghost').click();
+await p.waitForSelector('.gallery-screen');
+console.log('gallery items', await p.locator('.gallery-item.on').count(), 'of', await p.locator('.gallery-item').count());
+await p.screenshot({ path: `${out}/pg_gallery.png`, fullPage: true });
 console.log('overflow', await p.evaluate(() => document.documentElement.scrollWidth - innerWidth), 'errors', errors);
 await b.close();

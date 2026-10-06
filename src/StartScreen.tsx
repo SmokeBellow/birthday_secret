@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { t, tList } from './data';
 import { Img } from './ui';
 
-type Props = { hasSave: boolean; complete: boolean; onStart: () => void; onReset: () => void };
+type Props = { hasSave: boolean; complete: boolean; onStart: () => void; onReset: () => void; onGallery: () => void; achievements: number };
 
-export function StartScreen({ hasSave, complete, onStart, onReset }: Props) {
+export function StartScreen({ hasSave, complete, onStart, onReset, onGallery, achievements }: Props) {
   const [confirming, setConfirming] = useState(false);
   return (
     <div className="screen start-screen">
@@ -23,6 +23,11 @@ export function StartScreen({ hasSave, complete, onStart, onReset }: Props) {
         <button type="button" className="btn btn-primary btn-xl" onClick={onStart}>
           {t('start.cta')}
         </button>
+        {achievements > 0 && (
+          <button type="button" className="btn btn-ghost-light" onClick={onGallery}>
+            ДОСТИЖЕНИЯ · {achievements}
+          </button>
+        )}
         {hasSave && !confirming && (
           <button type="button" className="btn-link" onClick={() => setConfirming(true)}>
             СБРОСИТЬ ПРОГРЕСС

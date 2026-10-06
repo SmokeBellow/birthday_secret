@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { t, levelKey } from '../data';
 import { Img, Pips, Stage, TapTarget, useShake, useTimeout, type MechanicProps } from '../ui';
 import player2Config from '../config/level18.player2.json';
-import { isDev } from '../assets';
+import { assetUrl, isDev } from '../assets';
+import { sfx } from '../audio';
 import { ROUTE_HINT, ROUTE_LABELS, SAVE_RIDDLES, WIKI_PAGES, WIKI_TEXT } from '../extraCopy';
 
 /** L10 — timingWindow: stop the marker inside the green zone. A miss just retries. */
@@ -166,6 +167,7 @@ export function InventorySort({ level, finished, complete }: MechanicProps) {
     }
     const next = [...placed, held];
     setPlaced(next);
+    sfx('ok');
     setHeld(null);
     setMisses(0);
     if (next.length === SAVE_ITEMS.length) complete(t('common.saveComplete'));
@@ -217,6 +219,7 @@ export function LinkChain({ level, finished, complete }: MechanicProps) {
     if (opened >= seq.length) return;
     const n = opened + 1;
     setOpened(n);
+    sfx('ok');
     if (n >= seq.length) complete(t(`levels.${levelKey(level.id)}.completion`));
   };
   const widths = [92, 78, 86, 64, 90, 70];
@@ -346,14 +349,14 @@ export function PairedQuiz({ level, finished, complete }: MechanicProps) {
           <div className="quiz-options">
             {(['A', 'B'] as const).map((c, i) => (
               <button key={c} type="button" data-ui="player1_answer_card" className={`quiz-card${mine[q.id] === c ? ' picked' : ''}`} disabled={revealed} onClick={() => answer(c)}>
-                <span className="quiz-who">PLAYER 1</span>
+                <span className="quiz-who">ИГРОК 1</span>
                 <span>{t(q.options[i])}</span>
               </button>
             ))}
           </div>
           {revealed && (
             <div className="quiz-p2" data-ui="player2_answer_card">
-              <span className="quiz-who">PLAYER 2</span>
+              <span className="quiz-who">ИГРОК 2</span>
               {p2Set ? <span>{t(q.options[p2 === 'A' ? 0 : 1])}</span> : <span className="quiz-pending">···</span>}
             </div>
           )}
@@ -543,27 +546,51 @@ const UNLOCK_ART: Record<string, string> = {
   world_key: 'item_world_key',
 };
 
+type Flyer = { key: number; url: string; x0: number; y0: number; x1: number; y1: number; go: boolean };
+
 export function FinalBuild({ level, progress, finished, complete }: MechanicProps) {
   const cats = level.mechanic.categories as { id: string; sourceUnlocks: string[] }[];
   const [on, setOn] = useState<string[]>(finished ? cats.map((c) => c.id) : []);
+  const [flyers, setFlyers] = useState<Flyer[]>([]);
+  const [pulse, setPulse] = useState(0);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const later = useTimeout();
   const all = on.length === cats.length;
-  const activate = (id: string) => {
+
+  const activate = (id: string, el: HTMLElement) => {
     if (on.includes(id) || finished) return;
     const next = [...on, id];
     setOn(next);
-    if (next.length === cats.length) complete(`${t('levels.30.completionTitle')}\n${t('levels.30.completionText')}`);
+    sfx('whoosh');
+    // the parts of this category fly from the slot into the hero
+    const cat = cats.find((c) => c.id === id)!;
+    const sr = el.getBoundingClientRect();
+    const hr = (stageRef.current ?? el).getBoundingClientRect();
+    const icons = cat.sourceUnlocks.map((u) => assetUrl(UNLOCK_ART[u])).filter(Boolean).slice(0, 3);
+    const born = icons.map((url, i) => ({ key: Date.now() + i, url, x0: sr.left + sr.width / 2 + (i - 1) * 22, y0: sr.top + sr.height / 2, x1: hr.left + hr.width / 2, y1: hr.top + hr.height * 0.55, go: false }));
+    setFlyers((f) => [...f, ...born]);
+    later(() => setFlyers((f) => f.map((x) => (born.some((b) => b.key === x.key) ? { ...x, go: true } : x))), 30);
+    later(() => {
+      setFlyers((f) => f.filter((x) => !born.some((b) => b.key === x.key)));
+      setPulse((p) => p + 1);
+      sfx('ok');
+      if (next.length === cats.length) complete(`${t('levels.30.completionTitle')}\n${t('levels.30.completionText')}`);
+    }, 800);
   };
   return (
     <>
-      <Stage level={level} className="stage-tall" castOverride={{ hero: all ? 'hero_build_complete' : 'hero_mirror' }}>
-        {all && <Img k="build_complete_effect" className="fx-build pop" />}
-      </Stage>
+      <div ref={stageRef} className={`power-${Math.min(on.length, 6)}`}>
+        <Stage level={level} className="stage-tall" castOverride={{ hero: all ? 'hero_build_complete' : 'hero_mirror' }}>
+          <div key={pulse} className="hero-pulse" />
+          {all && <Img k="build_complete_effect" className="fx-build pop" />}
+        </Stage>
+      </div>
       <div className="build-grid">
         {cats.map((c) => {
           const active = on.includes(c.id);
           const owned = c.sourceUnlocks.filter((u) => progress.unlockedItems.includes(u));
           return (
-            <button key={c.id} type="button" data-ui={`build_slot_${c.id}`} className={`build-slot${active ? ' active' : ''}`} onClick={() => activate(c.id)} disabled={finished}>
+            <button key={c.id} type="button" data-ui={`build_slot_${c.id}`} className={`build-slot${active ? ' active' : ''}`} onClick={(e) => activate(c.id, e.currentTarget)} disabled={finished}>
               <span className="build-name">{t(`levels.30.categories.${c.id}`)}</span>
               <span className="build-icons">
                 {c.sourceUnlocks.map((u) => (
@@ -575,6 +602,9 @@ export function FinalBuild({ level, progress, finished, complete }: MechanicProp
         })}
       </div>
       <Pips done={on.length} total={cats.length} />
+      {flyers.map((f) => (
+        <img key={f.key} src={f.url} alt="" className="flyer" style={{ left: f.go ? f.x1 : f.x0, top: f.go ? f.y1 : f.y0, opacity: f.go ? 0.2 : 1, transform: `translate(-50%, -50%) scale(${f.go ? 0.4 : 1})` }} />
+      ))}
     </>
   );
 }

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState, type CSSProperties, type Reac
 import { resolveAsset, isDev } from './assets';
 import type { LevelSpec } from './data';
 import type { GameProgress } from './progress';
+import { sfx } from './audio';
 
 /** Props every mechanic receives from LevelScreen. */
 export type MechanicProps = {
@@ -56,7 +57,10 @@ export function Stage({
 
 export function useShake(): [string, () => void] {
   const [n, setN] = useState(0);
-  const trigger = useCallback(() => setN((x) => x + 1), []);
+  const trigger = useCallback(() => {
+    sfx('nope');
+    setN((x) => x + 1);
+  }, []);
   return [n ? (n % 2 ? 'shake-a' : 'shake-b') : '', trigger];
 }
 

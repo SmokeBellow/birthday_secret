@@ -1,4 +1,6 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { sfx } from './audio';
+import { SoundToggle } from './SoundToggle';
 import { isDev } from './assets';
 import { TOTAL_LEVELS } from './data';
 import { completeLevel, hasSave, loadProgress, resetProgress, saveProgress, seedPrerequisites, type GameProgress } from './progress';
@@ -7,8 +9,9 @@ import { LevelScreen } from './LevelScreen';
 import { AchievementScreen } from './AchievementScreen';
 import { PostGame, type PostStep } from './PostGame';
 import { DevPanel } from './DevPanel';
+import { GalleryScreen } from './GalleryScreen';
 
-type Screen = { kind: 'start' } | { kind: 'level'; n: number; run: number } | { kind: 'ach'; n: number } | { kind: 'post'; step: PostStep };
+type Screen = { kind: 'start' } | { kind: 'gallery' } | { kind: 'level'; n: number; run: number } | { kind: 'ach'; n: number } | { kind: 'post'; step: PostStep };
 
 export function GameApp() {
   const [progress, setProgressState] = useState<GameProgress>(() => {
@@ -30,6 +33,15 @@ export function GameApp() {
     });
   }, []);
   const setProgress = useCallback((p: GameProgress) => update(() => p), [update]);
+
+  useEffect(() => {
+    const onDown = (e: PointerEvent) => {
+      const b = (e.target as HTMLElement | null)?.closest?.('button');
+      if (b && !(b as HTMLButtonElement).disabled && !b.classList.contains('sound-toggle')) sfx('tap');
+    };
+    document.addEventListener('pointerdown', onDown, true);
+    return () => document.removeEventListener('pointerdown', onDown, true);
+  }, []);
 
   const home = () => setScreen({ kind: 'start' });
   const openLevel = (n: number) => setScreen((s) => ({ kind: 'level', n, run: s.kind === 'level' ? s.run + 1 : 0 }));
@@ -54,9 +66,12 @@ export function GameApp() {
           hasSave={hasSave(progress)}
           complete={progress.build30Complete}
           onStart={start}
+          onGallery={() => setScreen({ kind: 'gallery' })}
+          achievements={progress.achievements.length}
           onReset={() => setProgress(resetProgress())}
         />
       )}
+      {screen.kind === 'gallery' && <GalleryScreen progress={progress} onHome={home} />}
       {screen.kind === 'level' && (
         <LevelScreen
           key={`${screen.n}-${screen.run}`}
@@ -73,12 +88,10 @@ export function GameApp() {
           step={screen.step}
           onStep={(step) => setScreen({ kind: 'post', step })}
           onHome={home}
-          onRestart={() => {
-            update((p) => ({ ...p, currentLevel: 1 }));
-            openLevel(1);
-          }}
+          onGallery={() => setScreen({ kind: 'gallery' })}
         />
       )}
+      <SoundToggle />
       {isDev && (
         <DevPanel
           progress={progress}
