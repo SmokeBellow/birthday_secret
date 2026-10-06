@@ -4,6 +4,7 @@ import { MECHANICS } from './mechanics';
 import { Img } from './ui';
 import type { GameProgress } from './progress';
 import { sfx } from './audio';
+import { BUTTONS } from './extraCopy';
 import { bump } from './stats';
 
 export function GameHUD({ progress, level }: { progress: GameProgress; level: number }) {
@@ -93,7 +94,7 @@ export function LevelScreen({ levelId, progress, onHome, onComplete, onNext }: P
             </div>
           )}
           <button type="button" className="btn btn-primary btn-xl" onClick={() => onNext(levelId)}>
-            {t('common.continue')}
+            {BUTTONS.toReward}
           </button>
         </section>
       )}

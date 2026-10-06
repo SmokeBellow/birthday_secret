@@ -1,4 +1,5 @@
 import { Component, useEffect, useState, type ReactNode } from 'react';
+import { BUTTONS } from './extraCopy';
 
 /** If anything crashes or throws, show a calm screen instead of a blank page. Progress lives in localStorage, so it is not lost. */
 function CrashScreen() {
@@ -7,7 +8,7 @@ function CrashScreen() {
       <h1 className="level-title">Что-то зависло</h1>
       <p className="level-intro">Не переживай, прогресс сохранён. Нажми кнопку, и всё заработает снова.</p>
       <button type="button" className="btn btn-primary btn-xl" onClick={() => window.location.reload()}>
-        ОТКРЫТЬ ЗАНОВО
+        {BUTTONS.crash}
       </button>
     </div>
   );

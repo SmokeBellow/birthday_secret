@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { t, spec } from './data';
-import { BOARDING_PASS as BP, CERTIFICATE, FINAL_LETTER } from './extraCopy';
+import { BOARDING_PASS as BP, BUTTONS, CERTIFICATE, FINAL_LETTER } from './extraCopy';
 import { HomeButton } from './LevelScreen';
 import { Img } from './ui';
 import { sfx, haptic, playBirthday } from './audio';
@@ -186,7 +186,7 @@ export function PostGame({ step, onStep, onHome, onGallery }: Props) {
         </div>
       ) : step !== 'plus' ? (
         <button type="button" className="btn btn-primary btn-xl" onClick={next}>
-          {t('common.continue')}
+          {BUTTONS.post[step] ?? t('common.continue')}
         </button>
       ) : (
         <div className="controls row">

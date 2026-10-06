@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { t, tList } from './data';
+import { BUTTONS } from './extraCopy';
 import { Img } from './ui';
 
 type Props = { hasSave: boolean; complete: boolean; onStart: () => void; onReset: () => void; onGallery: () => void; achievements: number };
@@ -38,10 +39,10 @@ export function StartScreen({ hasSave, complete, onStart, onReset, onGallery, ac
             <p>Стереть весь прогресс?</p>
             <div className="confirm-row">
               <button type="button" className="btn btn-danger" onClick={() => { setConfirming(false); onReset(); }}>
-                СБРОСИТЬ
+                {BUTTONS.resetYes}
               </button>
               <button type="button" className="btn btn-ghost" onClick={() => setConfirming(false)}>
-                ОТМЕНА
+                {BUTTONS.resetNo}
               </button>
             </div>
           </div>

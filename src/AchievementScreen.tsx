@@ -3,7 +3,7 @@ import { HomeButton } from './LevelScreen';
 import { Img } from './ui';
 import { useEffect } from 'react';
 import { sfx } from './audio';
-import { ACHIEVEMENT_GIVES } from './extraCopy';
+import { ACHIEVEMENT_GIVES, BUTTONS } from './extraCopy';
 
 export function AchievementScreen({ levelId, onHome, onNext }: { levelId: number; onHome: () => void; onNext: () => void }) {
   useEffect(() => {
@@ -40,7 +40,7 @@ export function AchievementScreen({ levelId, onHome, onNext }: { levelId: number
         )}
       </div>
       <button type="button" className="btn btn-primary btn-xl" onClick={onNext}>
-        {t('common.continue')}
+        {levelId >= TOTAL_LEVELS ? t('common.continue') : BUTTONS.nextLevel}
       </button>
       <div className="mono hud-mini">
         {String(levelId).padStart(2, '0')}/{TOTAL_LEVELS}

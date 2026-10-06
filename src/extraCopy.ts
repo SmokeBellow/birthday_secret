@@ -125,6 +125,16 @@ export const NIGHT_FOUND: Record<string, string> = {
   eyes: 'Чьи-то глаза напротив',
 };
 
+/** Button labels that are not part of the canonical level copy. */
+export const BUTTONS = {
+  toReward: 'К НАГРАДЕ',
+  nextLevel: 'СЛЕДУЮЩИЙ УРОВЕНЬ',
+  post: { summary: 'ДАЛЬШЕ', stats: 'ДАЛЬШЕ', bonus: 'ПОЛУЧИТЬ ТАЛОН', pass: 'ПОКАЗАТЬ СЕРТИФИКАТ', certificate: 'ПРИНЯТЬ МИССИЮ', accepted: 'ВЗЛЕТАЕМ' } as Record<string, string>,
+  resetYes: 'ДА, СТЕРЕТЬ',
+  resetNo: 'ОСТАВИТЬ',
+  crash: 'ПЕРЕЗАПУСТИТЬ',
+};
+
 /** Closing letter on the last post-game screen. */
 export const FINAL_LETTER = {
   lines: ['Антон, это был самый длинный подарок, который я собирала. И самый весёлый.', 'С днём рождения, капитан. Жду тебя в кабине.'],
