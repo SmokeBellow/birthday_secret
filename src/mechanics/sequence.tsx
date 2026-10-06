@@ -89,7 +89,7 @@ export function Sequence({ level, finished, complete }: MechanicProps) {
   return (
     <>
       <Scene level={level} step={step} seq={seq} />
-      <Pips done={step} total={seq.length} />
+      {!isPipe && <Pips done={step} total={seq.length} />}
       {isPipe && (
         <div className="pipeline">
           {seq.map((id, i) => (

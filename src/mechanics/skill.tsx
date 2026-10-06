@@ -178,6 +178,13 @@ export function InventorySort({ level, finished, complete }: MechanicProps) {
       <Stage level={level} cast className="stage-short" castOverride={{ p2: null, lapka: null }}>
         {placed.length === SAVE_ITEMS.length && <Img k="checkpoint_marker" className="sprite-lg fx-save pop" />}
       </Stage>
+      <div className="tray">
+        {SAVE_ITEMS.filter((i) => !placed.includes(i.id)).map((i) => (
+          <button key={i.id} type="button" className={`tray-item${held === i.id ? ' held' : ''}`} onClick={() => setHeld(held === i.id ? null : i.id)} aria-label={i.id}>
+            <Img k={i.asset} className="tray-img" />
+          </button>
+        ))}
+      </div>
       <div className="riddles">
         {SLOT_ORDER.map((id, i) => {
           const it = SAVE_ITEMS.find((x) => x.id === id)!;
@@ -199,13 +206,6 @@ export function InventorySort({ level, finished, complete }: MechanicProps) {
             </button>
           );
         })}
-      </div>
-      <div className="tray">
-        {SAVE_ITEMS.filter((i) => !placed.includes(i.id)).map((i) => (
-          <button key={i.id} type="button" className={`tray-item${held === i.id ? ' held' : ''}`} onClick={() => setHeld(held === i.id ? null : i.id)} aria-label={i.id}>
-            <Img k={i.asset} className="tray-img" />
-          </button>
-        ))}
       </div>
     </>
   );
@@ -346,10 +346,11 @@ export function PairedQuiz({ level, finished, complete }: MechanicProps) {
         <div className="quiz">
           <div className="quiz-q">{t(q.questionKey)}</div>
           <Pips done={idx} total={qs.length} />
+          <div className="quiz-who quiz-label">ИГРОК 1</div>
           <div className="quiz-options">
             {(['A', 'B'] as const).map((c, i) => (
               <button key={c} type="button" data-ui="player1_answer_card" className={`quiz-card${mine[q.id] === c ? ' picked' : ''}`} disabled={revealed} onClick={() => answer(c)}>
-                <span className="quiz-who">ИГРОК 1</span>
+                <span className="quiz-who">{c}</span>
                 <span>{t(q.options[i])}</span>
               </button>
             ))}

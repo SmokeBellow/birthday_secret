@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getLevel, levelKey, levels, t, TOTAL_LEVELS } from './data';
 import { MECHANICS } from './mechanics';
 import { Img } from './ui';
@@ -51,8 +51,31 @@ export function LevelScreen({ levelId, progress, onHome, onComplete, onNext }: P
   const k = levelKey(levelId);
   const [done, setDone] = useState(false);
   const born = useRef(Date.now());
+  const [idle, setIdle] = useState(false);
+  const doneRef = useRef<HTMLElement>(null);
   const [result, setResult] = useState('');
   const Mechanic = MECHANICS[level.mechanic.type];
+
+  // after a quiet moment the things you can press start to glow softly
+  useEffect(() => {
+    let id = window.setTimeout(() => setIdle(true), 9000);
+    const reset = () => {
+      setIdle(false);
+      window.clearTimeout(id);
+      id = window.setTimeout(() => setIdle(true), 9000);
+    };
+    document.addEventListener('pointerdown', reset, true);
+    return () => {
+      window.clearTimeout(id);
+      document.removeEventListener('pointerdown', reset, true);
+    };
+  }, []);
+  // when the level is solved, bring the result and the next button into view
+  useEffect(() => {
+    if (!done) return;
+    const id = window.setTimeout(() => doneRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 450);
+    return () => window.clearTimeout(id);
+  }, [done]);
 
   const complete = (r?: string) => {
     if (done) return;
@@ -64,27 +87,29 @@ export function LevelScreen({ levelId, progress, onHome, onComplete, onNext }: P
   };
 
   return (
-    <div className="screen level-screen">
-      <div className="topbar">
+    <div className={`screen level-screen${idle && !done ? ' idle-hint' : ''}`}>
+      <div className="topbar level-topbar">
         <HomeButton onHome={onHome} />
+        <span className="mono level-num">
+          УРОВЕНЬ {k} / {TOTAL_LEVELS}
+        </span>
       </div>
       <header className="level-head">
         <div className="level-meta">
-          <div className="mono level-num">
-            УРОВЕНЬ {k} / {TOTAL_LEVELS}
-          </div>
+          <h1 className="level-title">{t(`levels.${k}.title`)}</h1>
           <div className="mono level-stage">{t(`levels.${k}.stage`)}</div>
         </div>
         <Img k={level.visualState.headerIconKey} className="level-icon" />
       </header>
-      <h1 className="level-title">{t(`levels.${k}.title`)}</h1>
-      <p className="level-intro">{t(`levels.${k}.intro`)}</p>
-      <p className="level-objective">{t(level.mechanic.objectiveKey)}</p>
+      <div className="level-brief">
+        <p className="level-intro">{t(`levels.${k}.intro`)}</p>
+        <p className="level-objective">{t(level.mechanic.objectiveKey)}</p>
+      </div>
       <main className="level-body">
         {Mechanic ? <Mechanic level={level} progress={progress} finished={done} complete={complete} /> : <p>unknown mechanic {level.mechanic.type}</p>}
       </main>
       {done && (
-        <section className="done-panel" role="status">
+        <section ref={doneRef} className="done-panel" role="status">
           <div className="mono done-label">{t('common.levelComplete')}</div>
           {result && (
             <div className="done-text">
