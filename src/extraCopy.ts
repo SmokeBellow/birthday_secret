@@ -117,3 +117,11 @@ export const BOARDING_PASS = {
   seat: 'Левое кресло',
   stamp: 'К ВЫЛЕТУ ГОТОВ',
 };
+
+/** L6 — what each found landmark is called in the result cells. */
+export const NIGHT_FOUND: Record<string, string> = {
+  moon: 'Яркая луна',
+  mushroom: 'Подозрительные грибы',
+  signpost: 'Указатель к цивилизации',
+  eyes: 'Чьи-то глаза напротив',
+};

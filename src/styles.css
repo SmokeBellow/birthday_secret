@@ -482,10 +482,17 @@ button:disabled { cursor: default; }
 .act-btn { min-height: 76px; padding: 14px; color: var(--ink); }
 .act-btn .act-icon { width: 46px; height: 46px; }
 .act-btn.glow { background: #ffe7a8; }
-.lapka-bubble { position: absolute; left: 50%; top: 6%; width: 22%; aspect-ratio: 1; transform: translateX(-50%) scale(0.2); opacity: 0; padding: 18%; border: 3px solid var(--ink); border-radius: 50%; background: #fff7e2; color: var(--ink); transition: transform 0.25s cubic-bezier(.2, 1.4, .4, 1), opacity 0.2s; z-index: 2; }
-.lapka-bubble.show { transform: translateX(-50%) scale(1); opacity: 1; }
+.lapka-bubble { position: absolute; left: 50%; top: 5%; width: 76px; height: 76px; margin-left: -38px; display: grid; place-items: center; transform: scale(0.2); opacity: 0; border: 3px solid var(--ink); border-radius: 50%; background: #fff7e2; color: var(--ink); transition: transform 0.25s cubic-bezier(.2, 1.4, .4, 1), opacity 0.2s; z-index: 3; }
+.lapka-bubble::after { content: ''; position: absolute; bottom: -13px; left: 50%; width: 16px; height: 16px; margin-left: -8px; background: inherit; border: 3px solid var(--ink); border-top: 0; border-left: 0; transform: rotate(45deg); }
+.lapka-bubble.show { transform: scale(1); opacity: 1; }
+.lapka-bubble .act-icon { width: 54%; height: 54%; }
+.lapka-bubble.wait { background: #f1e7cf; }
 .lapka-bubble.no { background: #f7dccb; color: var(--danger); }
 .lapka-bubble.good { background: #dcebd0; color: var(--danger); }
+.bubble-dots { display: flex; gap: 5px; }
+.bubble-dots i { width: 9px; height: 9px; border-radius: 50%; background: var(--ink-soft); animation: blink 1.1s infinite; }
+.bubble-dots i:nth-child(2) { animation-delay: 0.2s; }
+.bubble-dots i:nth-child(3) { animation-delay: 0.4s; }
 .cast.hop { animation: hop 0.5s; }
 @keyframes hop { 40% { transform: translateX(-50%) translateY(-14px); } }
 
@@ -548,3 +555,8 @@ button:disabled { cursor: default; }
 .pass-barcode { flex: 1; height: 38px; background: repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 5px, var(--ink) 5px 6px, transparent 6px 8px, var(--ink) 8px 11px, transparent 11px 13px); }
 .pass-stamp { padding: 6px 9px; border: 3px solid var(--danger); border-radius: 6px; color: var(--danger); font-size: 11px; font-weight: 800; letter-spacing: 0.06em; transform: rotate(-6deg); animation: slam 0.5s 0.5s cubic-bezier(.2, 1.6, .4, 1) both; }
 .riddle-card { justify-items: stretch; place-items: center stretch; }
+
+.found-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.found-cell { min-height: 58px; padding: 8px 10px; border: 3px dashed var(--ink-soft); border-radius: 12px; background: rgba(255, 255, 255, 0.4); display: grid; place-items: center; text-align: center; font: 800 14.5px/1.2 var(--display); }
+.found-cell b { font: 800 22px var(--mono); color: var(--ink-soft); }
+.found-cell.on { border-style: solid; border-color: var(--ink); background: #dcebd0; }

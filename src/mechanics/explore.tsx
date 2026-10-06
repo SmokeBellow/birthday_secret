@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { t, levelKey } from '../data';
 import { Img, Pips, Stage, TapTarget, useShake, useTimeout, type MechanicProps } from '../ui';
-import { HOME_LORE } from '../extraCopy';
+import { HOME_LORE, NIGHT_FOUND } from '../extraCopy';
 
 /** L6 — hiddenObject: four landmarks hide inside the night forest. Coordinates are % of the 16:10 background image. */
 const HIDDEN: Record<string, { x: number; y: number; asset: string }> = {
@@ -51,10 +51,10 @@ export function HiddenObject({ level, finished, complete }: MechanicProps) {
           {miss && <span key={miss.n} className="miss-ripple" style={{ left: `${miss.x}%`, top: `${miss.y}%` }} />}
         </div>
       </Stage>
-      <div className="slots-row">
+      <div className="found-grid">
         {targets.map((id) => (
-          <div key={id} className={`slot${found.includes(id) ? ' filled' : ''}`}>
-            {found.includes(id) && <Img k={HIDDEN[id].asset} className="slot-img pop" />}
+          <div key={id} className={`found-cell${found.includes(id) ? ' on' : ''}`}>
+            {found.includes(id) ? <span className="pop">{NIGHT_FOUND[id]}</span> : <b>?</b>}
           </div>
         ))}
       </div>
@@ -347,7 +347,7 @@ export function CharacterInteraction({ level, finished, complete }: MechanicProp
   useEffect(() => {
     setHint(false);
     if (phase !== 'ask') return;
-    askTimer.current = window.setTimeout(() => setHint(true), 4500);
+    askTimer.current = window.setTimeout(() => setHint(true), 3000);
     return () => window.clearTimeout(askTimer.current);
   }, [phase, idx]);
 
@@ -380,7 +380,8 @@ export function CharacterInteraction({ level, finished, complete }: MechanicProp
   return (
     <>
       <Stage level={level} className="stage-tall" castOverride={{ lapka: null }}>
-        <div data-need={phase === 'ask' ? need : ''} className={`lapka-bubble${phase === 'ask' ? ' show' : ''}${phase === 'no' ? ' show no' : ''}${phase === 'happy' ? ' show good' : ''}`}>
+        <div data-need={phase === 'ask' ? need : ''} className={`lapka-bubble${phase === 'wait' ? ' show wait' : ''}${phase === 'ask' ? ' show' : ''}${phase === 'no' ? ' show no' : ''}${phase === 'happy' ? ' show good' : ''}`}>
+          {phase === 'wait' && <span className="bubble-dots"><i /><i /><i /></span>}
           {phase === 'ask' && <ActIcon act={need} />}
           {phase === 'no' && <ActIcon act="no" />}
           {phase === 'happy' && <ActIcon act="pet" />}
