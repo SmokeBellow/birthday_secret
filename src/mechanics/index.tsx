@@ -3,6 +3,7 @@ import type { MechanicProps } from '../ui';
 import { RevealCards, TapReveal } from './reveal';
 import { Sequence } from './sequence';
 import { ChoiceMechanic } from './choice';
+import { WorldBuilder } from './world';
 import {
   CharacterInteraction,
   CollectItems,
@@ -31,7 +32,7 @@ export const MECHANICS: Record<string, ComponentType<MechanicProps>> = {
   orderedSequence: Sequence,
   pipeline: Sequence,
   alternatingCoop: Sequence,
-  layerBuilder: Sequence,
+  layerBuilder: WorldBuilder,
   spatialChoice: ChoiceMechanic,
   routeChoice: ChoiceMechanic,
   choice: ChoiceMechanic,

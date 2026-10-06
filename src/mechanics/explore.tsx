@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { t, levelKey } from '../data';
-import { Feedback, Img, Pips, Stage, TapTarget, useShake, useTimeout, type MechanicProps } from '../ui';
+import { Img, Pips, Stage, TapTarget, useShake, useTimeout, type MechanicProps } from '../ui';
+import { HOME_LORE } from '../extraCopy';
 
-/** L6 — hiddenObject: four landmarks hide inside the night forest. */
+/** L6 — hiddenObject: four landmarks hide inside the night forest. Coordinates are % of the 16:10 background image. */
 const HIDDEN: Record<string, { x: number; y: number; asset: string }> = {
-  moon: { x: 78, y: 11, asset: 'night_moon' },
-  mushroom: { x: 94, y: 84, asset: 'night_mushroom' },
-  signpost: { x: 14, y: 52, asset: 'night_signpost' },
-  eyes: { x: 6, y: 24, asset: 'night_eyes' },
+  moon: { x: 74, y: 15, asset: 'night_moon' },
+  mushroom: { x: 91, y: 79, asset: 'night_mushroom' },
+  signpost: { x: 16, y: 52, asset: 'night_signpost' },
+  eyes: { x: 31, y: 28, asset: 'night_eyes' },
 };
 
 export function HiddenObject({ level, finished, complete }: MechanicProps) {
@@ -61,12 +62,12 @@ export function HiddenObject({ level, finished, complete }: MechanicProps) {
   );
 }
 
-/** L22 — sceneExploration: visit every hotspot of the home base. */
+/** L22 — sceneExploration: visit every point of the home base and read its lore. */
 const HOME: Record<string, { x: number; y: number; asset: string }> = {
-  sofa: { x: 17, y: 58, asset: 'home_sofa' },
-  snack_box: { x: 52, y: 80, asset: 'home_snack_box' },
-  charger: { x: 30, y: 84, asset: 'home_charger' },
-  blanket: { x: 79, y: 52, asset: 'home_blanket' },
+  sofa: { x: 10, y: 48, asset: 'home_sofa' },
+  blanket: { x: 26, y: 42, asset: 'home_blanket' },
+  charger: { x: 27, y: 74, asset: 'home_charger' },
+  snack_box: { x: 40, y: 84, asset: 'home_snack_box' },
 };
 
 export function SceneExploration({ level, finished, complete }: MechanicProps) {
@@ -81,6 +82,7 @@ export function SceneExploration({ level, finished, complete }: MechanicProps) {
     setSeen(next);
     if (next.length === spots.length) complete();
   };
+  const lore = last ? HOME_LORE[last] : null;
   return (
     <>
       <Stage level={level} cast={false} className="stage-wide">
@@ -102,10 +104,14 @@ export function SceneExploration({ level, finished, complete }: MechanicProps) {
             </button>
           );
         })}
-        <Img k={level.visualState.lapkaStateKey} className="cast cast-lapka cast-small" />
       </Stage>
       <Pips done={seen.length} total={spots.length} />
-      <Feedback text={seen.length === spots.length ? t(`levels.${levelKey(level.id)}.completion`) : ''} />
+      {lore && (
+        <div className="lore-card" key={last}>
+          <div className="lore-title">{lore.title}</div>
+          <div className="lore-text">{lore.text}</div>
+        </div>
+      )}
     </>
   );
 }
@@ -287,34 +293,106 @@ export function CollectItems({ level, finished, complete }: MechanicProps) {
   );
 }
 
-/** L21 — characterInteraction: paw, stare, pet, in any order. */
+/** L21 — characterInteraction: Lapka decides what she wants; read her thought bubble and answer with the right gesture. */
+type Act = 'paw' | 'stare' | 'pet';
+
+function ActIcon({ act, className = '' }: { act: Act | 'no'; className?: string }) {
+  switch (act) {
+    case 'paw':
+      return (
+        <svg viewBox="0 0 64 64" className={`act-icon ${className}`} aria-hidden>
+          <circle cx="16" cy="28" r="7" /><circle cx="29" cy="16" r="7" /><circle cx="43" cy="16" r="7" /><circle cx="54" cy="28" r="7" />
+          <path d="M32 31c-9 0-17 9-17 17 0 6 6 9 11 7 4-1 8-1 12 0 5 2 11-1 11-7 0-8-8-17-17-17z" />
+        </svg>
+      );
+    case 'stare':
+      return (
+        <svg viewBox="0 0 64 64" className={`act-icon ${className}`} aria-hidden>
+          <path d="M4 32C14 16 50 16 60 32 50 48 14 48 4 32z" fill="none" strokeWidth="5" />
+          <circle cx="32" cy="32" r="9" />
+        </svg>
+      );
+    case 'pet':
+      return (
+        <svg viewBox="0 0 64 64" className={`act-icon ${className}`} aria-hidden>
+          <path d="M32 56C10 40 6 26 12 17c6-8 16-5 20 3 4-8 14-11 20-3 6 9 2 23-20 39z" />
+        </svg>
+      );
+    default:
+      return (
+        <svg viewBox="0 0 64 64" className={`act-icon ${className}`} aria-hidden>
+          <path d="M16 16l32 32M48 16L16 48" fill="none" strokeWidth="8" strokeLinecap="round" />
+        </svg>
+      );
+  }
+}
+
 export function CharacterInteraction({ level, finished, complete }: MechanicProps) {
-  const acts = level.mechanic.interactions as string[];
-  const art: Record<string, string> = { paw: 'lapka_paw', stare: 'lapka_stare', pet: 'lapka_purr' };
-  const [done, setDone] = useState<string[]>(finished ? acts : []);
-  const [cur, setCur] = useState<string | null>(null);
+  const acts = level.mechanic.interactions as Act[];
+  const [order] = useState<Act[]>(() => [...acts].sort(() => Math.random() - 0.5));
+  const [idx, setIdx] = useState(finished ? acts.length : 0);
+  const [phase, setPhase] = useState<'wait' | 'ask' | 'happy' | 'no'>('wait');
   const [shake, doShake] = useShake();
-  const go = (id: string) => {
-    if (finished) return;
-    setCur(id);
-    doShake();
-    if (done.includes(id)) return;
-    const next = [...done, id];
-    setDone(next);
-    if (next.length === acts.length) complete(t(`levels.${levelKey(level.id)}.completion`));
+  const [hint, setHint] = useState(false);
+  const later = useTimeout();
+  const askTimer = useRef(0);
+
+  // after a short pause Lapka "decides" what she wants
+  useEffect(() => {
+    if (finished || idx >= acts.length || phase !== 'wait') return;
+    const id = window.setTimeout(() => setPhase('ask'), 900 + Math.random() * 700);
+    return () => window.clearTimeout(id);
+  }, [phase, idx, finished, acts.length]);
+  // if the player is stuck, the right button starts to glow
+  useEffect(() => {
+    setHint(false);
+    if (phase !== 'ask') return;
+    askTimer.current = window.setTimeout(() => setHint(true), 4500);
+    return () => window.clearTimeout(askTimer.current);
+  }, [phase, idx]);
+
+  const need = order[Math.min(idx, order.length - 1)];
+  const act = (a: Act) => {
+    if (finished || idx >= acts.length || phase === 'happy' || phase === 'no') return;
+    if (phase === 'wait') {
+      // too early: she does not like to be rushed
+      setPhase('no');
+      doShake();
+      later(() => setPhase('wait'), 800);
+      return;
+    }
+    if (a !== need) {
+      setPhase('no');
+      doShake();
+      later(() => setPhase('ask'), 800);
+      return;
+    }
+    setPhase('happy');
+    const n = idx + 1;
+    later(() => {
+      setIdx(n);
+      if (n >= acts.length) complete(t(`levels.${levelKey(level.id)}.completion`));
+      else setPhase('wait');
+    }, 900);
   };
-  const lapka = finished ? 'lapka_default' : cur ? art[cur] : level.visualState.lapkaStateKey;
+
+  const lapka = finished || phase === 'happy' ? 'lapka_purr' : phase === 'ask' ? 'lapka_joining' : 'lapka_neutral';
   return (
     <>
       <Stage level={level} className="stage-tall" castOverride={{ lapka: null }}>
-        <Img k={lapka} className={`cast cast-lapka cast-lapka-big ${shake}`} />
-        {done.length === acts.length && <Img k="player2_join_effect" className="sprite-lg fx-join pop" />}
+        <div data-need={phase === 'ask' ? need : ''} className={`lapka-bubble${phase === 'ask' ? ' show' : ''}${phase === 'no' ? ' show no' : ''}${phase === 'happy' ? ' show good' : ''}`}>
+          {phase === 'ask' && <ActIcon act={need} />}
+          {phase === 'no' && <ActIcon act="no" />}
+          {phase === 'happy' && <ActIcon act="pet" />}
+        </div>
+        <Img k={lapka} className={`cast cast-lapka cast-lapka-big ${shake}${phase === 'happy' ? ' hop' : ''}`} />
+        {idx >= acts.length && <Img k="player2_join_effect" className="sprite-lg fx-join pop" />}
       </Stage>
-      <Pips done={done.length} total={acts.length} />
+      <Pips done={idx} total={acts.length} />
       <div className="controls row">
-        {acts.map((id) => (
-          <button key={id} type="button" className={`btn btn-art btn-icon${done.includes(id) ? ' btn-done' : ' btn-primary-soft'}`} disabled={finished} onClick={() => go(id)}>
-            <Img k={art[id]} className="btn-sprite-lapka" />
+        {acts.map((a) => (
+          <button key={a} type="button" className={`btn btn-icon act-btn${hint && phase === 'ask' && a === need ? ' pulse glow' : ''}`} disabled={finished} onClick={() => act(a)} aria-label={a}>
+            <ActIcon act={a} />
           </button>
         ))}
       </div>

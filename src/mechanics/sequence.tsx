@@ -30,18 +30,6 @@ function labelFor(level: MechanicProps['level'], id: string): string {
   }
 }
 
-/** L28 layers stack up on the blank world. */
-function WorldLayers({ step }: { step: number }) {
-  return (
-    <div className="world-layers">
-      {step >= 1 && <Img k="world_landscape_layer" className="wl wl-land" />}
-      {step >= 2 && <Img k="world_hero_layer" className="wl wl-hero" />}
-      {step >= 3 && <Img k="world_jump_effect" className="wl wl-jump" />}
-      {step >= 4 && <Img k="world_slime" className="wl wl-slime" />}
-    </div>
-  );
-}
-
 function Scene({ level, step, seq }: Ctx) {
   const done = step >= seq.length;
   switch (level.slug) {
@@ -65,12 +53,6 @@ function Scene({ level, step, seq }: Ctx) {
         </Stage>
       );
     }
-    case 'world_builder':
-      return (
-        <Stage level={level} cast={false} className="stage-tall">
-          <WorldLayers step={step} />
-        </Stage>
-      );
     case 'coop': {
       const p2In = step >= 2;
       return (

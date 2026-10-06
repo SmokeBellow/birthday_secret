@@ -1349,6 +1349,7 @@
     "sequence": [
       "build_complete_summary",
       "bonus_mission_unlock",
+   "boarding_pass_reveal",
       "certificate_reveal",
       "mission_accepted",
       "level_30_plus"

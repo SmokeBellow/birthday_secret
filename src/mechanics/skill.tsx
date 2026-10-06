@@ -3,7 +3,7 @@ import { t, levelKey } from '../data';
 import { Img, Pips, Stage, TapTarget, useShake, useTimeout, type MechanicProps } from '../ui';
 import player2Config from '../config/level18.player2.json';
 import { isDev } from '../assets';
-import { ROUTE_LABELS, WIKI_PAGES } from '../extraCopy';
+import { ROUTE_HINT, ROUTE_LABELS, SAVE_RIDDLES, WIKI_PAGES, WIKI_TEXT } from '../extraCopy';
 
 /** L10 — timingWindow: stop the marker inside the green zone. A miss just retries. */
 export function TimingWindow({ level, finished, complete }: MechanicProps) {
@@ -155,17 +155,19 @@ export function InventorySort({ level, finished, complete }: MechanicProps) {
   const [held, setHeld] = useState<string | null>(null);
   const [shake, doShake] = useShake();
   const [shakeSlot, setShakeSlot] = useState<string | null>(null);
+  const [misses, setMisses] = useState(0);
   const placeInto = (slotId: string) => {
-    if (finished) return;
-    if (!held) return;
+    if (finished || !held) return;
     if (held !== slotId) {
       setShakeSlot(slotId);
+      setMisses((m) => m + 1);
       doShake();
       return;
     }
     const next = [...placed, held];
     setPlaced(next);
     setHeld(null);
+    setMisses(0);
     if (next.length === SAVE_ITEMS.length) complete(t('common.saveComplete'));
   };
   const asset = (id: string) => SAVE_ITEMS.find((i) => i.id === id)!.asset;
@@ -174,21 +176,24 @@ export function InventorySort({ level, finished, complete }: MechanicProps) {
       <Stage level={level} cast className="stage-short" castOverride={{ p2: null, lapka: null }}>
         {placed.length === SAVE_ITEMS.length && <Img k="checkpoint_marker" className="sprite-lg fx-save pop" />}
       </Stage>
-      <div className="save-slots">
-        {SLOT_ORDER.map((id) => {
-          const it = SAVE_ITEMS.find((i) => i.id === id)!;
+      <div className="riddles">
+        {SLOT_ORDER.map((id, i) => {
+          const it = SAVE_ITEMS.find((x) => x.id === id)!;
           const filled = placed.includes(id);
+          const hintMe = held === id && misses >= 2 && !filled;
           return (
             <button
               key={id}
               type="button"
               data-ui={it.slot}
-              className={`save-slot${filled ? ' filled' : ''}${held && !filled ? ' ready' : ''}${shakeSlot === id ? ' ' + shake : ''}`}
+              className={`save-slot riddle-card${filled ? ' filled' : ''}${held && !filled ? ' ready' : ''}${hintMe ? ' hint' : ''}${shakeSlot === id ? ' ' + shake : ''}`}
               onClick={() => placeInto(id)}
               disabled={filled || finished}
               aria-label={id}
             >
-              <Img k={asset(id)} className={filled ? 'slot-img pop' : 'slot-ghost'} />
+              <span className="riddle-num">{i + 1}</span>
+              <span className="riddle-text">{SAVE_RIDDLES[id]}</span>
+              <span className="riddle-slot">{filled ? <Img k={asset(id)} className="slot-img pop" /> : <b>?</b>}</span>
             </button>
           );
         })}
@@ -229,7 +234,8 @@ export function LinkChain({ level, finished, complete }: MechanicProps) {
         </div>
         <div className="browser-page" key={opened}>
           <div className="wiki-title">{WIKI_PAGES[Math.min(opened, WIKI_PAGES.length - 1)]}</div>
-          {widths.map((w, i) => (
+          <p className="wiki-text">{WIKI_TEXT[Math.min(opened, WIKI_TEXT.length - 1)]}</p>
+          {widths.slice(0, 2).map((w, i) => (
             <div key={i} className="skel" style={{ width: `${(w + opened * 7) % 40 + 55}%` }} />
           ))}
           {opened < seq.length ? (
@@ -410,6 +416,19 @@ export function RoutePuzzle({ level, finished, complete }: MechanicProps) {
         </div>
         <Img k={idx >= segs.length ? 'compass_upgraded' : def.img} className="sprite-lg pop" key={idx} />
       </Stage>
+      {idx < segs.length && (
+        <div className="route-hint">
+          <div className="route-hint-title">{ROUTE_HINT.title}</div>
+          <p>{ROUTE_HINT.text}</p>
+          <div className="route-legend">
+            {ROUTE_HINT.legend.map(([ico, name]) => (
+              <span key={name}>
+                <b>{ico}</b> {name}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
       {idx < segs.length && (
         <div className="controls grid2">
           {def.options.map((r) => (

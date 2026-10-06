@@ -56,7 +56,14 @@ const play = {
   18: async (p) => { for (let i = 0; i < 3; i++) { await p.locator('.quiz-card').first().click(); await p.waitForTimeout(100); await p.locator('.quiz .btn-primary').click(); await p.waitForTimeout(100);} },
   19: (p) => seq(p, 6),
   20: async (p) => { await p.locator('.controls .btn').nth(0).click(); await p.waitForTimeout(200); await p.locator('.controls .btn').nth(1).click(); },
-  21: (p) => clickAll(p, '.btn-icon:not(.btn-done)', 3),
+  21: async (p) => {
+    for (let i = 0; i < 3; i++) {
+      const el = await p.waitForSelector('.lapka-bubble[data-need]:not([data-need=""])', { timeout: 6000 });
+      const need = await el.getAttribute('data-need');
+      await p.locator(`.act-btn[aria-label=${need}]`).click({ force: true });
+      await p.waitForTimeout(1100);
+    }
+  },
   22: async (p) => { for (let i = 0; i < 4; i++) { await p.locator('.home-spot:not(.found)').first().click({ force: true }); await p.waitForTimeout(120);} },
   23: (p) => clickAll(p, '.lapka-tap', 4),
   24: (p) => seq(p, 4),
