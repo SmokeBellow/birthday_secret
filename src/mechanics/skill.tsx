@@ -7,10 +7,10 @@ import { ROUTE_LABELS, WIKI_PAGES } from '../extraCopy';
 
 /** L10 — timingWindow: stop the marker inside the green zone. A miss just retries. */
 export function TimingWindow({ level, finished, complete }: MechanicProps) {
-  const [pos, setPos] = useState(0.1);
   const [ok, setOk] = useState(finished);
   const [shake, doShake] = useShake();
   const [missed, setMissed] = useState(0);
+  const markerRef = useRef<HTMLDivElement>(null);
   const posRef = useRef(0.1);
   const running = useRef(!finished);
   const ZONE: [number, number] = [0.58, 0.8];
@@ -21,7 +21,7 @@ export function TimingWindow({ level, finished, complete }: MechanicProps) {
       if (running.current) {
         const ph = ((now - t0) / 1700) % 2;
         posRef.current = ph < 1 ? ph : 2 - ph;
-        setPos(posRef.current);
+        if (markerRef.current) markerRef.current.style.left = `${posRef.current * 100}%`;
       }
       raf = requestAnimationFrame(loop);
     };
@@ -50,7 +50,9 @@ export function TimingWindow({ level, finished, complete }: MechanicProps) {
       </Stage>
       <div className={`timing ${shake}`} data-ui="timing_meter">
         <div className="timing-zone" style={{ left: `${ZONE[0] * 100}%`, width: `${(ZONE[1] - ZONE[0]) * 100}%` }} />
-        <div className="timing-marker" style={{ left: `${pos * 100}%` }} />
+        <div className="timing-track">
+          <div ref={markerRef} className="timing-marker" />
+        </div>
       </div>
       <div className="controls center">
         <TapTarget onTap={stop} disabled={finished || ok} flash={missed > 0 && !ok} />
@@ -63,9 +65,12 @@ export function TimingWindow({ level, finished, complete }: MechanicProps) {
 export function StabilityGauge({ level, finished, complete }: MechanicProps) {
   const target = level.mechanic.targetDurationSeconds as number;
   const ZONE: [number, number] = [0.42, 0.68];
-  const [view, setView] = useState({ h: 0.3, p: finished ? target : 0 });
   const held = useRef(false);
   const st = useRef({ h: 0.3, p: finished ? target : 0, done: finished });
+  const brewRef = useRef<HTMLDivElement>(null);
+  const liquidRef = useRef<HTMLSpanElement>(null);
+  const needleRef = useRef<HTMLDivElement>(null);
+  const progRef = useRef<HTMLSpanElement>(null);
   useEffect(() => {
     let raf = 0;
     let last = performance.now();
@@ -84,30 +89,34 @@ export function StabilityGauge({ level, finished, complete }: MechanicProps) {
           complete();
         }
       }
-      setView({ h: s.h, p: s.p });
+      // DOM is updated directly: no React re-render per frame
+      const inZone = s.h >= ZONE[0] && s.h <= ZONE[1];
+      if (liquidRef.current) liquidRef.current.style.height = `${30 + s.h * 40}%`;
+      if (needleRef.current) needleRef.current.style.bottom = `${s.h * 100}%`;
+      if (progRef.current) progRef.current.style.width = `${(s.p / target) * 100}%`;
+      if (brewRef.current) brewRef.current.className = `brew ${inZone ? 'calm' : 'wild'}`;
       raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(raf);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const inZone = view.h >= ZONE[0] && view.h <= ZONE[1];
   return (
     <>
       <Stage level={level} cast={false} className="stage-short">
-        <div className={`brew${inZone ? ' calm' : ' wild'}`} data-ui="brew_vessel">
-          <span className="brew-liquid" style={{ height: `${30 + view.h * 40}%` }} />
+        <div ref={brewRef} className="brew calm" data-ui="brew_vessel">
+          <span ref={liquidRef} className="brew-liquid" style={{ height: '39%' }} />
           {[0, 1, 2, 3, 4].map((i) => (
-            <span key={i} className="bubble" style={{ left: `${14 + i * 16}%`, animationDelay: `${i * 0.35}s`, animationDuration: `${1.8 - view.h * 1.1}s` }} />
+            <span key={i} className="bubble" style={{ left: `${14 + i * 16}%`, animationDelay: `${i * 0.35}s` }} />
           ))}
         </div>
         <div className="gauge" data-ui="stability_gauge">
           <div className="gauge-zone" style={{ bottom: `${ZONE[0] * 100}%`, height: `${(ZONE[1] - ZONE[0]) * 100}%` }} />
-          <div className="gauge-needle" style={{ bottom: `${view.h * 100}%` }} />
+          <div ref={needleRef} className="gauge-needle" style={{ bottom: '30%' }} />
         </div>
       </Stage>
       <div className="timing-progress" aria-hidden>
-        <span style={{ width: `${(view.p / target) * 100}%` }} />
+        <span ref={progRef} style={{ width: '0%' }} />
       </div>
       <div className="controls center">
         <button

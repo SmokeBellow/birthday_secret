@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { t } from './data';
+import { t, tList } from './data';
 import { Img } from './ui';
 
 type Props = { hasSave: boolean; complete: boolean; onStart: () => void; onReset: () => void };
@@ -13,7 +13,13 @@ export function StartScreen({ hasSave, complete, onStart, onReset }: Props) {
       <div className="start-inner">
         <Img k={complete ? 'hero_build_complete' : 'hero_base'} className="start-hero" />
         <h1 className="start-title">{t('start.title')}</h1>
-        <p className="start-sub">{t('start.subtitle')}</p>
+        <div className="start-intro">
+          {tList('start.intro').map((line, i, all) => (
+            <p key={i} className={i === all.length - 1 ? 'start-sign' : i === 0 ? 'start-hello' : ''}>
+              {line}
+            </p>
+          ))}
+        </div>
         <button type="button" className="btn btn-primary btn-xl" onClick={onStart}>
           {t('start.cta')}
         </button>

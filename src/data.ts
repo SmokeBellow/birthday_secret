@@ -45,4 +45,11 @@ export function t(key: string | undefined | null): string {
   return typeof node === 'string' ? node : '';
 }
 
+/** Copy list (array of strings) at a dotted key. */
+export function tList(key: string): string[] {
+  let node: any = copyJson;
+  for (const part of key.split('.')) node = node?.[part];
+  return Array.isArray(node) ? node : [];
+}
+
 export const levelKey = (n: number) => String(n).padStart(2, '0');

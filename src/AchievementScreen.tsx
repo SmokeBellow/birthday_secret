@@ -1,6 +1,7 @@
 import { getLevel, levelKey, t, TOTAL_LEVELS } from './data';
 import { HomeButton } from './LevelScreen';
 import { Img } from './ui';
+import { ACHIEVEMENT_GIVES } from './extraCopy';
 
 export function AchievementScreen({ levelId, onHome, onNext }: { levelId: number; onHome: () => void; onNext: () => void }) {
   const lv = getLevel(levelId);
@@ -17,6 +18,10 @@ export function AchievementScreen({ levelId, onHome, onNext }: { levelId: number
         <Img k={lv.visualState.headerIconKey} className="ach-icon pop" />
         <h1 className="ach-title">{t(`achievements.${k}.title`)}</h1>
         <p className="ach-desc">{t(`achievements.${k}.description`)}</p>
+        <div className="ach-gives">
+          <span className="mono ach-gives-label">ЧТО ДАЁТ</span>
+          <span>{ACHIEVEMENT_GIVES[levelId]}</span>
+        </div>
         {reward && (
           <div className="reward">
             <div className="mono reward-label">{t('common.reward')}</div>

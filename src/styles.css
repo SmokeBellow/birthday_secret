@@ -234,7 +234,8 @@ button:disabled { cursor: default; }
 .waffle.ready .waffle-steam { opacity: 1; animation: bob 1.2s infinite; }
 .timing { position: relative; height: 36px; border: 3px solid var(--ink); border-radius: 18px; background: var(--paper-2); overflow: hidden; }
 .timing-zone { position: absolute; top: 0; bottom: 0; background: repeating-linear-gradient(45deg, var(--green), var(--green) 6px, #77a668 6px, #77a668 12px); }
-.timing-marker { position: absolute; top: -2px; bottom: -2px; width: 8px; margin-left: -4px; border-radius: 4px; background: var(--ink); box-shadow: 0 0 0 2px var(--paper-2); }
+.timing-track { position: absolute; inset: 0; }
+.timing-marker { position: absolute; left: 0; top: -2px; bottom: -2px; width: 8px; margin-left: -4px; border-radius: 4px; background: var(--ink); box-shadow: 0 0 0 2px var(--paper-2); }
 .timing-progress { height: 12px; border: 2px solid var(--ink); border-radius: 8px; background: var(--paper-2); overflow: hidden; }
 .timing-progress span { display: block; height: 100%; background: var(--green); }
 
@@ -242,7 +243,8 @@ button:disabled { cursor: default; }
 .brew { position: absolute; left: 14%; top: 14%; width: 44%; height: 76%; border: 4px solid #e9dcc0; border-radius: 12px 12px 40px 40px; background: rgba(255, 255, 255, 0.12); overflow: hidden; }
 .brew-liquid { position: absolute; left: 0; right: 0; bottom: 0; background: linear-gradient(#e0a73a, #b36a1f); transition: height 0.1s; }
 .brew.wild .brew-liquid { background: linear-gradient(#e86a4a, #b3361f); }
-.bubble { position: absolute; bottom: 0; width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.6); animation: rise 1.4s linear infinite; }
+.bubble { position: absolute; bottom: 0; width: 12px; height: 12px; border-radius: 50%; background: rgba(255, 255, 255, 0.6); animation: rise 1.4s linear infinite; will-change: transform; }
+.brew.wild .bubble { animation-duration: 0.8s; }
 @keyframes rise { to { transform: translateY(-160px); opacity: 0; } }
 .gauge { position: absolute; right: 12%; top: 10%; bottom: 10%; width: 22px; border: 3px solid var(--ink); border-radius: 12px; background: rgba(255, 255, 255, 0.85); }
 .gauge-zone { position: absolute; left: 0; right: 0; background: var(--green); opacity: 0.85; }
@@ -374,7 +376,7 @@ button:disabled { cursor: default; }
 .start-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .start-shade { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(20, 14, 10, 0.35), rgba(20, 14, 10, 0.78)); }
 .start-inner { position: relative; width: 100%; max-width: 480px; margin: 0 auto; min-height: 100dvh; padding: 24px 20px 28px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 12px; text-align: center; color: #fff; }
-.start-hero { height: min(46dvh, 380px); width: auto; filter: drop-shadow(0 6px 4px rgba(0, 0, 0, 0.5)); margin-bottom: auto; margin-top: 8px; }
+.start-hero { height: min(38dvh, 360px); width: auto; filter: drop-shadow(0 6px 4px rgba(0, 0, 0, 0.5)); margin-bottom: auto; margin-top: 8px; }
 .start-title { margin: 0; font-size: clamp(42px, 14vw, 62px); line-height: 1; font-weight: 900; letter-spacing: 0.02em; text-shadow: 3px 3px 0 var(--accent-dark); }
 .start-sub { margin: 0; font-size: 18px; line-height: 1.3; max-width: 320px; }
 .start-inner .btn-link { color: #fff; }
@@ -441,3 +443,11 @@ button:disabled { cursor: default; }
 .cert-expires b { display: block; font-size: 16px; margin-top: 2px; }
 .cert-how-title { font: 800 14px var(--display); margin-top: 6px; }
 .cert-how { margin: 0; font-size: 12.5px; line-height: 1.35; text-align: left; }
+
+.ach-gives { display: flex; flex-direction: column; gap: 4px; width: 100%; padding: 10px 12px; border: 2px solid var(--ink); border-radius: 10px; background: #fff7e2; text-align: left; font-size: 15px; line-height: 1.3; }
+.ach-gives-label { font-size: 11px; font-weight: 800; color: var(--green-dark); }
+
+.start-intro { max-width: 340px; display: flex; flex-direction: column; gap: 8px; text-align: center; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7); }
+.start-intro p { margin: 0; font-size: 16.5px; line-height: 1.35; }
+.start-hello { font-weight: 800; font-size: 19px !important; }
+.start-sign { font-style: italic; opacity: 0.9; }
