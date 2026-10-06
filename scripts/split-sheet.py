@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Cut a generated sprite sheet into separate sprites named by asset key.
 
-usage: python3 scripts/split-sheet.py <sheet id from docs/image_manifest.json> <sheet image> [--out new_sprites] [--gap N]
+usage: python3 scripts/split-sheet.py <sheet id from docs/image_manifest.json> <sheet image> [--out new_sprites] [--gap N] [--scale F]
 
 * the flat background (green / magenta / black) is removed with the same keying as import-sprites.py;
 * every separate subject on the sheet is found as one blob (--gap = how far apart parts may be and still count
@@ -9,6 +9,7 @@ usage: python3 scripts/split-sheet.py <sheet id from docs/image_manifest.json> <
 * blobs are ordered left to right, top to bottom and named from the manifest order;
 * all sprites of a sheet get the SAME canvas (so scale and baseline of a character family are preserved);
   characters are bottom-aligned, everything else centred;
+* --scale F resizes every sprite of the sheet (use it when a second sheet of the same character is drawn smaller/larger);
 * output: transparent PNGs in --out, ready for `python3 scripts/import-sprites.py <out>`.
 """
 import json, os, sys
@@ -70,6 +71,7 @@ def main():
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
     out = 'new_sprites'
     gap = None
+    scale = 1.0
     argv = sys.argv[1:]
     for i, a in enumerate(argv):
         if a == '--out':
@@ -77,6 +79,9 @@ def main():
             args.remove(out)
         if a == '--gap':
             gap = int(argv[i + 1])
+            args.remove(argv[i + 1])
+        if a == '--scale':
+            scale = float(argv[i + 1])
             args.remove(argv[i + 1])
     sheet_id, path = args[0], args[1]
     sh = next((s for s in MANIFEST['sheets'] if s['id'] == sheet_id), None)
@@ -108,7 +113,10 @@ def main():
         piece = rgba.copy()
         piece[..., 3] = np.where(m, piece[..., 3], 0)
         ys, xs = np.where(piece[..., 3] > 10)
-        crops.append(Image.fromarray(piece[ys.min():ys.max() + 1, xs.min():xs.max() + 1]))
+        c = Image.fromarray(piece[ys.min():ys.max() + 1, xs.min():xs.max() + 1])
+        if scale != 1.0:  # make a sheet match the scale of another sheet of the same character
+            c = c.resize((round(c.width * scale), round(c.height * scale)), Image.LANCZOS)
+        crops.append(c)
     pad = 24
     W = max(c.width for c in crops) + 2 * pad
     H = max(c.height for c in crops) + 2 * pad
