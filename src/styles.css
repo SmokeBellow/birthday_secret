@@ -647,3 +647,31 @@ button:disabled { cursor: default; }
 .power-4 .cast-hero { filter: drop-shadow(0 0 16px rgba(255, 214, 90, 1)); }
 .power-5 .cast-hero { filter: drop-shadow(0 0 20px rgba(255, 224, 120, 1)); }
 .power-6 .cast-hero { filter: drop-shadow(0 0 26px rgba(255, 230, 140, 1)); }
+
+/* ---------- unified look for tile-style sprites (auto-detected, see Img) ---------- */
+.img-tile { border-radius: 16%; box-shadow: 0 0 0 2px var(--ink), 0 4px 6px rgba(0, 0, 0, 0.35); background: #1d2236; }
+.slot .img-tile, .tray-item .img-tile, .riddle-slot .img-tile, .save-slot .img-tile, .build-ico.img-tile, .hud-item.img-tile, .btn-sprite.img-tile, .pipe-img.img-tile, .pack-img.img-tile, .slot-img.img-tile, .piece-img.img-tile, .tab-ico.img-tile, .gallery-img.img-tile, .bread-icon.img-tile { box-shadow: none; border-radius: 14%; }
+.level-icon.img-tile, .ach-icon.img-tile, .reward-img.img-tile { box-shadow: 0 0 0 2px var(--ink), 3px 3px 0 var(--ink); }
+.ach-icon.img-tile { border-radius: 22%; }
+/* glow sprites: black background disappears on dark scenes */
+.stage .img-fx, .post-screen .img-fx { mix-blend-mode: screen; background: none; box-shadow: none; border-radius: 0; }
+.img-fx.img-tile { box-shadow: none; background: none; }
+
+/* ---------- scene polish ---------- */
+.stage::after { content: ''; position: absolute; inset: 0; pointer-events: none; box-shadow: inset 0 0 40px rgba(10, 6, 20, 0.5); border-radius: 11px; z-index: 4; }
+.cast { transform-origin: 50% 100%; animation: breathe 3.4s ease-in-out infinite; }
+.cast-p2 { animation-delay: -1.2s; }
+.cast-lapka { animation-delay: -2.1s; }
+.cast-lapka-big { animation: none; }
+@keyframes breathe { 50% { transform: scaleY(1.018) scaleX(0.994); } }
+.stage-cast::before { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 22%; background: linear-gradient(to top, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0)); }
+
+/* ---------- achievement / start polish ---------- */
+.ach-card { position: relative; overflow: hidden; }
+.ach-card::before { content: ''; position: absolute; left: 50%; top: 110px; width: 420px; height: 420px; margin: -210px 0 0 -210px; background: repeating-conic-gradient(rgba(224, 167, 58, 0.22) 0 10deg, transparent 10deg 20deg); border-radius: 50%; animation: spin 24s linear infinite; mask-image: radial-gradient(circle, #000 20%, transparent 68%); -webkit-mask-image: radial-gradient(circle, #000 20%, transparent 68%); pointer-events: none; }
+.ach-card > * { position: relative; }
+.confetti { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 5; }
+.confetti i { position: absolute; top: -12px; width: 8px; height: 14px; border-radius: 2px; animation: confetti-fall 2.4s ease-in forwards; }
+@keyframes confetti-fall { to { transform: translateY(110vh) rotate(540deg); opacity: 0.9; } }
+.start-hero { animation: float 4.2s ease-in-out infinite; }
+@keyframes float { 50% { transform: translateY(-8px); } }

@@ -13,10 +13,45 @@ export type MechanicProps = {
   complete: (result?: string) => void;
 };
 
+/** Opaque "tile" sprites (art that ships with its own dark background) get one consistent card look. */
+const tileCache = new Map<string, boolean>();
+function detectTile(img: HTMLImageElement): boolean {
+  try {
+    const c = document.createElement('canvas');
+    c.width = c.height = 16;
+    const g = c.getContext('2d', { willReadFrequently: true })!;
+    g.drawImage(img, 0, 0, 16, 16);
+    const px = (x: number, y: number) => g.getImageData(x, y, 1, 1).data[3];
+    const opaque = [px(1, 1), px(14, 1), px(1, 14), px(14, 14)].filter((a) => a > 200).length;
+    return opaque >= 3;
+  } catch {
+    return false;
+  }
+}
+
 /** Image resolved through ASSET_MAP. CSS-rendered / unknown keys draw nothing in normal play. */
 export function Img({ k, className = '', style, alt = '' }: { k?: string | null; className?: string; style?: CSSProperties; alt?: string }) {
   const r = resolveAsset(k);
-  if (r.kind === 'image') return <img src={r.url} alt={alt} draggable={false} className={`img ${className}`} style={style} />;
+  const url = r.kind === 'image' ? r.url : '';
+  const [tile, setTile] = useState<boolean>(tileCache.get(url) ?? false);
+  if (r.kind === 'image') {
+    const fx = url.includes('/effects/');
+    return (
+      <img
+        src={url}
+        alt={alt}
+        draggable={false}
+        className={`img ${className}${tile ? ' img-tile' : ''}${fx ? ' img-fx' : ''}`}
+        style={style}
+        onLoad={(e) => {
+          if (url.includes('/backgrounds/') || tileCache.has(url)) return;
+          const v = detectTile(e.currentTarget);
+          tileCache.set(url, v);
+          if (v) setTile(true);
+        }}
+      />
+    );
+  }
   if (r.kind === 'unknown' && isDev && k) return <span className={`img-missing ${className}`}>{k}</span>;
   return null;
 }

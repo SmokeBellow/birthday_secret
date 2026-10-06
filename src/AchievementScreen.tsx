@@ -15,6 +15,11 @@ export function AchievementScreen({ levelId, onHome, onNext }: { levelId: number
   const isChar = reward === 'player2_unlock' || reward === 'lapka_unlock' || reward === 'hero_base';
   return (
     <div className="screen ach-screen">
+      <div className="confetti" aria-hidden>
+        {Array.from({ length: 26 }, (_, i) => (
+          <i key={i} style={{ left: `${(i * 37) % 100}%`, background: ['#e0a73a', '#c8613a', '#5f8a52', '#6aa6d9', '#f3e6c8'][i % 5], animationDelay: `${(i % 9) * 0.12}s`, animationDuration: `${1.8 + (i % 5) * 0.3}s` }} />
+        ))}
+      </div>
       <div className="topbar">
         <HomeButton onHome={onHome} />
       </div>
