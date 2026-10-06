@@ -28,3 +28,9 @@ QA-ссылка: `/?dev=1&level=12&seed=1` открывает уровень 12 
 - `scripts/qa.mjs` — автопроход всех 30 уровней в headless Chromium.
 - `scripts/trim-scene-assets.py` — обрезка прозрачных полей у спрайтов сцен (уже применена).
 - `docs/` — исходные требования и чек-лист QA.
+
+## Публикация (GitHub Pages)
+
+Сборка и публикация идут автоматически при каждом пуше в `main` (`.github/workflows/pages.yml`).
+Один раз включить: Settings → Pages → Source: **GitHub Actions**.
+Адрес: `https://smokebellow.github.io/birthday_secret/` (для режима разработчика добавить `?dev=1`).
