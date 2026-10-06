@@ -3,6 +3,7 @@ import { t, levelKey } from '../data';
 import { Img, Pips, Stage, TapTarget, useShake, useTimeout, type MechanicProps } from '../ui';
 import { HOME_LORE, NIGHT_FOUND } from '../extraCopy';
 import { sfx } from '../audio';
+import { Bread, Duck as DuckArt } from '../art';
 import { bump } from '../stats';
 
 /** L6 — hiddenObject: four landmarks hide inside the night forest. Coordinates are % of the 16:10 background image. */
@@ -198,19 +199,19 @@ export function MovingTargetAim({ level, finished, complete }: MechanicProps) {
               style={{ top: `${d.y}%` }}
               data-n={reaction[d.id] ?? 0}
             >
-              <Img k={d.dir === 'right' ? 'duck_flying_right' : 'duck_flying_left'} className="duck-img" />
+              <DuckArt dir={d.dir === 'right' ? 'right' : 'left'} className="duck-img" />
             </div>
           ))}
           {fx && (
             <span key={fx.n} className={`bread-shot${fx.hit ? ' hit' : ''}`} style={{ left: `${fx.x}%`, top: `${fx.y}%` }}>
-              <Img k="bread_projectile" className="bread-img" />
+              <Bread className="bread-img" />
             </span>
           )}
         </div>
       </Stage>
       <div className="bread-count" aria-hidden>
         {Array.from({ length: total }, (_, i) => (
-          <Img key={i} k="bread_projectile" className={`bread-icon${i < throws ? ' used' : ''}`} />
+          <Bread key={i} className={`bread-icon${i < throws ? ' used' : ''}`} />
         ))}
       </div>
     </>

@@ -713,3 +713,12 @@ button:disabled { cursor: default; }
 .pipe-node { aspect-ratio: auto; height: 58px; }
 .quiz-label { margin-bottom: -2px; }
 .controls.grid2 .btn { min-height: 48px; }
+
+/* ---------- vector duck / bread ---------- */
+.duck-svg, .bread-svg { display: block; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.4)); }
+.duck-wing { animation: flap 0.5s ease-in-out infinite alternate; }
+@keyframes flap { from { transform: rotate(-22deg); } to { transform: rotate(14deg); } }
+.duck-img { width: 100%; height: 100%; }
+.bread-count .bread-svg { width: 40px; height: 36px; flex: none; }
+.bread-count .bread-svg.used { opacity: 0.25; filter: grayscale(1); }
+.bread-shot .bread-svg { width: 100%; height: auto; }
