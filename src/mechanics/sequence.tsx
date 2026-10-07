@@ -61,7 +61,7 @@ function Scene({ level, step, seq }: Ctx) {
         <Stage level={level} className="stage-short" castOverride={{ p2: p2In ? level.visualState.player2StateKey : null }}>
           <Img k="coop_energy_left" className="energy energy-l" style={{ opacity: step % 2 ? 0.45 : 1 }} />
           <Img k="coop_energy_right" className="energy energy-r" style={{ opacity: step >= 2 && step % 2 === 0 ? 1 : 0.45 }} />
-          {step === 2 && <Img k="player2_join_effect" className="sprite-lg fx-join pop" />}
+          {step === 2 && <Img k="player2_join_effect" className="sprite-lg fx-join fx-join-p2 pop" />}
         </Stage>
       );
     }

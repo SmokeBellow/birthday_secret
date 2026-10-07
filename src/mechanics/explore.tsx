@@ -254,10 +254,10 @@ export function ResourceTap({ level, finished, complete }: MechanicProps) {
 
 /** L9 — collectRequiredPlusOptional: pack everything, strange stone included. */
 const PACK: { id: string; asset: string; x: number; y: number }[] = [
-  { id: 'water', asset: 'item_water', x: 14, y: 62 },
-  { id: 'map', asset: 'item_map', x: 40, y: 38 },
-  { id: 'backpack', asset: 'item_backpack', x: 66, y: 66 },
-  { id: 'strange_stone', asset: 'item_strange_stone', x: 86, y: 30 },
+  { id: 'water', asset: 'item_water', x: 56, y: 62 },
+  { id: 'map', asset: 'item_map', x: 70, y: 28 },
+  { id: 'backpack', asset: 'item_backpack', x: 86, y: 64 },
+  { id: 'strange_stone', asset: 'item_strange_stone', x: 90, y: 24 },
 ];
 
 export function CollectItems({ level, finished, complete }: MechanicProps) {

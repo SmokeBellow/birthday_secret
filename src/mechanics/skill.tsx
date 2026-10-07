@@ -45,7 +45,7 @@ export function TimingWindow({ level, finished, complete }: MechanicProps) {
     <>
       <Stage level={level} cast={false} className="stage-short">
         <div className={`waffle ${ok ? 'ready' : 'raw'}`} data-ui="waffle_tube">
-          <span className="waffle-body" />
+          <Img k="icon_level_10_waffle" className="waffle-img" />
           <span className="waffle-steam" />
         </div>
       </Stage>

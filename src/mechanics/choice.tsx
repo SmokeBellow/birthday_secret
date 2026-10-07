@@ -281,7 +281,9 @@ function StackScene({ level, finished, choices, complete }: MechanicProps & { ch
       <Stage level={level} className="stage-short">
         <div className={`fact-pile ${shake}${over ? ' over' : ''}`}>
           {Array.from({ length: pile }, (_, i) => (
-            <Img key={i} k="fact_card_stack" className="pile-card pop" style={{ bottom: `${i * 14}%`, left: `${(i % 2 ? 1 : -1) * (i * 3)}%`, transform: `rotate(${(i % 2 ? 1 : -1) * i * 4}deg)` }} />
+            <span key={i} className="pile-card pop" style={{ bottom: `${i * 13}%`, left: `${(i % 2 ? 1 : -1) * (i * 3)}%`, transform: `rotate(${(i % 2 ? 1 : -1) * i * 4}deg)` }}>
+              <i /><i /><i />
+            </span>
           ))}
         </div>
         {done && <Img k="fact_stack_collapse" className="sprite-lg pop" />}
@@ -333,7 +335,7 @@ function GenericScene(props: MechanicProps & { choices: Choice[] }) {
   if (level.id === 20)
     scene = (
       <Stage level={level} className="stage-short">
-        <Img k={inspected || equipped ? 'legendary_ring_glow' : 'legendary_ring_idle'} className="sprite-lg ring-item pop" key={String(inspected || equipped)} />
+        <Img k="legendary_ring_idle" className={`sprite-lg ring-item pop${inspected || equipped ? ' lit' : ''}`} key={String(inspected || equipped)} />
       </Stage>
     );
   else

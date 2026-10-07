@@ -128,6 +128,7 @@ for (const n of only) {
   } catch (e) { note = String(e.message).split('\n')[0]; }
   await page.waitForTimeout(500);
   await page.screenshot({ path: `${out}/L${String(n).padStart(2, '0')}_b.png`, fullPage: true });
+  await page.locator('.stage').first().screenshot({ path: `${out}/L${String(n).padStart(2, '0')}_stage_done.png` }).catch(() => {});
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   const broken = await page.evaluate(() => [...document.images].filter((i) => !i.complete || i.naturalWidth === 0).map((i) => i.src));
   if (ok) {
