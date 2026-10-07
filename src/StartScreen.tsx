@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { t, tList } from './data';
 import { BUTTONS } from './extraCopy';
 import { foundEgg } from './stats';
-import { sfx } from './audio';
+import { haptic, sfx } from './audio';
 import { useRef } from 'react';
 import { Img } from './ui';
 
@@ -11,6 +11,14 @@ type Props = { hasSave: boolean; complete: boolean; onStart: () => void; onReset
 export function StartScreen({ hasSave, complete, onStart, onReset, onGallery, achievements }: Props) {
   const [confirming, setConfirming] = useState(false);
   const [egg, setEgg] = useState(false);
+  const [go, setGo] = useState(false);
+  const launch = () => {
+    if (go) return;
+    setGo(true);
+    sfx('fanfare');
+    haptic([40, 30, 40]);
+    window.setTimeout(onStart, 1250);
+  };
   const titleTaps = useRef({ n: 0, last: 0 });
   const tapTitle = () => {
     const now = Date.now();
@@ -39,7 +47,7 @@ export function StartScreen({ hasSave, complete, onStart, onReset, onGallery, ac
             </p>
           ))}
         </div>
-        <button type="button" className="btn btn-primary btn-xl" onClick={onStart}>
+        <button type="button" className="btn btn-primary btn-xl" onClick={launch} disabled={go}>
           {t('start.cta')}
         </button>
         {achievements > 0 && (
@@ -66,6 +74,12 @@ export function StartScreen({ hasSave, complete, onStart, onReset, onGallery, ac
           </div>
         )}
       </div>
+      {go && (
+        <div className="go-pop" aria-hidden>
+          <span className="go-rays" />
+          <span className="go-text">Эээээрл!</span>
+        </div>
+      )}
       {egg && (
         <button type="button" className="egg-overlay" onClick={() => setEgg(false)}>
           <img src={`${import.meta.env.BASE_URL}assets/easter/frog.jpg`} alt="" className="egg-img" />
