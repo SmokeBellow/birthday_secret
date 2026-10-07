@@ -2,7 +2,7 @@ import { levels, levelKey, t, TOTAL_LEVELS } from './data';
 import { ACHIEVEMENT_GIVES } from './extraCopy';
 import { HomeButton } from './LevelScreen';
 import { Img } from './ui';
-import { EGGS, getStats } from './stats';
+import { EGG_HINTS, EGGS, getStats } from './stats';
 import type { GameProgress } from './progress';
 
 /** All achievements of the single playthrough: earned ones are readable, the rest stay a surprise. */
@@ -44,6 +44,7 @@ export function GalleryScreen({ progress, onHome }: { progress: GameProgress; on
             <div className="gallery-ico">{eggs.includes(id) ? <span className="egg-star">★</span> : <span className="gallery-lock">?</span>}</div>
             <div className="gallery-text">
               <div className="gallery-title">{eggs.includes(id) ? name : 'Секрет'}</div>
+              {!eggs.includes(id) && <div className="egg-hint">{EGG_HINTS[id]}</div>}
             </div>
           </li>
         ))}

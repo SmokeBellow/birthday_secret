@@ -54,3 +54,12 @@ export function foundEgg(id: string) {
     /* optional */
   }
 }
+
+/** Grey hints for secrets that are not found yet: deliberately vague. */
+export const EGG_HINTS: Record<string, string> = {
+  lapka_enough: 'Кошки любят внимание. Но не бесконечно.',
+  shortcut: 'Иногда цель ближе, чем кажется. Особенно на карте.',
+  bug_feature: 'Найти — ещё не значит закончить.',
+  version: 'Название любит, когда к нему возвращаются снова и снова.',
+  lapka_judges: 'Чем больше внимания, тем строже взгляд.',
+};
