@@ -160,7 +160,7 @@ export function PostGame({ step, onStep, onHome, onGallery }: Props) {
             <Img k="touchdown_effect" className="post-fx pop" />
             <h1 className="post-title">{t('postgame.accepted.title')}</h1>
             <p className="post-sub">{t('postgame.accepted.subtitle')}</p>
-            <p className="mono post-foot">{t('postgame.accepted.footer')}</p>
+            {t('postgame.accepted.footer') && <p className="mono post-foot">{t('postgame.accepted.footer')}</p>}
           </>
         )}
         {step === 'plus' && (
@@ -213,7 +213,7 @@ function StatsCard() {
     ['Время в игре', fmtTime(s.playMs)],
     ['Тапов по кнопкам', String(s.taps)],
     ['Проб и ошибок', String(s.slips)],
-    ['Кусков хлеба брошено уткам', String(Math.min(s.duckHits, 3))],
+    ['Кусков хлеба поймано утками', `${Math.min(s.duckHits, 3)} из 3`],
     ['Раз удалось погладить Лапку', String(s.lapkaPets)],
   ];
   const judges = s.lapkaPets > 10;

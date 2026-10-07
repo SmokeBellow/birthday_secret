@@ -171,14 +171,14 @@ export function MovingTargetAim({ level, finished, complete }: MechanicProps) {
       const el = duckEls.current[d.id];
       if (!el) continue;
       const b = el.getBoundingClientRect();
-      const pad = 14;
+      const pad = 26;
       if (e.clientX > b.left - pad && e.clientX < b.right + pad && e.clientY > b.top - pad && e.clientY < b.bottom + pad) hitId = d.id;
     }
     const n = throws + 1;
     setThrows(n);
     setFx({ x: (px / r.width) * 100, y: (py / r.height) * 100, hit: !!hitId, n: Date.now(), sx: r.width / 2 - px, sy: r.height - py });
-    bump('duckHits');
     if (hitId) {
+      bump('duckHits');
       setReaction((m) => ({ ...m, [hitId!]: Date.now() }));
     }
     if (n >= total) later(() => complete(t(`levels.${levelKey(level.id)}.completion`)), 700);
