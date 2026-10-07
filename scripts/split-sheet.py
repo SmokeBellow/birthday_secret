@@ -53,6 +53,31 @@ def find_blobs(alpha, gap, min_area):
     return lab, []
 
 
+def grid_blobs(alpha, grid, min_area=60):
+    """Fallback for sheets whose subjects are made of far-apart parts (e.g. a pair of glowing eyes):
+    every piece belongs to the grid cell its centre falls into, pieces of one cell form one subject."""
+    mask = alpha > 40
+    lab, n = ndi.label(ndi.binary_dilation(mask, structure=np.ones((3, 3)), iterations=4))
+    h, w = alpha.shape
+    cols, rows = grid
+    merged = np.zeros_like(lab)
+    cells = {}
+    for i, sl in enumerate(ndi.find_objects(lab), start=1):
+        area = int(((lab[sl] == i) & mask[sl]).sum())
+        if area < min_area:
+            continue
+        cy, cx = (sl[0].start + sl[0].stop) / 2, (sl[1].start + sl[1].stop) / 2
+        cell = min(rows - 1, int(cy / h * rows)) * cols + min(cols - 1, int(cx / w * cols))
+        cells.setdefault(cell, []).append(i)
+    blobs = []
+    for cell, ids in sorted(cells.items()):
+        for i in ids:
+            merged[lab == i] = cell + 1
+        ys, xs = np.where(merged == cell + 1)
+        blobs.append(dict(label=cell + 1, area=len(ys), cy=(ys.min() + ys.max()) / 2, cx=(xs.min() + xs.max()) / 2, h=int(ys.max() - ys.min() + 1), sl=(slice(0, 0), slice(0, 0)), cell=cell))
+    return merged, blobs
+
+
 def reading_order(blobs):
     if not blobs:
         return blobs
@@ -99,12 +124,17 @@ def main():
         if len(blobs) == len(keys):
             break
     if len(blobs) != len(keys):
+        glab, gblobs = grid_blobs(alpha, sh['grid'])
+        if len(gblobs) == len(keys):
+            print('(subjects found by grid cell)')
+            lab, blobs = glab, gblobs
+    if len(blobs) != len(keys):
         print(f'Found {len(blobs)} subjects, expected {len(keys)} ({", ".join(keys)}).')
         for b in reading_order(blobs):
             print(f"  blob at x={int(b['cx'])} y={int(b['cy'])} h={b['h']} area={b['area']}")
         sys.exit('Try --gap N (bigger merges parts of one subject, smaller separates touching subjects), or ask GPT for wider gaps.')
 
-    ordered = reading_order(blobs)
+    ordered = sorted(blobs, key=lambda b: b['cell']) if blobs and 'cell' in blobs[0] else reading_order(blobs)
     rgba = np.array(img)
     crops = []
     for b in ordered:
