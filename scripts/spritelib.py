@@ -23,17 +23,31 @@ def key_chroma(rgb, bg_hex):
     lab, _ = ndi.label(dist < 70)
     edge_labels = np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]]))
     region = np.isin(lab, edge_labels[edge_labels > 0])
+    # background seen through holes (inside a ring, between handles) is not connected to the border: remove it too
+    inner, k = ndi.label((dist < 55) & ~region)
+    if k:
+        sizes = ndi.sum(np.ones_like(inner), inner, range(1, k + 1))
+        for idx, size in enumerate(sizes, start=1):
+            if size >= 120:
+                region |= inner == idx
     alpha = np.where(region, 0.0, 1.0)
     band = ndi.binary_dilation(region, iterations=3) & ~region
     alpha[band] = smooth(dist[band], 70, 150)
-    out = f.copy()
-    # de-spill: pull the key colour out of semi-transparent edge pixels
-    if bg_hex == '#00FF00':
-        out[..., 1] = np.where(band, np.minimum(out[..., 1], np.maximum(out[..., 0], out[..., 2])), out[..., 1])
+    near = ndi.binary_dilation(region, iterations=24) & ~region
+    r_, g_, b_ = f[..., 0], f[..., 1], f[..., 2]
+    if bg_hex == '#00FF00':   # leftover bright key-coloured haze next to the background (generators tint glows green)
+        alpha[near & (g_ > 180) & (g_ > r_ + 60) & (g_ > b_ + 60)] = 0
     else:
-        m = np.where(band, np.minimum(np.minimum(out[..., 0], out[..., 2]), out[..., 1] + 40), 0)
-        out[..., 0] = np.where(band, np.minimum(out[..., 0], np.maximum(out[..., 1], m)), out[..., 0])
-        out[..., 2] = np.where(band, np.minimum(out[..., 2], np.maximum(out[..., 1], m)), out[..., 2])
+        alpha[near & (r_ > 180) & (b_ > 180) & (g_ < r_ - 60)] = 0
+    spill = ndi.binary_dilation(region, iterations=8) & ~region
+    out = f.copy()
+    # de-spill: pull the key colour out of pixels next to the removed background
+    if bg_hex == '#00FF00':
+        out[..., 1] = np.where(spill, np.minimum(out[..., 1], np.maximum(out[..., 0], out[..., 2])), out[..., 1])
+    else:
+        m = np.where(spill, np.minimum(np.minimum(out[..., 0], out[..., 2]), out[..., 1] + 40), 0)
+        out[..., 0] = np.where(spill, np.minimum(out[..., 0], np.maximum(out[..., 1], m)), out[..., 0])
+        out[..., 2] = np.where(spill, np.minimum(out[..., 2], np.maximum(out[..., 1], m)), out[..., 2])
     return out.clip(0, 255).astype(np.uint8), (alpha * 255).astype(np.uint8)
 
 
