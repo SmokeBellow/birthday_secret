@@ -213,7 +213,7 @@ function StatsCard() {
     ['Время в игре', fmtTime(s.playMs)],
     ['Тапов по кнопкам', String(s.taps)],
     ['Проб и ошибок', String(s.slips)],
-    ['Уток накормлено', `${Math.min(s.duckHits, 3)} из 3`],
+    ['Кусков хлеба брошено уткам', String(Math.min(s.duckHits, 3))],
     ['Раз удалось погладить Лапку', String(s.lapkaPets)],
   ];
   const judges = s.lapkaPets > 10;
