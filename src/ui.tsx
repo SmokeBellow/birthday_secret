@@ -3,7 +3,7 @@ import { resolveAsset, isDev } from './assets';
 import type { LevelSpec } from './data';
 import type { GameProgress } from './progress';
 import { sfx } from './audio';
-import { bump } from './stats';
+import { bump, foundEgg } from './stats';
 
 /** Props every mechanic receives from LevelScreen. */
 export type MechanicProps = {
@@ -31,7 +31,7 @@ function detectTile(img: HTMLImageElement): boolean {
 }
 
 /** Image resolved through ASSET_MAP. CSS-rendered / unknown keys draw nothing in normal play. */
-export function Img({ k, className = '', style, alt = '' }: { k?: string | null; className?: string; style?: CSSProperties; alt?: string }) {
+export function Img({ k, className = '', style, alt = '', onClick }: { k?: string | null; className?: string; style?: CSSProperties; alt?: string; onClick?: () => void }) {
   const r = resolveAsset(k);
   const url = r.kind === 'image' ? r.url : '';
   const [tile, setTile] = useState<boolean>(tileCache.get(url) ?? false);
@@ -45,6 +45,7 @@ export function Img({ k, className = '', style, alt = '' }: { k?: string | null;
         draggable={false}
         className={`img ${className}${tile ? ' img-tile' : ''}${fx ? ' img-fx' : ''}${glowHero ? ' glow-hero' : ''}`}
         style={style}
+        onClick={onClick}
         onLoad={(e) => {
           if (url.includes('/backgrounds/') || tileCache.has(url)) return;
           const v = detectTile(e.currentTarget);
@@ -73,6 +74,21 @@ export function Stage({
   castOverride?: { hero?: string | null; p2?: string | null; lapka?: string | null };
 }) {
   const v = level.visualState;
+  const [quip, setQuip] = useState(false);
+  const pets = useRef({ n: 0, last: 0 });
+  const petLapka = () => {
+    const now = Date.now();
+    pets.current.n = now - pets.current.last > 2500 ? 1 : pets.current.n + 1;
+    pets.current.last = now;
+    bump('lapkaPets');
+    sfx('ok');
+    if (pets.current.n >= 10) {
+      pets.current.n = 0;
+      foundEgg('lapka_enough');
+      setQuip(true);
+      window.setTimeout(() => setQuip(false), 2600);
+    }
+  };
   const hero = castOverride && 'hero' in castOverride ? castOverride.hero : v.heroStateKey;
   const p2 = castOverride && 'p2' in castOverride ? castOverride.p2 : v.player2StateKey;
   const lapka = castOverride && 'lapka' in castOverride ? castOverride.lapka : v.lapkaStateKey;
@@ -84,9 +100,10 @@ export function Stage({
         <div className="stage-cast">
           {hero && <Img k={hero} className="cast cast-hero" />}
           {p2 && <Img k={p2} className="cast cast-p2" />}
-          {lapka && <Img k={lapka} className="cast cast-lapka" />}
+          {lapka && <Img k={lapka} className="cast cast-lapka cast-tappable" onClick={petLapka} />}
         </div>
       )}
+      {quip && <div className="lapka-quip">Лапка: достаточно.</div>}
       {children}
     </div>
   );

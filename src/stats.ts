@@ -1,8 +1,8 @@
 /** Counters shown on the "statistics" screen of the post-game. Cleared together with the progress. */
 const KEY = 'build30.stats.v1';
 
-export type Stats = { playMs: number; taps: number; slips: number; duckHits: number; lapkaPets: number };
-const empty = (): Stats => ({ playMs: 0, taps: 0, slips: 0, duckHits: 0, lapkaPets: 0 });
+export type Stats = { playMs: number; taps: number; slips: number; duckHits: number; lapkaPets: number; eggs: string[] };
+const empty = (): Stats => ({ playMs: 0, taps: 0, slips: 0, duckHits: 0, lapkaPets: 0, eggs: [] });
 
 let cache: Stats | null = null;
 
@@ -16,7 +16,7 @@ export function getStats(): Stats {
   return cache!;
 }
 
-export function bump(key: keyof Stats, n = 1) {
+export function bump(key: Exclude<keyof Stats, 'eggs'>, n = 1) {
   const s = getStats();
   s[key] += n;
   try {
@@ -32,5 +32,25 @@ export function resetStats() {
     localStorage.removeItem(KEY);
   } catch {
     /* ignore */
+  }
+}
+
+export const EGGS: Record<string, string> = {
+  lapka_enough: 'Десять поглаживаний подряд',
+  shortcut: 'Флажок на карте дороги',
+  bug_feature: 'Баг, ставший фичей',
+  version: 'Версия под названием игры',
+  lapka_judges: 'Лапка всё ещё осуждает',
+};
+
+/** Remember a secret the player found (shown in the achievements gallery). */
+export function foundEgg(id: string) {
+  const s = getStats();
+  if (s.eggs.includes(id)) return;
+  s.eggs = [...s.eggs, id];
+  try {
+    localStorage.setItem(KEY, JSON.stringify(s));
+  } catch {
+    /* optional */
   }
 }

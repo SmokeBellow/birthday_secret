@@ -4,6 +4,7 @@ import { Img, Pips, Stage, TapTarget, useShake, useTimeout, type MechanicProps }
 import player2Config from '../config/level18.player2.json';
 import { assetUrl, isDev } from '../assets';
 import { sfx } from '../audio';
+import { foundEgg } from '../stats';
 import { ROUTE_HINT, ROUTE_LABELS, SAVE_RIDDLES, WIKI_PAGES, WIKI_TEXT } from '../extraCopy';
 
 /** L10 — timingWindow: stop the marker inside the green zone. A miss just retries. */
@@ -263,9 +264,16 @@ export function SpotTheBug({ level, finished, complete }: MechanicProps) {
   const total = level.mechanic.candidateCount as number;
   const [bugIdx] = useState(() => Math.floor(Math.random() * total));
   const [found, setFound] = useState(finished);
+  const [feature, setFeature] = useState(false);
   const [shakeIdx, setShakeIdx] = useState<number | null>(null);
   const [shake, doShake] = useShake();
   const tap = (i: number) => {
+    if (found && i === bugIdx && !feature) {
+      setFeature(true);
+      foundEgg('bug_feature');
+      sfx('ok');
+      return;
+    }
     if (found || finished) return;
     if (i === bugIdx) {
       setFound(true);
@@ -284,12 +292,14 @@ export function SpotTheBug({ level, finished, complete }: MechanicProps) {
             return (
               <button key={w} type="button" className={`dbg-cell${bug && found ? ' is-bug found' : ''}${shakeIdx === i ? ' ' + shake : ''}`} onClick={() => tap(i)} aria-label={`element ${i + 1}`}>
                 <DbgWidget kind={w} bug={bug} />
-                {bug && found && <Img k="icon_level_17_bug" className="bug-mark pop" />}
+                {bug && found && <Img k="icon_level_17_bug" className={`bug-mark pop${feature ? ' is-feature' : ''}`} />}
+                {bug && feature && <span className="feature-tag pop">фича</span>}
               </button>
             );
           })}
         </div>
       </Stage>
+      {feature && <div className="feedback feedback-good">Скорее всего, это можно оставить.</div>}
     </>
   );
 }

@@ -4,7 +4,7 @@ import { BOARDING_PASS as BP, BUTTONS, CERTIFICATE, FINAL_LETTER } from './extra
 import { HomeButton } from './LevelScreen';
 import { Img } from './ui';
 import { sfx, haptic, playBirthday } from './audio';
-import { getStats } from './stats';
+import { foundEgg, getStats } from './stats';
 
 export type PostStep = 'summary' | 'stats' | 'calm' | 'bonus' | 'pass' | 'certificate' | 'accepted' | 'plus';
 const STEP_OF: Record<string, PostStep[]> = {
@@ -216,6 +216,8 @@ function StatsCard() {
     ['Уток накормлено', `${Math.min(s.duckHits, 3)} из 3`],
     ['Раз удалось погладить Лапку', String(s.lapkaPets)],
   ];
+  const judges = s.lapkaPets > 10;
+  if (judges) foundEgg('lapka_judges');
   const quip =
     s.slips <= 6
       ? 'Почти без ошибок. Как всегда.'
@@ -233,6 +235,11 @@ function StatsCard() {
           </li>
         ))}
       </ul>
+      {judges && (
+        <p className="stats-judge" style={{ animationDelay: `${0.2 + rows.length * 0.3 + 0.6}s` }}>
+          Лапка всё ещё осуждает
+        </p>
+      )}
       <p className="post-sub stats-quip" style={{ animationDelay: `${0.2 + rows.length * 0.3 + 0.2}s` }}>
         {quip}
       </p>

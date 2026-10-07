@@ -1,19 +1,37 @@
 import { useState } from 'react';
 import { t, tList } from './data';
 import { BUTTONS } from './extraCopy';
+import { foundEgg } from './stats';
+import { sfx } from './audio';
+import { useRef } from 'react';
 import { Img } from './ui';
 
 type Props = { hasSave: boolean; complete: boolean; onStart: () => void; onReset: () => void; onGallery: () => void; achievements: number };
 
 export function StartScreen({ hasSave, complete, onStart, onReset, onGallery, achievements }: Props) {
   const [confirming, setConfirming] = useState(false);
+  const [egg, setEgg] = useState(false);
+  const titleTaps = useRef({ n: 0, last: 0 });
+  const tapTitle = () => {
+    const now = Date.now();
+    titleTaps.current.n = now - titleTaps.current.last > 1800 ? 1 : titleTaps.current.n + 1;
+    titleTaps.current.last = now;
+    if (titleTaps.current.n >= 7) {
+      titleTaps.current.n = 0;
+      foundEgg('version');
+      sfx('ding');
+      setEgg(true);
+    }
+  };
   return (
     <div className="screen start-screen">
       <Img k="bg_start_initialization" className="start-bg" />
       <div className="start-shade" />
       <div className="start-inner">
         <Img k={complete ? 'hero_build_complete' : 'hero_base'} className="start-hero" />
-        <h1 className="start-title">{t('start.title')}</h1>
+        <h1 className="start-title" onClick={tapTitle}>
+          {t('start.title')}
+        </h1>
         <div className="start-intro">
           {tList('start.intro').map((line, i, all) => (
             <p key={i} className={i === all.length - 1 ? 'start-sign' : i === 0 ? 'start-hello' : ''}>
@@ -48,6 +66,12 @@ export function StartScreen({ hasSave, complete, onStart, onReset, onGallery, ac
           </div>
         )}
       </div>
+      {egg && (
+        <button type="button" className="egg-overlay" onClick={() => setEgg(false)}>
+          <img src={`${import.meta.env.BASE_URL}assets/easter/frog.jpg`} alt="" className="egg-img" />
+          <span className="mono egg-text">version 30.0 (build by Маша)</span>
+        </button>
+      )}
     </div>
   );
 }

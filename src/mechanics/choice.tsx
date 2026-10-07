@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { t } from '../data';
 import { sfx } from '../audio';
+import { foundEgg } from '../stats';
 import { Feedback, Img, Stage, useShake, useTimeout, type MechanicProps } from '../ui';
 
 type Choice = { id: string; labelKey: string; resultKey: string };
@@ -114,6 +115,23 @@ function RouteScene({ level, finished, choices, complete }: MechanicProps & { ch
   const later = useTimeout();
   useEffect(() => () => cancelAnimationFrame(raf.current), []);
 
+  /** Secret: tapping the finish flag itself skips the walk. */
+  const flagShortcut = () => {
+    if (busy || finished) return;
+    cancelAnimationFrame(raf.current);
+    setBusy(true);
+    foundEgg('shortcut');
+    const path = shortRef.current!;
+    const end = path.getPointAtLength(path.getTotalLength());
+    dotRef.current?.setAttribute('transform', `translate(${end.x} ${end.y})`);
+    setTimeLeft(100);
+    const res = 'Он действительно знает. Путь срезан.';
+    setText(res);
+    setTone('good');
+    sfx('win');
+    complete(res);
+  };
+
   const walk = (c: Choice) => {
     if (busy || finished) return;
     const id = c.id as 'shortcut' | 'scenic';
@@ -159,7 +177,8 @@ function RouteScene({ level, finished, choices, complete }: MechanicProps & { ch
           <path ref={scenicRef} d={PATHS.scenic} className="rm-path rm-scenic" />
           <path ref={shortRef} d={PATHS.shortcut} className="rm-path rm-short" />
           <circle cx="24" cy="130" r="8" className="rm-start" />
-          <g transform="translate(276 40)">
+          <g transform="translate(276 40)" onClick={flagShortcut} style={{ cursor: 'pointer' }}>
+            <rect x="-14" y="-44" width="50" height="54" fill="transparent" />
             <path d="M0 0v-30" stroke="#fff" strokeWidth="4" />
             <path d="M0 -30l22 8-22 8z" fill="#e0533a" stroke="#fff" strokeWidth="2" />
           </g>
