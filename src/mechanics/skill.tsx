@@ -107,8 +107,8 @@ export function StabilityGauge({ level, finished, complete }: MechanicProps) {
       <Stage level={level} cast={false} className="stage-short">
         <div ref={brewRef} className="brew calm" data-ui="brew_vessel">
           <span ref={liquidRef} className="brew-liquid" style={{ height: '39%' }} />
-          {[0, 1, 2, 3, 4].map((i) => (
-            <span key={i} className="bubble" style={{ left: `${14 + i * 16}%`, animationDelay: `${i * 0.35}s` }} />
+          {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+            <span key={i} className="bubble" style={{ left: `${8 + i * 11}%`, width: 8 + (i % 3) * 5, height: 8 + (i % 3) * 5, animationDelay: `${(i * 0.37) % 1.6}s`, animationDuration: `${1.1 + (i % 4) * 0.35}s` }} />
           ))}
         </div>
         <div className="gauge" data-ui="stability_gauge">

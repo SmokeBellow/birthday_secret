@@ -191,11 +191,11 @@ button:disabled { cursor: default; }
 .duck-img { width: 100%; height: 100%; object-fit: contain; }
 .duck.duck-hit { animation: duck-hop 0.5s; }
 @keyframes duck-hop { 40% { transform: translateY(-50%) scale(1.35) rotate(-10deg); } }
-.bread-shot { position: absolute; width: 14%; margin: -7% 0 0 -7%; animation: bread-fly 0.45s ease-out both; pointer-events: none; }
+.bread-shot { position: absolute; width: 14%; margin: -7% 0 0 -7%; animation: bread-fly 0.8s cubic-bezier(.2,.7,.3,1) both; pointer-events: none; }
 .bread-shot.hit { animation-name: bread-fly-hit; }
 .bread-img { width: 100%; }
-@keyframes bread-fly { from { transform: translateY(220%) scale(1.4) rotate(0); opacity: 1; } to { transform: translateY(0) scale(0.7) rotate(300deg); opacity: 0.9; } }
-@keyframes bread-fly-hit { from { transform: translateY(220%) scale(1.4); opacity: 1; } to { transform: translateY(0) scale(0.2) rotate(300deg); opacity: 0; } }
+@keyframes bread-fly { from { transform: translate(var(--sx, 0), var(--sy, 200px)) scale(1.5) rotate(0); opacity: 1; } to { transform: translate(0, 0) scale(0.7) rotate(300deg); opacity: 0.9; } }
+@keyframes bread-fly-hit { from { transform: translate(var(--sx, 0), var(--sy, 200px)) scale(1.5) rotate(0); opacity: 1; } to { transform: translate(0, 0) scale(0.2) rotate(300deg); opacity: 0; } }
 .bread-count { display: flex; gap: 10px; justify-content: center; }
 .bread-icon { width: 38px; height: 38px; transition: opacity 0.3s, filter 0.3s; }
 .bread-icon.used { opacity: 0.25; filter: grayscale(1); }
@@ -420,9 +420,8 @@ button:disabled { cursor: default; }
   .btn { font-size: 12.5px; padding: 8px; }
   .tap-target { width: 116px; height: 116px; }
 }
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-}
+/* Animations are part of the gift, so they are NOT switched off by the system 'reduce motion' / battery settings (that is what hid them on phones). */
+
 
 .tab-title { max-width: 96px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .wiki-title { font: 800 21px/1.15 var(--display); padding-bottom: 6px; border-bottom: 2px solid #c9c2b0; }
@@ -757,3 +756,26 @@ button:disabled { cursor: default; }
 .post-cast .post-hero { height: auto; width: 40%; max-height: 200px; object-fit: contain; }
 .post-cast .post-p2 { height: auto; width: 34%; max-height: 190px; object-fit: contain; }
 .post-cast .post-lapka { height: auto; width: 24%; max-height: 110px; object-fit: contain; }
+
+/* L16 pipeline cells: every picture sits centred inside its own cell */
+.pipe-node { position: relative; height: 70px; padding: 0; }
+.pipe-img { position: absolute; left: 50%; top: 50%; width: calc(100% - 16px); height: calc(100% - 16px); transform: translate(-50%, -50%); object-fit: contain; }
+/* L21 / L23: Lapka alone on the stage */
+.lapka-solo .cast-lapka-big { height: 78%; max-width: 86%; }
+.lapka-solo .lapka-tap { inset: 14% 12% 0; }
+
+/* hero and Player 2 share the same body height everywhere */
+.cast-hero, .cast-p2 { height: 72%; max-width: 72%; }
+.post-cast .post-hero, .post-cast .post-p2 { height: 190px; width: auto; max-height: none; max-width: 40%; object-fit: contain; }
+.post-cast .post-lapka { height: 100px; width: auto; max-height: none; max-width: 26%; }
+.post-final-maria { height: 170px; width: auto; }
+
+.brew-liquid::after { content: ''; position: absolute; left: -10%; right: -10%; top: -6px; height: 12px; border-radius: 50%; background: rgba(255, 236, 190, 0.55); animation: slosh 1.4s ease-in-out infinite alternate; }
+@keyframes slosh { from { transform: translateX(-6px) scaleY(0.8); } to { transform: translateX(6px) scaleY(1.2); } }
+.brew.wild .brew-liquid::after { animation-duration: 0.5s; }
+.bubble { box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.7); background: rgba(255, 255, 255, 0.35); }
+
+/* the final hero sprite carries glow rays inside its canvas, so the figure itself is smaller: scale it back up */
+.glow-hero { scale: 1.07; transform-origin: 50% 100%; }
+.stage-tall .cast-hero, .stage-tall .cast-p2 { height: 64%; }
+.stage-tall .cast-lapka { height: 26%; left: 40%; }

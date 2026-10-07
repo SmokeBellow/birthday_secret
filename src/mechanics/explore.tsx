@@ -132,7 +132,7 @@ export function MovingTargetAim({ level, finished, complete }: MechanicProps) {
   const total = level.mechanic.requiredActions as number;
   const [throws, setThrows] = useState(finished ? total : 0);
   
-  const [fx, setFx] = useState<{ x: number; y: number; hit: boolean; n: number } | null>(null);
+  const [fx, setFx] = useState<{ x: number; y: number; hit: boolean; n: number; sx: number; sy: number } | null>(null);
   const [reaction, setReaction] = useState<Record<string, number>>({});
   const field = useRef<HTMLDivElement>(null);
   const duckEls = useRef<Record<string, HTMLDivElement | null>>({});
@@ -176,7 +176,7 @@ export function MovingTargetAim({ level, finished, complete }: MechanicProps) {
     }
     const n = throws + 1;
     setThrows(n);
-    setFx({ x: (px / r.width) * 100, y: (py / r.height) * 100, hit: !!hitId, n: Date.now() });
+    setFx({ x: (px / r.width) * 100, y: (py / r.height) * 100, hit: !!hitId, n: Date.now(), sx: r.width / 2 - px, sy: r.height - py });
     if (hitId) {
       bump('duckHits');
       setReaction((m) => ({ ...m, [hitId!]: Date.now() }));
@@ -202,7 +202,7 @@ export function MovingTargetAim({ level, finished, complete }: MechanicProps) {
             </div>
           ))}
           {fx && (
-            <span key={fx.n} className={`bread-shot${fx.hit ? ' hit' : ''}`} style={{ left: `${fx.x}%`, top: `${fx.y}%` }}>
+            <span key={fx.n} className={`bread-shot${fx.hit ? ' hit' : ''}`} style={{ left: `${fx.x}%`, top: `${fx.y}%`, ['--sx' as string]: `${fx.sx}px`, ['--sy' as string]: `${fx.sy}px` }}>
               <Img k="bread_projectile" className="bread-img" />
             </span>
           )}
@@ -387,7 +387,7 @@ export function CharacterInteraction({ level, finished, complete }: MechanicProp
   const lapka = finished || phase === 'happy' ? 'lapka_purr' : phase === 'ask' ? 'lapka_joining' : 'lapka_neutral';
   return (
     <>
-      <Stage level={level} className="stage-tall" castOverride={{ lapka: null }}>
+      <Stage level={level} className="stage-tall lapka-solo" castOverride={{ hero: null, p2: null, lapka: null }}>
         <div data-need={phase === 'ask' ? need : ''} className={`lapka-bubble${phase === 'wait' ? ' show wait' : ''}${phase === 'ask' ? ' show' : ''}${phase === 'no' ? ' show no' : ''}${phase === 'happy' ? ' show good' : ''}`}>
           {phase === 'wait' && <span className="bubble-dots"><i /><i /><i /></span>}
           {phase === 'ask' && <ActIcon act={need} />}
@@ -426,7 +426,7 @@ export function ReactiveTap({ level, finished, complete }: MechanicProps) {
   const state = states[Math.min(states.length - 1, pets)];
   return (
     <>
-      <Stage level={level} className="stage-tall" castOverride={{ lapka: null }}>
+      <Stage level={level} className="stage-tall lapka-solo" castOverride={{ hero: null, p2: null, lapka: null }}>
         <button type="button" className={`lapka-tap ${shake}`} onClick={pet} disabled={finished} aria-label="lapka">
           <Img k={`lapka_${state === 'stays_anyway' ? 'stays' : state}`} className="lapka-img" />
         </button>

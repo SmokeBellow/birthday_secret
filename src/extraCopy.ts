@@ -105,7 +105,7 @@ export const BOARDING_PASS = {
   heading: 'ПОСАДОЧНЫЙ ТАЛОН',
   roleLabel: 'Должность',
   role: 'КАПИТАН ВОЗДУШНОГО СУДНА',
-  nameLabel: 'Пассажир',
+  nameLabel: 'Имя',
   name: 'АНТОН',
   aircraftLabel: 'Воздушное судно',
   aircraft: 'BOEING 737',
@@ -137,6 +137,6 @@ export const BUTTONS = {
 
 /** Closing letter on the last post-game screen. */
 export const FINAL_LETTER = {
-  lines: ['Антон, это был самый длинный подарок, который я собирала. И самый весёлый.', 'С днём рождения, капитан. Жду тебя в кабине.'],
-  sign: 'Маша',
+  lines: ['Антон, это был самый длинный подарок, который я собирала. И самый весёлый.', 'С днём рождения, капитан.'],
+  sign: 'Маша — твой второй пилот',
 };

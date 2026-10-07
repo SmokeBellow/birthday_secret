@@ -37,12 +37,13 @@ export function Img({ k, className = '', style, alt = '' }: { k?: string | null;
   const [tile, setTile] = useState<boolean>(tileCache.get(url) ?? false);
   if (r.kind === 'image') {
     const fx = url.includes('/effects/');
+    const glowHero = url.includes('hero_build_complete');
     return (
       <img
         src={url}
         alt={alt}
         draggable={false}
-        className={`img ${className}${tile ? ' img-tile' : ''}${fx ? ' img-fx' : ''}`}
+        className={`img ${className}${tile ? ' img-tile' : ''}${fx ? ' img-fx' : ''}${glowHero ? ' glow-hero' : ''}`}
         style={style}
         onLoad={(e) => {
           if (url.includes('/backgrounds/') || tileCache.has(url)) return;

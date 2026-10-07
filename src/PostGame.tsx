@@ -176,7 +176,7 @@ export function PostGame({ step, onStep, onHome, onGallery }: Props) {
                 {FINAL_LETTER.sign}
               </p>
             </div>
-            <Img k="hero_build_complete" className="post-hero letter-hero pop" />
+            <Img k="player2_final" className="post-hero letter-hero pop" />
           </>
         )}
       </div>

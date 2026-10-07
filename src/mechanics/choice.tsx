@@ -202,13 +202,12 @@ function DiceScene({ level, finished, choices, complete }: MechanicProps & { cho
   const [rolling, setRolling] = useState(false);
   const [text, setText] = useState('');
   const [tone, setTone] = useState<Tone>('info');
-  const [rule, setRule] = useState(false);
+
   const later = useTimeout();
   const roll = (c: Choice) => {
     if (rolling || finished) return;
     setRolling(true);
     setText('');
-    setRule(false);
     sfx('whoosh');
     let i = 0;
     const iv = window.setInterval(() => {
@@ -225,7 +224,6 @@ function DiceScene({ level, finished, choices, complete }: MechanicProps & { cho
           sfx('nope');
         } else {
           setTone('good');
-          setRule(true);
           later(() => complete(res), 500);
         }
       }
@@ -238,7 +236,6 @@ function DiceScene({ level, finished, choices, complete }: MechanicProps & { cho
           <Die n={dice[0]} rolling={rolling} gold={!rolling && text !== '' && tone === 'warn'} />
           <Die n={dice[1]} rolling={rolling} gold={!rolling && text !== '' && tone === 'warn'} />
         </div>
-        {rule && <Img k="item_house_rule_card" className="sprite-lg rule-pop pop" />}
       </Stage>
       <div className="controls stack">
         {choices.map((c) => (
