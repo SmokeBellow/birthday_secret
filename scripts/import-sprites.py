@@ -48,7 +48,7 @@ def main():
     done = 0
     for k, im in imgs.items():
         e = BY_KEY[k]
-        b = fam_box.get(e.get('scaleFamily')) if e['category'] == 'character' else boxes[k]
+        b = fam_box.get(e.get('scaleFamily')) if (e['category'] == 'character' and e.get('scaleFamily')) else boxes[k]
         if not b:
             continue
         pad = max(4, int(0.02 * max(b[2] - b[0], b[3] - b[1])))

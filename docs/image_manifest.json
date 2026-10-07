@@ -264,12 +264,12 @@
    ],
    "fillPercent": 86,
    "background": "#00FF00",
-   "scaleFamily": "hero",
+   "scaleFamily": null,
    "usedIn": [
     "L28 scene"
    ],
    "subject": "Anton mid-jump, arms up, knees bent, joyful shout. Full-body, nothing around him.",
-   "prompt": "Create ONE sprite for a mobile game, canvas 1024x1280 px. Subject: Anton mid-jump, arms up, knees bent, joyful shout. Full-body, nothing around him. Style: clean cel-shaded sticker-style chibi game art in a cozy retro cartoon look, ONE thick even dark-navy outline (about 4 px at 512 px size) with smooth rounded curves, flat solid colors with simple soft shading, warm palette (terracotta orange, mustard yellow, deep navy, forest green, cream), NO fur or hair texture, NO individual hair strands, NO thin whisker lines, NO painterly noise; big readable shapes that survive being shown at 100 px on a phone, matching the attached style reference sheet. Subject centered, filling about 86% of the canvas height, at least 15% empty space on every side; the whole subject (ears, tail, hands, tips) is fully visible and never touches or crosses the canvas edge. Keep the exact same scale as the other hero images (body/figure height identical). Background: pure flat chroma green #00FF00 filling the whole canvas, perfectly flat, no gradient, no shadow, no floor. Do not use #00FF00 or white anywhere in the subject (use cream or light grey instead of white). No text, no frame, no tile, no border, no checkerboard. Deliver as PNG named world_hero_layer.png."
+   "prompt": "Create ONE sprite for a mobile game, canvas 1024x1280 px. Subject: Anton mid-jump, arms up, knees bent, joyful shout. Full-body, nothing around him. Style: clean cel-shaded sticker-style chibi game art in a cozy retro cartoon look, ONE thick even dark-navy outline (about 4 px at 512 px size) with smooth rounded curves, flat solid colors with simple soft shading, warm palette (terracotta orange, mustard yellow, deep navy, forest green, cream), NO fur or hair texture, NO individual hair strands, NO thin whisker lines, NO painterly noise; big readable shapes that survive being shown at 100 px on a phone, matching the attached style reference sheet. Subject centered, filling about 86% of the canvas height, at least 15% empty space on every side; the whole subject (ears, tail, hands, tips) is fully visible and never touches or crosses the canvas edge. Background: pure flat chroma green #00FF00 filling the whole canvas, perfectly flat, no gradient, no shadow, no floor. Do not use #00FF00 or white anywhere in the subject (use cream or light grey instead of white). No text, no frame, no tile, no border, no checkerboard. Deliver as PNG named world_hero_layer.png."
   },
   {
    "key": "player2_default",

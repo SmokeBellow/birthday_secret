@@ -28,7 +28,7 @@ def key_chroma(rgb, bg_hex):
     if k:
         sizes = ndi.sum(np.ones_like(inner), inner, range(1, k + 1))
         for idx, size in enumerate(sizes, start=1):
-            if size >= 120:
+            if size >= 25:
                 region |= inner == idx
     alpha = np.where(region, 0.0, 1.0)
     band = ndi.binary_dilation(region, iterations=3) & ~region
