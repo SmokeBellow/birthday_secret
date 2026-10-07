@@ -27,7 +27,7 @@ export function GalleryScreen({ progress, onHome }: { progress: GameProgress; on
           const ok = progress.achievements.includes(k);
           return (
             <li key={lv.id} className={`gallery-item${ok ? ' on' : ''}`}>
-              <div className="gallery-ico">{ok ? <Img k={lv.visualState.headerIconKey} className="gallery-img" /> : <span className="gallery-lock">?</span>}</div>
+              <div className="gallery-ico">{ok ? <Img k={lv.reward.equipmentKey ?? lv.visualState.headerIconKey} className="gallery-img" /> : <span className="gallery-lock">?</span>}</div>
               <div className="gallery-text">
                 <div className="gallery-title">{ok ? t(`achievements.${k}.title`) : `№ ${lv.id}`}</div>
                 {ok && <div className="gallery-desc">{t(`achievements.${k}.description`)}</div>}
