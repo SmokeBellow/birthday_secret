@@ -52,7 +52,7 @@ export function StartScreen({ hasSave, complete, onStart, onReset, onGallery, ac
         </button>
         {achievements > 0 && (
           <button type="button" className="btn btn-ghost-light" onClick={onGallery}>
-            ДОСТИЖЕНИЯ · {achievements}
+            ДОСТИЖЕНИЯ И СЕКРЕТЫ · {achievements}
           </button>
         )}
         {hasSave && !confirming && (

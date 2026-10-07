@@ -191,7 +191,7 @@ export function PostGame({ step, onStep, onHome, onGallery }: Props) {
       ) : (
         <div className="controls row">
           <button type="button" className="btn btn-ghost" onClick={onGallery}>
-            ДОСТИЖЕНИЯ
+            ДОСТИЖЕНИЯ И СЕКРЕТЫ
           </button>
           <button type="button" className="btn btn-primary" onClick={onHome}>
             ← В НАЧАЛО

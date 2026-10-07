@@ -36,11 +36,11 @@ export function resetStats() {
 }
 
 export const EGGS: Record<string, string> = {
-  lapka_enough: 'Десять поглаживаний подряд',
-  shortcut: 'Флажок на карте дороги',
-  bug_feature: 'Баг, ставший фичей',
-  version: 'Версия под названием игры',
-  lapka_judges: 'Лапка всё ещё осуждает',
+  lapka_enough: 'Лапка сказала «достаточно»',
+  shortcut: 'Он действительно знает',
+  bug_feature: 'Не баг, а фича',
+  version: 'Версия 30.0 от Маши',
+  lapka_judges: 'Осуждение высшей пробы',
 };
 
 /** Remember a secret the player found (shown in the achievements gallery). */

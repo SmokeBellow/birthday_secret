@@ -14,7 +14,7 @@ export function GalleryScreen({ progress, onHome }: { progress: GameProgress; on
       <div className="topbar">
         <HomeButton onHome={onHome} />
       </div>
-      <h1 className="level-title">ДОСТИЖЕНИЯ</h1>
+      <h1 className="level-title">ДОСТИЖЕНИЯ И СЕКРЕТЫ</h1>
       <div className="mono gallery-count">
         {got} / {TOTAL_LEVELS}
       </div>
