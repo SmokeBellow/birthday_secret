@@ -25,7 +25,7 @@ function labelFor(level: MechanicProps['level'], id: string): string {
   switch (level.id) {
     case 3:
       return t(`levels.${k}.actions.${id}`);
-    case 19:
+    case 18:
       return id === 'P1' ? 'ИГРОК 1' : 'ИГРОК 2';
     default:
       return t(`levels.${k}.steps.${id}`);
@@ -70,7 +70,7 @@ function Scene({ level, step, seq }: Ctx) {
   }
 }
 
-/** L3, L16, L19, L24, L28 — one shared ordered-sequence mechanic. */
+/** L3, L16, L18, L24, L28 — one shared ordered-sequence mechanic. */
 export function Sequence({ level, finished, complete }: MechanicProps) {
   const seq = level.mechanic.sequence as string[];
   const [step, setStep] = useState(finished ? seq.length : 0);

@@ -7,7 +7,8 @@
     "notes": [
       "This spec replaces the old implementation as the canonical gameplay structure.",
       "All graphics are referenced by semantic asset keys only; no file paths are hardcoded here.",
-      "Level 18 requires real Player 2 answers before final release."
+      "Level 18 requires real Player 2 answers before final release.",
+      "Levels 18 (co-op) and 19 (quiz for two) were swapped: Player 2 joins first, then the quiz."
     ]
   },
   "globalRules": {
@@ -15,7 +16,7 @@
     "cumulativeBuild": true,
     "failStates": "soft_only_no_hard_game_over",
     "achievementFlow": "level_complete -> achievement -> reward -> next_level",
-    "player2UnlockLevel": 19,
+    "player2UnlockLevel": 18,
     "lapkaUnlockLevel": 21,
     "checkpointLevel": 13,
     "finalAssemblyLevel": 30
@@ -702,79 +703,13 @@
     },
     {
       "id": 18,
-      "slug": "quiz_for_two",
+      "slug": "coop",
       "titleKey": "levels.18.title",
       "stageLabelKey": "levels.18.stage",
       "introKey": "levels.18.intro",
       "mechanic": {
-        "type": "pairedQuiz",
-        "objectiveKey": "levels.18.objective",
-        "requiredActions": 3,
-        "questions": [
-          {
-            "id": "plans_changed",
-            "questionKey": "levels.18.questions.plans_changed.question",
-            "options": [
-              "levels.18.questions.plans_changed.optionA",
-              "levels.18.questions.plans_changed.optionB"
-            ],
-            "player2Answer": null
-          },
-          {
-            "id": "vacation_first_morning",
-            "questionKey": "levels.18.questions.vacation_first_morning.question",
-            "options": [
-              "levels.18.questions.vacation_first_morning.optionA",
-              "levels.18.questions.vacation_first_morning.optionB"
-            ],
-            "player2Answer": null
-          },
-          {
-            "id": "bug_in_game",
-            "questionKey": "levels.18.questions.bug_in_game.question",
-            "options": [
-              "levels.18.questions.bug_in_game.optionA",
-              "levels.18.questions.bug_in_game.optionB"
-            ],
-            "player2Answer": null
-          }
-        ],
-        "matchResultKey": "levels.18.responses.match",
-        "mismatchResultKey": "levels.18.responses.mismatch",
-        "completionCondition": "allQuestionsAnswered"
-      },
-      "visualState": {
-        "backgroundKey": "bg_quiz_duo",
-        "headerIconKey": "icon_level_18_quiz",
-        "heroStateKey": "hero_knowledge",
-        "sceneAssetKeys": [
-          "player1_answer_card",
-          "player2_answer_card",
-          "sync_match_effect",
-          "sync_mismatch_effect"
-        ]
-      },
-      "reward": {
-        "achievementKey": "achievements.level18",
-        "equipmentKey": "item_shared_answer",
-        "persistentUnlocks": [
-          "sync_complete"
-        ]
-      },
-      "nextLevel": 19,
-      "configurationRequired": [
-        "mechanic.questions[*].player2Answer"
-      ]
-    },
-    {
-      "id": 19,
-      "slug": "coop",
-      "titleKey": "levels.19.title",
-      "stageLabelKey": "levels.19.stage",
-      "introKey": "levels.19.intro",
-      "mechanic": {
         "type": "alternatingCoop",
-        "objectiveKey": "levels.19.objective",
+        "objectiveKey": "levels.18.objective",
         "requiredActions": 6,
         "sequence": [
           "P1",
@@ -798,13 +733,79 @@
         ]
       },
       "reward": {
-        "achievementKey": "achievements.level19",
+        "achievementKey": "achievements.level18",
         "equipmentKey": "player2_unlock",
         "persistentUnlocks": [
           "player2"
         ]
       },
-      "nextLevel": 20
+      "nextLevel": 19
+    },
+    {
+      "id": 19,
+      "slug": "quiz_for_two",
+      "titleKey": "levels.19.title",
+      "stageLabelKey": "levels.19.stage",
+      "introKey": "levels.19.intro",
+      "mechanic": {
+        "type": "pairedQuiz",
+        "objectiveKey": "levels.19.objective",
+        "requiredActions": 3,
+        "questions": [
+          {
+            "id": "plans_changed",
+            "questionKey": "levels.19.questions.plans_changed.question",
+            "options": [
+              "levels.19.questions.plans_changed.optionA",
+              "levels.19.questions.plans_changed.optionB"
+            ],
+            "player2Answer": null
+          },
+          {
+            "id": "vacation_first_morning",
+            "questionKey": "levels.19.questions.vacation_first_morning.question",
+            "options": [
+              "levels.19.questions.vacation_first_morning.optionA",
+              "levels.19.questions.vacation_first_morning.optionB"
+            ],
+            "player2Answer": null
+          },
+          {
+            "id": "bug_in_game",
+            "questionKey": "levels.19.questions.bug_in_game.question",
+            "options": [
+              "levels.19.questions.bug_in_game.optionA",
+              "levels.19.questions.bug_in_game.optionB"
+            ],
+            "player2Answer": null
+          }
+        ],
+        "matchResultKey": "levels.19.responses.match",
+        "mismatchResultKey": "levels.19.responses.mismatch",
+        "completionCondition": "allQuestionsAnswered"
+      },
+      "visualState": {
+        "backgroundKey": "bg_quiz_duo",
+        "headerIconKey": "icon_level_18_quiz",
+        "heroStateKey": "hero_knowledge",
+        "sceneAssetKeys": [
+          "player1_answer_card",
+          "player2_answer_card",
+          "sync_match_effect",
+          "sync_mismatch_effect"
+        ]
+      },
+      "reward": {
+        "achievementKey": "achievements.level19",
+        "equipmentKey": "item_shared_answer",
+        "persistentUnlocks": [
+          "sync_complete"
+        ]
+      },
+      "nextLevel": 20,
+      "configurationRequired": [
+        "mechanic.questions[*].player2Answer"
+      ]
     },
     {
       "id": 20,
@@ -1349,7 +1350,7 @@
     "sequence": [
       "build_complete_summary",
       "bonus_mission_unlock",
-   "boarding_pass_reveal",
+      "boarding_pass_reveal",
       "certificate_reveal",
       "mission_accepted",
       "level_30_plus"

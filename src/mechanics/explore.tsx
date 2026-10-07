@@ -238,11 +238,15 @@ export function ResourceTap({ level, finished, complete }: MechanicProps) {
   };
   useEffect(() => () => window.clearTimeout(idle.current), []);
   const idx = Math.min(keys.length - 1, Math.max(0, taps - 1));
+  const power = taps / total;
   return (
     <>
       <Stage level={level} cast={false} className="stage-short">
-        <div className={`fire${dim ? ' dim' : ''}`}>
-          <Img k={keys[idx]} className={`fire-img lvl-${idx}`} key={idx} />
+        <div className={`fire${dim ? ' dim' : ''}`} style={{ ['--power' as string]: power }}>
+          <span className="fire-glow" />
+          {keys.map((k, i) => (
+            <Img key={k} k={k} className={`fire-img fire-stage${i === idx ? ' on' : ''}`} />
+          ))}
         </div>
       </Stage>
       <div className="controls center">
@@ -394,8 +398,8 @@ export function CharacterInteraction({ level, finished, complete }: MechanicProp
           {phase === 'no' && <ActIcon act="no" />}
           {phase === 'happy' && <ActIcon act="pet" />}
         </div>
+        {idx >= acts.length && <Img k="player2_join_effect" className="fx-lapka-join pop" />}
         <Img k={lapka} className={`cast cast-lapka cast-lapka-big ${shake}${phase === 'happy' ? ' hop' : ''}`} />
-        {idx >= acts.length && <Img k="player2_join_effect" className="sprite-lg fx-join pop" />}
       </Stage>
       <Pips done={idx} total={acts.length} />
       <div className="controls row">

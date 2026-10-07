@@ -87,8 +87,8 @@ const play = {
   15: (p) => p.locator('.controls .btn').nth(1).click(),
   16: (p) => playActions(p, 4),
   17: async (p) => { const n = await p.locator('.dbg-cell').count(); for (let i = 0; i < n; i++) { if (await p.locator('.done-panel').count()) break; await p.locator('.dbg-cell').nth(i).click(); await p.waitForTimeout(150);} },
-  18: async (p) => { for (let i = 0; i < 3; i++) { await p.locator('.quiz-card').first().click(); await p.waitForTimeout(100); await p.locator('.quiz .btn-primary').click(); await p.waitForTimeout(100);} },
-  19: (p) => seq(p, 6),
+  19: async (p) => { for (let i = 0; i < 3; i++) { await p.locator('.quiz-card').first().click(); await p.waitForTimeout(100); await p.locator('.quiz .btn-primary').click(); await p.waitForTimeout(100);} },
+  18: (p) => seq(p, 6),
   20: async (p) => { await p.locator('.controls .btn').nth(0).click(); await p.waitForTimeout(200); await p.locator('.controls .btn').nth(1).click(); },
   21: async (p) => {
     for (let i = 0; i < 3; i++) {

@@ -19,16 +19,16 @@ const CHOICE_ART: Record<number, Record<string, string>> = {
 };
 
 /* ------------------------------------------------------------------ L4: a real (tiny) chess move */
-const SIZE = 6;
+const SIZE = 8;
 type Sq = [number, number]; // [col, row]
-const START: Record<'pawn' | 'knight', Sq> = { pawn: [1, 4], knight: [4, 5] };
+const START: Record<'pawn' | 'knight', Sq> = { pawn: [4, 6], knight: [6, 7] }; // e2 and g1
 
 function legalMoves(piece: 'pawn' | 'knight', from: Sq, other: Sq): Sq[] {
   const [c, r] = from;
   const cand: Sq[] =
     piece === 'pawn'
-      ? [[c, r - 1], [c, r - 2]]
-      : [[c + 1, r - 2], [c - 1, r - 2], [c + 2, r - 1], [c - 2, r - 1], [c + 2, r + 1], [c - 2, r + 1]];
+      ? (r === 6 ? [[c, r - 1], [c, r - 2]] : [[c, r - 1]])
+      : [[c + 1, r - 2], [c - 1, r - 2], [c + 2, r - 1], [c - 2, r - 1], [c + 2, r + 1], [c - 2, r + 1], [c + 1, r + 2], [c - 1, r + 2]];
   return cand.filter(([x, y]) => x >= 0 && x < SIZE && y >= 0 && y < SIZE && !(x === other[0] && y === other[1]));
 }
 

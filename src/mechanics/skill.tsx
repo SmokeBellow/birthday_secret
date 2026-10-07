@@ -290,7 +290,6 @@ export function SpotTheBug({ level, finished, complete }: MechanicProps) {
           })}
         </div>
       </Stage>
-      {found && <Img k="item_clean_log" className="sprite-md pop" />}
     </>
   );
 }
@@ -312,7 +311,7 @@ function DbgWidget({ kind, bug }: { kind: (typeof BUG_WIDGETS)[number]; bug: boo
   }
 }
 
-/** L18 — pairedQuiz: Player 1 answers, Player 2's real answers come from config. */
+/** L19 — pairedQuiz: Player 1 answers, Player 2's real answers come from config. */
 type QOpt = { id: string; questionKey: string; options: string[] };
 const P2_ANSWERS = player2Config as Record<string, 'A' | 'B' | null | string>;
 
@@ -333,7 +332,7 @@ export function PairedQuiz({ level, finished, complete }: MechanicProps) {
     setRevealed(false);
     const n = idx + 1;
     setIdx(n);
-    if (n >= qs.length) complete(t('levels.18.completion'));
+    if (n >= qs.length) complete(t(`levels.${levelKey(level.id)}.completion`));
   };
   const match = revealed && p2Set && mine[q.id] === p2;
   const k = levelKey(level.id);
